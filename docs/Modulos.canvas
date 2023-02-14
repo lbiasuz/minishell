@@ -1,0 +1,33 @@
+{
+	"nodes":[
+		{"id":"52059baf86be5add","x":358,"y":-202,"width":438,"height":322,"type":"group","label":"Execve"},
+		{"id":"f2fca65cb66f382d","x":-571,"y":3,"width":1367,"height":117,"type":"group","label":"Parsing"},
+		{"id":"df07fe4950f342a4","x":-540,"y":25,"width":480,"height":74,"type":"text","text":"# Quotes (single ' & double \")"},
+		{"id":"fd314dcc5b97ee0f","x":-12,"y":23,"width":334,"height":77,"type":"text","text":"# Substituições"},
+		{"id":"2b570da0efd5f2bf","x":378,"y":23,"width":398,"height":77,"type":"text","text":"# Variáveis de ambiente"},
+		{"id":"3cda93c2cb3109cc","x":-15,"y":-158,"width":334,"height":77,"type":"text","text":"# Direcionamento"},
+		{"id":"a518ac3737f4f8e6","x":382,"y":-158,"width":350,"height":77,"type":"text","text":"# Busca e execução"},
+		{"id":"022a43ca541f2c61","x":202,"y":403,"width":129,"height":64,"color":"5","type":"text","text":"# env"},
+		{"id":"0ff6593f51ebc500","x":371,"y":403,"width":165,"height":64,"color":"5","type":"text","text":"# export"},
+		{"id":"831cfa1e5381dae8","x":391,"y":299,"width":116,"height":64,"color":"5","type":"text","text":"# cd"},
+		{"id":"ae910125c74d9988","x":556,"y":403,"width":143,"height":64,"color":"5","type":"text","text":"# exit"},
+		{"id":"bf551ebfafbda1de","x":-6,"y":279,"width":728,"height":214,"color":"5","type":"group","label":"Built-in"},
+		{"id":"8db904c54a58a6c2","x":14,"y":299,"width":143,"height":64,"color":"5","type":"text","text":"# echo\n"},
+		{"id":"dbe5dddd86d2f6a7","x":14,"y":403,"width":148,"height":64,"color":"5","type":"text","text":"# unset"},
+		{"id":"2d5b51612cc446ab","x":197,"y":299,"width":154,"height":64,"color":"5","type":"text","text":"# pwd"},
+		{"id":"e70b1332e99cbdbd","x":-528,"y":-270,"width":199,"height":75,"type":"text","text":"# Prompt"},
+		{"id":"a50c42639897fc90","x":-289,"y":-270,"width":229,"height":75,"type":"text","text":"# Histórico"},
+		{"id":"edbcfeed25b52165","x":-414,"y":-158,"width":240,"height":77,"type":"text","text":"# Pipes"},
+		{"id":"4a26cefff1e70da4","x":-528,"y":398,"width":398,"height":74,"type":"text","text":"# Liberação de memória"},
+		{"id":"d06fa07dbe8b2db0","x":-528,"y":293,"width":398,"height":77,"type":"text","text":"# Sinais de interrupção\n"}
+	],
+	"edges":[
+		{"id":"48add3047b091fcd","fromNode":"3cda93c2cb3109cc","fromSide":"right","toNode":"a518ac3737f4f8e6","toSide":"left"},
+		{"id":"32f24afe2ae9266e","fromNode":"a518ac3737f4f8e6","fromSide":"left","toNode":"3cda93c2cb3109cc","toSide":"right"},
+		{"id":"fe4c52a847ac601c","fromNode":"fd314dcc5b97ee0f","fromSide":"right","toNode":"2b570da0efd5f2bf","toSide":"left"},
+		{"id":"486f215ef0ca000d","fromNode":"2b570da0efd5f2bf","fromSide":"left","toNode":"fd314dcc5b97ee0f","toSide":"right"},
+		{"id":"7d92ef209f0b5659","fromNode":"d06fa07dbe8b2db0","fromSide":"bottom","toNode":"4a26cefff1e70da4","toSide":"top"},
+		{"id":"971c228b82a59b08","fromNode":"df07fe4950f342a4","fromSide":"right","toNode":"fd314dcc5b97ee0f","toSide":"left"},
+		{"id":"d66896f24a5eae79","fromNode":"fd314dcc5b97ee0f","fromSide":"left","toNode":"df07fe4950f342a4","toSide":"right"}
+	]
+}
