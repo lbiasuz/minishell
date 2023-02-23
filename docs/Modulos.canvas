@@ -1,12 +1,10 @@
 {
 	"nodes":[
-		{"id":"52059baf86be5add","x":358,"y":-202,"width":438,"height":322,"type":"group","label":"Execve"},
+		{"id":"52059baf86be5add","x":358,"y":-158,"width":438,"height":278,"type":"group","label":"Execve"},
 		{"id":"f2fca65cb66f382d","x":-571,"y":3,"width":1367,"height":117,"type":"group","label":"Parsing"},
 		{"id":"df07fe4950f342a4","x":-540,"y":25,"width":480,"height":74,"type":"text","text":"# Quotes (single ' & double \")"},
 		{"id":"fd314dcc5b97ee0f","x":-12,"y":23,"width":334,"height":77,"type":"text","text":"# Substituições"},
 		{"id":"2b570da0efd5f2bf","x":378,"y":23,"width":398,"height":77,"type":"text","text":"# Variáveis de ambiente"},
-		{"id":"3cda93c2cb3109cc","x":-15,"y":-158,"width":334,"height":77,"type":"text","text":"# Direcionamento"},
-		{"id":"a518ac3737f4f8e6","x":382,"y":-158,"width":350,"height":77,"type":"text","text":"# Busca e execução"},
 		{"id":"022a43ca541f2c61","x":202,"y":403,"width":129,"height":64,"color":"5","type":"text","text":"# env"},
 		{"id":"0ff6593f51ebc500","x":371,"y":403,"width":165,"height":64,"color":"5","type":"text","text":"# export"},
 		{"id":"831cfa1e5381dae8","x":391,"y":299,"width":116,"height":64,"color":"5","type":"text","text":"# cd"},
@@ -15,11 +13,13 @@
 		{"id":"8db904c54a58a6c2","x":14,"y":299,"width":143,"height":64,"color":"5","type":"text","text":"# echo\n"},
 		{"id":"dbe5dddd86d2f6a7","x":14,"y":403,"width":148,"height":64,"color":"5","type":"text","text":"# unset"},
 		{"id":"2d5b51612cc446ab","x":197,"y":299,"width":154,"height":64,"color":"5","type":"text","text":"# pwd"},
-		{"id":"e70b1332e99cbdbd","x":-528,"y":-270,"width":199,"height":75,"type":"text","text":"# Prompt"},
-		{"id":"a50c42639897fc90","x":-289,"y":-270,"width":229,"height":75,"type":"text","text":"# Histórico"},
-		{"id":"edbcfeed25b52165","x":-414,"y":-158,"width":240,"height":77,"type":"text","text":"# Pipes"},
 		{"id":"4a26cefff1e70da4","x":-528,"y":398,"width":398,"height":74,"type":"text","text":"# Liberação de memória"},
-		{"id":"d06fa07dbe8b2db0","x":-528,"y":293,"width":398,"height":77,"type":"text","text":"# Sinais de interrupção\n"}
+		{"id":"d06fa07dbe8b2db0","x":-528,"y":293,"width":398,"height":77,"type":"text","text":"# Sinais de interrupção\n"},
+		{"id":"a518ac3737f4f8e6","x":385,"y":-119,"width":350,"height":77,"type":"text","text":"# Busca e execução"},
+		{"id":"3cda93c2cb3109cc","x":-12,"y":-119,"width":334,"height":77,"type":"text","text":"# Direcionamento"},
+		{"id":"edbcfeed25b52165","x":-409,"y":-119,"width":240,"height":77,"type":"text","text":"# Pipes"},
+		{"id":"e70b1332e99cbdbd","x":-522,"y":-231,"width":199,"height":75,"type":"text","text":"# Prompt"},
+		{"id":"a50c42639897fc90","x":-283,"y":-231,"width":229,"height":75,"type":"text","text":"# Histórico"}
 	],
 	"edges":[
 		{"id":"48add3047b091fcd","fromNode":"3cda93c2cb3109cc","fromSide":"right","toNode":"a518ac3737f4f8e6","toSide":"left"},
