@@ -13,8 +13,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define RENATO lindo
-
 typedef struct s_env {
 	char	*key;
 	char	*value;
