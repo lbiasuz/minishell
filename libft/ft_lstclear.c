@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/25 19:49:48 by lbiasuz          ###   ########.fr       */
+/*   Created: 2022/04/25 00:33:03 by lbiasuz           #+#    #+#             */
+/*   Updated: 2022/04/26 00:11:34 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	ft_lstclear(t_list **list, void (*del)(void *))
 {
-	return (0);
+	t_list	*next;
+
+	if (!(*list))
+		return ;
+	next = (*list)->next;
+	del((*list)->content);
+	free(*list);
+	*list = next;
+	ft_lstclear(list, del);
 }

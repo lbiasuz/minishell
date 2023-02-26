@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/25 19:49:48 by lbiasuz          ###   ########.fr       */
+/*   Created: 2022/04/18 22:47:23 by lbiasuz           #+#    #+#             */
+/*   Updated: 2022/04/23 09:42:33 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[], char *envp[])
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	return (0);
+	unsigned int	i;
+	char			*trim;
+
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	i = ft_strlen(s1);
+	while (i && ft_strchr(set, s1[i - 1]))
+		i--;
+	trim = malloc(i + 1);
+	if (!trim)
+		return (NULL);
+	ft_strlcpy(trim, s1, i + 1);
+	return (trim);
 }

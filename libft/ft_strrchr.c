@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/25 19:49:48 by lbiasuz          ###   ########.fr       */
+/*   Created: 2022/04/09 19:57:24 by lbiasuz           #+#    #+#             */
+/*   Updated: 2022/04/16 15:53:05 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[], char *envp[])
+char	*ft_strrchr(const char *s, int c)
 {
-	return (0);
+	char	*a;
+
+	a = (char *) s + ft_strlen(s);
+	while (a > s && *a != (char) c)
+		a--;
+	if (*a == (char) c)
+		return (a);
+	return (NULL);
 }

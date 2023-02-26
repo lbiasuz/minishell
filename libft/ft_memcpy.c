@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/25 19:49:48 by lbiasuz          ###   ########.fr       */
+/*   Created: 2022/04/07 19:42:48 by lbiasuz           #+#    #+#             */
+/*   Updated: 2022/04/07 23:13:51 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	return (0);
+	unsigned int	i;
+	char			*d;
+	char			*s;
+
+	i = 0;
+	d = (char *) dest;
+	s = (char *) src;
+	while (i < n)
+	{
+		*(d + i) = *(s + i);
+		i++;
+	}
+	return (dest);
 }

@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/25 19:49:48 by lbiasuz          ###   ########.fr       */
+/*   Created: 2022/04/07 20:14:19 by lbiasuz           #+#    #+#             */
+/*   Updated: 2022/04/16 15:28:50 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	return (0);
+	char			*d;
+	char			*s;
+
+	d = (char *) dest;
+	s = (char *) src;
+	if (d > s)
+		while (n--)
+			*(d + n) = *(s + n);
+	else
+		ft_memcpy(dest, src, n);
+	return (dest);
 }

@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/25 19:49:48 by lbiasuz          ###   ########.fr       */
+/*   Created: 2022/04/10 21:22:59 by lbiasuz           #+#    #+#             */
+/*   Updated: 2022/04/12 22:24:39 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[], char *envp[])
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	return (0);
+	unsigned int	i;
+
+	i = 0;
+	if (!ft_strlen(little))
+		return ((char *) big);
+	while (*big && len)
+	{
+		while (big[i] == little[i] && len - i && little[i])
+			i++;
+		if (i == ft_strlen(little))
+			return ((char *) big);
+		i = 0;
+		big++;
+		len--;
+	}
+	return (NULL);
 }

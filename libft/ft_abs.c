@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/25 19:49:48 by lbiasuz          ###   ########.fr       */
+/*   Created: 2023/01/30 12:15:15 by lbiasuz           #+#    #+#             */
+/*   Updated: 2023/01/31 09:46:23 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	main(int argc, char *argv[], char *envp[])
+int	ft_abs(int n)
 {
-	return (0);
+	if (n < 0)
+		return (n * -1);
+	return (n);
+}
+
+long	ft_absl(long n)
+{
+	if (n < 0)
+		return (n * -1);
+	return (n);
 }

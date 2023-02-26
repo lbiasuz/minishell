@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/25 19:49:48 by lbiasuz          ###   ########.fr       */
+/*   Created: 2022/04/25 00:45:53 by lbiasuz           #+#    #+#             */
+/*   Updated: 2022/04/25 21:09:51 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[], char *envp[])
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	return (0);
+	t_list	*dest;
+	t_list	*aux;
+
+	dest = NULL;
+	while (lst)
+	{
+		aux = ft_lstnew(f(lst->content));
+		if (!aux)
+		{
+			ft_lstclear(&aux, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&dest, aux);
+		lst = lst->next;
+	}
+	return (dest);
 }
