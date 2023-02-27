@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:42:06 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/26 16:44:16 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/02/26 22:21:55 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,29 @@
 
 # include "libft/libft.h"
 
+/// @brief Copies an array of strings to heap.
+/// @param env Array of strings, NULL terminated.
+/// @return Exact copy of the first array.
 char	**copy_environment(char **env);
-//Sets new enviroment variable or updates existing one;
+
+/// @brief Sets target variable into array of strings,
+/// tries to update an existing key first, if it fails, adds it instead;
+/// @param env Array os strings, NULL terminated;
+/// @param variable String composed by a key/value pair separated by '=';
+/// @return New array of string, with target updated/added;
 char	**set_value(char **env, char **value);
-//Deletes variable form list.
+
+/// @brief Removes designated variable from array of strings;
+/// @param env Array of strings, NULL terminated;
+/// @param key Beggining of the target string, must end in '=';
+/// @return New array of string, with target removed;
 char	**unset_value(char **env, char *key);
+
+/// @brief Tries to update from table a string which matches variable key;
+/// @param env Array of strings, NULL terminated;
+/// @param variable String composed by a key/value pair separated by '=';
+/// @return Returns the updated string table,
+/// NULL if no string is found to update;
+char	**update_value(char **env, char **variable)
 
 #endif

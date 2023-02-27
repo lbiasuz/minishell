@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:33:13 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/26 16:43:55 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/02/26 18:36:13 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include "../env.h"
 #include <assert.h>
 
-void	*cast_away(void *unused) { return (void *) unused; }
+void	*cast_away(void *unused)
+{
+	return ((void *) unused);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
