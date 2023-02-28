@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:15:47 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/26 22:22:11 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/02/28 11:36:57 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	**set_value(char **env, char **variable)
 		ft_memmove(env_new_address, env, sizeof(char *) * (table_size + 1));
 		env_new_address[table_size] = *variable;
 		env_new_address[table_size + 1] = NULL;
-		free(env);
 	}
 	return (env_new_address);
 }
@@ -69,7 +68,6 @@ char	**unset_value(char **env, char *key)
 		while (variable_location-- > 0)
 			env_new_address[variable_location] = env[variable_location];
 	}
-	free(env);
 	return (env_new_address);
 }
 
@@ -91,6 +89,18 @@ char	**update_value(char **env, char **variable)
 		}
 		i++;
 	}
-	free(key);
 	return (NULL);
+}
+
+void	free_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		free(env[i]);
+		i++;
+	}
+	free(env);
 }
