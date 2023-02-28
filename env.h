@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:42:06 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/26 22:21:55 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/02/28 11:19:13 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	**unset_value(char **env, char *key);
 /// @param variable String composed by a key/value pair separated by '=';
 /// @return Returns the updated string table,
 /// NULL if no string is found to update;
-char	**update_value(char **env, char **variable)
+char	**update_value(char **env, char **variable);
+
+void	free_env(char **env);
 
 #endif

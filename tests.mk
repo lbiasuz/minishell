@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 15:31:09 by lbiasuz           #+#    #+#              #
-#    Updated: 2023/02/26 16:11:04 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/02/28 11:40:12 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,4 +29,4 @@ env_tests: $(DEP)
 	@$(CC) $(OPTIONS) \
 		$(SRC_DIR)/env_tests.c env.c env.h minishell.h $(DEP) \
 		-o $(OBJ_DIR)/env_tests
-	@./$(OBJ_DIR)/env_tests
+	@ valgrind ./$(OBJ_DIR)/env_tests
