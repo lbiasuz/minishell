@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
+#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/05 21:23:55 by lbiasuz           #+#    #+#              #
-#    Updated: 2023/01/31 10:00:18 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/02/28 11:16:38 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libft.a
 
 SRC_FILES	=	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
-				ft_isprint.c ft_isupper.c ft_islower.c \
+				ft_isprint.c ft_isupper.c ft_islower.c ft_isspace.c \
 				ft_toupper.c ft_tolower.c \
 				ft_calloc.c \
 				ft_memchr.c ft_memcmp.c \

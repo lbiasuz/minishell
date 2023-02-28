@@ -6,25 +6,16 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:13:23 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/02/28 08:36:32 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/02/28 11:16:12 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h" // striteri putstr_fd putchar_fd
+#include "../libft/libft.h" // striteri putstr_fd putchar_fd
 #include <stdlib.h> // exit
 
 static void	parse_arguments(int arg_c, char *argv[]);
 static void	func_is_valid_char(unsigned int index, char *str);
 static void	output(int argc, char *argv[]);
-
-int	ft_isspace(int character)
-{
-	if (character == '\t' || character == '\n'
-		|| character == '\v' || character == '\f'
-		|| character == '\r' || character == ' ')
-		return (1);
-	return (0);
-}
 
 int	main(int argc, char *argv[])
 {
@@ -69,7 +60,7 @@ static void	output(int argc, char *argv[])
 		}
 		while (argc_counter < argc)
 		{
-			if (argc_counter > 1)
+			if (argc_counter > 1 + nl_flag)
 				ft_putchar_fd(' ', 1);
 			ft_putstr_fd(argv[argc_counter], 1);
 			argc_counter++;
