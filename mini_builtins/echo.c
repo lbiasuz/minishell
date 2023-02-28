@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:13:23 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/02/28 10:39:31 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/02/28 11:16:12 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@
 static void	parse_arguments(int arg_c, char *argv[]);
 static void	func_is_valid_char(unsigned int index, char *str);
 static void	output(int argc, char *argv[]);
-
-int	ft_isspace(int character)
-{
-	if (character == '\t' || character == '\n'
-		|| character == '\v' || character == '\f'
-		|| character == '\r' || character == ' ')
-		return (1);
-	return (0);
-}
 
 int	main(int argc, char *argv[])
 {
