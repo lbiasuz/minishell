@@ -7,3 +7,4 @@ obj/*
 *.a
 *.o
 vgcore.*
+info.plist
