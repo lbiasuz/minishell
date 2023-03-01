@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:33:13 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/28 11:39:46 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/01 11:03:23 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	test_setvalue(char **envp)
 	assert(new_table[i] == new_variable);
 	envp = unset_value(new_table, "HELLO=");
 	assert(envp[i - 1] == NULL);
+	free(envp);
+	free(new_variable);
 }
 
 static void	test_updatevalue(char **envp)
@@ -54,7 +56,8 @@ static void	test_updatevalue(char **envp)
 		i++;
 	}
 	assert(new_table[i] == new_variable);
-	free_env(envp);
+	free(new_table);
+	free(new_variable);
 }
 
 int	main(int argc, char **argv, char **envp)

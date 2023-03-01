@@ -1,5 +1,7 @@
 .vscode
 
+obj/*
+
 .obsidian
 .DS_Store
 *.a
