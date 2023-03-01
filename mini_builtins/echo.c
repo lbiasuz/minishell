@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:13:23 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/02/28 11:16:12 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:39:31 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	func_is_valid_char(unsigned int index, char *str)
 {
 	if (!ft_isascii(str[index]))
 	{
-		ft_putstr_fd("Error", 2);
+		ft_putstr_fd("Error: NOT ASCII", 2);
 		exit(-1);
 	}
 }
