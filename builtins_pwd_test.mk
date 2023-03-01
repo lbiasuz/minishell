@@ -1,17 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    builtins_test.mk                                   :+:      :+:    :+:    #
+#    builtins_pwd_test.mk                               :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/27 16:27:04 by rmiranda          #+#    #+#              #
-#    Updated: 2023/02/28 11:17:59 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/03/01 20:52:25 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # SRCS PART 1 (BUILTINS)
-BUILTINS_NAME = echo.a
+BUILTINS_NAME = pwd.a
 BUILTINS_DIR = mini_builtins
 BUILTINS_SRCS = $(BUILTINS_DIR)/$(BUILTINS_NAME:%.a=%.c)
 BUILTINS_INCLUDES = libft/libft.h
@@ -44,19 +44,15 @@ fclean: clean
 
 re: fclean all
 
-test: all test_1 test_2 test_3
-	@echo "\n\nECHO TESTING DONE"
+test: all test_1 test_2
+	@echo "\n\nPWD TESTING DONE"
 
 test_1:
-	@echo "\nEcho:test:1 Next line should display: Hello World! 0\n<--end"
-	@./echo.a Hello World! $$?; echo "<--end"
+	@echo "\PWD:test:1 Next line should display: [your current directory]\n<--end"
+	@./pwd.a; echo "<--end"
 
 test_2:
-	@echo "\nEcho:test:2 Next line should display: Hello World! 0<--end"
-	@./echo.a -n Hello World! $$?; echo "<--end"
-
-test_3:
-	@echo "\nEcho:test:3 Next line should display: 0<--end"
-	@./echo.a -n $$?; echo "<--end"
+	@echo "\PWD:test:2 Next line should display: [your current directory]\n<--end"
+	@./pwd.a Hello World!; echo "<--end"
 
 .PHONY: all bonus clean fclean re
