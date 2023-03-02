@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:33:13 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/01 11:03:23 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/02 11:23:41 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static void	test_updatevalue(char **envp)
 	envp = copy_environment(envp);
 	new_variable = ft_strdup("USER=coder");
 	new_table = set_value(envp, &new_variable);
-	while(new_table[i])
+	while (new_table[i])
 	{
 		if (!ft_strncmp(new_table[i], "USER=", 5))
-			break;
+			break ;
 		i++;
 	}
 	assert(new_table[i] == new_variable);
