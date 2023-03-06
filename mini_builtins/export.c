@@ -6,36 +6,43 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:03:55 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/02 11:23:27 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/06 11:07:18 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "../env.h"
 
-int	export(int argc, char **argv, char **envp)
+t_ms	g_ms;
+
+static void	print_export(char **envp);
+
+int	export(char **argv)
 {
 	int		i;
-	char	***envp_address;
+	char	**envp;
 
-	if (argc <= 1)
+	envp = g_ms.envp;
+	i = 0;
+	while (argv[i])
+		i++;
+	if (i <= 1)
 		print_export(envp);
 	else
 	{
-		i = 1;
-		envp_address = &envp;
+		i = 0;
 		while (argv[i])
 		{
 			if (ft_strchr(argv[i], '='))
 				envp = set_value(envp, &argv[i]);
 			i++;
 		}
-		envp_address = &envp;
+		g_ms.envp = envp;
 	}
 	return (0);
 }
 
-void	printe_export(char **envp)
+static void	print_export(char **envp)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:42:06 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/02/28 11:19:13 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/06 10:58:41 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define ENV_H
 
 # include "libft/libft.h"
+
+int		export(char **argv);
+
+int		unset(char **argv);
 
 /// @brief Copies an array of strings to heap.
 /// @param env Array of strings, NULL terminated.
