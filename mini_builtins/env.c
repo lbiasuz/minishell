@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 09:24:23 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/07 08:41:40 by lbiasuz          ###   ########.fr       */
+/*   Created: 2023/03/07 08:36:58 by lbiasuz           #+#    #+#             */
+/*   Updated: 2023/03/07 09:52:06 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,12 @@
 
 extern t_ms	g_ms;
 
-int	unset(char **argv)
+int	env(void)
 {
-	int		i;
-	char	**key;
-	char	**envp;
+	int	i;
 
-	envp = g_ms.envp;
 	i = 0;
-	while (argv[i])
-	{
-		key = ft_strjoin(argv[i], "=");
-		envp = unset_value(envp, key);
-		free(key);
-	}
-	g_ms.envp = envp;
-	return (0);
+	while (g_ms.envp[i++])
+		ft_printf("%s\n", g_ms.envp[i]);
+	exit(0);
 }
