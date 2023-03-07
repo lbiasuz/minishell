@@ -1,6 +1,6 @@
 .vscode
 
-obj/*
+tests/obj/*
 
 .obsidian
 .DS_Store

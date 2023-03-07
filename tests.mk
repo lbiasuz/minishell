@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 15:31:09 by lbiasuz           #+#    #+#              #
-#    Updated: 2023/03/07 11:35:09 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/03/07 19:38:12 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ export_tests: $(DEP)
 	@$(CC) $(OPTIONS) \
 		$(SRC_DIR)/export_tests.c mini_builtins/export.c env.c env.h minishell.h \
 		$(DEP) -o $(OBJ_DIR)/export_tests
-	@valgrind .
+	@valgrind ./$(OBJ_DIR)/export_tests USER
 	
 unset_tests: $(DEP)
 	@$(CC) $(OPTIONS) \
