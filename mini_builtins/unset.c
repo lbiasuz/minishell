@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:24:23 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/07 08:41:40 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/07 11:32:55 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ extern t_ms	g_ms;
 int	unset(char **argv)
 {
 	int		i;
-	char	**key;
+	char	*key;
 	char	**envp;
 
 	envp = g_ms.envp;
@@ -28,6 +28,7 @@ int	unset(char **argv)
 		key = ft_strjoin(argv[i], "=");
 		envp = unset_value(envp, key);
 		free(key);
+		i++;
 	}
 	g_ms.envp = envp;
 	return (0);

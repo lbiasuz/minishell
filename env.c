@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:15:47 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/07 09:53:04 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/07 11:57:35 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,17 @@ char	*get_value(char **env, char *key)
 	int		start;
 	char	*variable;
 
-
 	i = 0;
-	variable = ft_strjoin(key, "=");
+	if (ft_strchr(key, '='))
+		variable = ft_strdup(key);
+	else
+		variable = ft_strjoin(key, "=");
 	while (ft_strncmp(variable, env[i], ft_strlen(variable)))
 		i++;
 	if (!env[i])
 		return (NULL);
 	start = ft_strchr(env[i], '=') - env[i] + 1;
+	free(variable);
 	return (ft_substr(env[i], start, ft_strlen(ft_strchr(env[i], '=') + 1)));
 }
 
