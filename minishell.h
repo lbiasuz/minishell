@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/07 08:42:14 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/12 19:10:46 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include "libft/libft.h"
 # include "libft/ft_printf.h"
+
+// READLINE FUNCTION HEADERS
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_ms {
 	char	**envp;
