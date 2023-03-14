@@ -1,6 +1,6 @@
 NAME	= minishell
 
-CC 		= gcc-12
+CC		= cc
 
 OPT		= -Wall -Werror -Wextra -g
 

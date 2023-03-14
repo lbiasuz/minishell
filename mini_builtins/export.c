@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:03:55 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/06 11:07:18 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/13 22:15:02 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	export(char **argv)
 		print_export(envp);
 	else
 	{
-		i = 0;
+		i = 1;
 		while (argv[i])
 		{
 			if (ft_strchr(argv[i], '='))
