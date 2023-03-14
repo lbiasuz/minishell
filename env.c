@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:15:47 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/13 22:51:54 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/13 23:10:15 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**copy_environment(char **env)
 	while (env[table_size])
 		table_size++;
 	env_new_address = ft_calloc(table_size + 1, sizeof(char *));
-	while (table_size-- < 0)
+	while (table_size-- > 0)
 		env_new_address[table_size] = ft_strdup(env[table_size]);
 	return (env_new_address);
 }
@@ -127,5 +127,4 @@ void	free_env(char **env)
 		free(env[i]);
 		i++;
 	}
-	free(env);
 }

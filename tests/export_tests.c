@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:15:48 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/13 22:50:59 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/13 23:11:52 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	result = get_value(g_ms.envp, "HELLO");
 	assert(!result);
 	free(result);
-	free(g_ms.envp);
+	free_env(g_ms.envp);
 	cast_away(&argc);
 	return (0);
 }
