@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:33:13 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/02 11:23:41 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/14 11:12:36 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@ static void	test_setvalue(char **envp)
 	envp = copy_environment(envp);
 	new_variable = ft_strdup("HELLO=WORLD");
 	new_table = set_value(envp, &new_variable);
-	while (new_table[i] == envp[i])
+	while (new_table[i])
 		i++;
-	assert(new_table[i] != NULL);
-	assert(new_table[i] == new_variable);
+	assert(new_table[i - 1] == new_variable);
 	envp = unset_value(new_table, "HELLO=");
-	assert(envp[i - 1] == NULL);
-	free(envp);
+	new_variable = get_value(envp, "HELLO");
+	assert(!new_variable);
 	free(new_variable);
 }
 
@@ -56,7 +55,7 @@ static void	test_updatevalue(char **envp)
 		i++;
 	}
 	assert(new_table[i] == new_variable);
-	free(new_table);
+	free_env(new_table);
 	free(new_variable);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:15:47 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/13 23:10:15 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/14 20:35:37 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**unset_value(char **env, char *key)
 	env_new_address = env;
 	while (env[table_size])
 	{
-		if (ft_strncmp(key, env[table_size], ft_strlen(key)))
+		if (!ft_strncmp(key, env[table_size], ft_strlen(key)))
 			variable_location = table_size;
 		table_size++;
 	}
