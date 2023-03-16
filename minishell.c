@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/13 12:41:33 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:31:15 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ int		execute_and_free_instruction(char **input);
 
 int	main(int argc, char *argv[])
 {
-	int	prompt_limit_debugger = 5;
 	(void)argv;
 	if (argc >= 2)
 		return (-1);
-	while (!process_input(readline("MINI_PROMPT:")) && prompt_limit_debugger--)
+	while (!process_input(readline("MINI_PROMPT:")))
 		;
 	return (0);
 }

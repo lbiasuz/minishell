@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:33:13 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/14 23:07:23 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/16 11:30:09 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,19 @@ void	*cast_away(void *unused)
 
 static void	test_setvalue(char **envp)
 {
-	int		i;
 	char	*new_variable;
 	char	**new_table;
 
-	i = 0;
 	envp = copy_environment(envp);
-	new_variable = ft_strdup("HELLO=WORLD");
-	new_table = set_value(envp, &new_variable);
-	while (new_table[i])
-		i++;
-	assert(new_table[i - 1] == new_variable);
+	new_table = set_value(envp, ft_strdup("HELLO=WORLD"));
+	new_variable = get_value(new_table, "HELLO");
+	assert(new_variable);
+	free(new_variable);
 	envp = unset_value(new_table, "HELLO=");
 	new_variable = get_value(envp, "HELLO");
 	assert(!new_variable);
-	free(new_variable);
+	free_env(envp);
+	free(envp);
 }
 
 static void	test_updatevalue(char **envp)
@@ -47,7 +45,7 @@ static void	test_updatevalue(char **envp)
 	i = 0;
 	envp = copy_environment(envp);
 	new_variable = ft_strdup("USER=coder");
-	new_table = set_value(envp, &new_variable);
+	new_table = set_value(envp, new_variable);
 	while (new_table[i])
 	{
 		if (!ft_strncmp(new_table[i], "USER=", 5))
@@ -56,7 +54,7 @@ static void	test_updatevalue(char **envp)
 	}
 	assert(new_table[i] == new_variable);
 	free_env(new_table);
-	free(new_variable);
+	free(new_table);
 }
 
 int	main(int argc, char **argv, char **envp)

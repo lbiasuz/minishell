@@ -6,13 +6,13 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 15:31:09 by lbiasuz           #+#    #+#              #
-#    Updated: 2023/03/14 21:52:00 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/03/16 10:12:56 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-OPTIONS = -Wall -Werror -Wextra
+OPTIONS = -Wall -Werror -Wextra -g3
 
 SRC_DIR = tests/
 

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:15:47 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/15 21:49:00 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/16 11:01:12 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,12 @@ char	**unset_value(char **env, char *key)
 	}
 	if (variable_location >= 0)
 	{
-		env_new_address = ft_calloc(table_size - 1, sizeof(char *));
-		while (table_size-- > variable_location)
+		env_new_address = ft_calloc(table_size, sizeof(char *));
+		while (table_size > variable_location)
+		{
 			env_new_address[table_size - 1] = env[table_size];
+			table_size--;
+		}
 		free(env[variable_location]);
 		while (variable_location-- > 0)
 			env_new_address[variable_location] = env[variable_location];
@@ -108,8 +111,12 @@ char	*get_value(char **env, char *key)
 		variable = ft_strdup(key);
 	else
 		variable = ft_strjoin(key, "=");
-	while (env[i] && ft_strncmp(variable, env[i], ft_strlen(variable)))
+	while (env[i])
+	{
+		if (!ft_strncmp(variable, env[i], ft_strlen(variable)))
+			break ;
 		i++;
+	}
 	free(variable);
 	if (!env[i])
 		return (NULL);
