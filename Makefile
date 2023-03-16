@@ -2,7 +2,7 @@ NAME	= minishell
 
 CC		= cc
 
-OPT		= -Wall -Werror -Wextra -g
+OPT		= -Wall -Werror -Wextra -g3
 
 SRC		= minishell.c
 
