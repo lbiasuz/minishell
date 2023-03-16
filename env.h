@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:42:06 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/13 23:09:01 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/15 21:48:54 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**copy_environment(char **env);
 /// @param env Array os strings, NULL terminated;
 /// @param variable String composed by a key/value pair separated by '=';
 /// @return New array of string, with target updated/added;
-char	**set_value(char **env, char **value);
+char	**set_value(char **env, char *value);
 
 /// @brief Removes designated variable from array of strings;
 /// @param env Array of strings, NULL terminated;
@@ -42,7 +42,7 @@ char	**unset_value(char **env, char *key);
 /// @param variable String composed by a key/value pair separated by '=';
 /// @return Returns the updated string table,
 /// NULL if no string is found to update;
-char	**update_value(char **env, char **variable);
+char	**update_value(char **env, char *variable);
 
 /// @brief Retrieves content from envirnment variable;
 /// @param env Array of strings, NULL terminated;

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:15:47 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/14 20:35:37 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/15 21:49:00 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**copy_environment(char **env)
 	return (env_new_address);
 }
 
-char	**set_value(char **env, char **variable)
+char	**set_value(char **env, char *variable)
 {
 	int		table_size;
 	char	**env_new_address;
@@ -40,7 +40,7 @@ char	**set_value(char **env, char **variable)
 			table_size++;
 		env_new_address = ft_calloc(table_size + 2, sizeof(char *));
 		ft_memmove(env_new_address, env, sizeof(char *) * (table_size + 1));
-		env_new_address[table_size] = *variable;
+		env_new_address[table_size] = variable;
 		env_new_address[table_size + 1] = NULL;
 		free(env);
 	}
@@ -75,20 +75,20 @@ char	**unset_value(char **env, char *key)
 	return (env_new_address);
 }
 
-char	**update_value(char **env, char **variable)
+char	**update_value(char **env, char *variable)
 {
 	int		i;
 	char	*key;
 
 	i = 0;
-	key = ft_substr(*variable, 0, ft_strchr(*variable, '=') - *variable);
+	key = ft_substr(variable, 0, ft_strchr(variable, '=') - variable);
 	while (env[i])
 	{
 		if (ft_strncmp(key, env[i], ft_strlen(key)) == 0)
 		{
 			free(key);
 			free(env[i]);
-			env[i] = *variable;
+			env[i] = variable;
 			return (env);
 		}
 		i++;
@@ -124,6 +124,7 @@ void	free_env(char **env)
 	i = 0;
 	while (env[i])
 	{
+		// ft_printf("%s %p\n", env[i], env[i]);
 		free(env[i]);
 		i++;
 	}
