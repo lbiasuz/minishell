@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    builtins_pwd_test.mk                               :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/27 16:27:04 by rmiranda          #+#    #+#              #
-#    Updated: 2023/03/01 20:52:25 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/03/16 23:29:53 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # SRCS PART 1 (BUILTINS)
 BUILTINS_NAME = pwd.a
-BUILTINS_DIR = mini_builtins
+BUILTINS_DIR = src/builtin
 BUILTINS_SRCS = $(BUILTINS_DIR)/$(BUILTINS_NAME:%.a=%.c)
 BUILTINS_INCLUDES = libft/libft.h
 

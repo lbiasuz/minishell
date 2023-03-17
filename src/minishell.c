@@ -6,11 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/16 10:31:15 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/16 23:01:28 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int		process_input(char *prompt);
 char	**parse_and_free_prompt(char	*prompt);
@@ -28,7 +28,7 @@ int	main(int argc, char *argv[])
 
 int	process_input(char *prompt)
 {
-	char **input;
+	char	**input;
 
 	if (prompt == NULL)
 		return (-1);

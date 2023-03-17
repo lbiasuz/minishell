@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:13:23 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/01 20:39:31 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/16 23:30:05 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h" // striteri putstr_fd putchar_fd
+#include "../../libft/libft.h" // striteri putstr_fd putchar_fd
 #include <stdlib.h> // exit
 
 static void	parse_arguments(int arg_c, char *argv[]);

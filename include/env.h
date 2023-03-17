@@ -6,14 +6,14 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:42:06 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/15 21:48:54 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/16 23:04:14 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 int		export(char **argv);
 
@@ -50,6 +50,6 @@ char	**update_value(char **env, char *variable);
 /// @return Returns the desired value, NULL if key is not found,
 char	*get_value(char **env, char *key);
 
-void	free_env(char **env);
+void	free_table(char **env);
 
 #endif

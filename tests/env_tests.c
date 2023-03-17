@@ -6,12 +6,12 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:33:13 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/16 11:30:09 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/16 23:04:07 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../env.h"
+#include "../include/minishell.h"
+#include "../include/env.h"
 #include <assert.h>
 
 void	*cast_away(void *unused)
@@ -32,7 +32,7 @@ static void	test_setvalue(char **envp)
 	envp = unset_value(new_table, "HELLO=");
 	new_variable = get_value(envp, "HELLO");
 	assert(!new_variable);
-	free_env(envp);
+	free_table(envp);
 	free(envp);
 }
 
@@ -53,7 +53,7 @@ static void	test_updatevalue(char **envp)
 		i++;
 	}
 	assert(new_table[i] == new_variable);
-	free_env(new_table);
+	free_table(new_table);
 	free(new_table);
 }
 

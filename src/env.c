@@ -6,12 +6,12 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:15:47 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/16 11:01:12 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/16 23:02:00 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "libft/ft_printf.h"
+#include "../include/env.h"
+#include "../libft/ft_printf.h"
 
 char	**copy_environment(char **env)
 {
@@ -65,11 +65,8 @@ char	**unset_value(char **env, char *key)
 	if (variable_location >= 0)
 	{
 		env_new_address = ft_calloc(table_size, sizeof(char *));
-		while (table_size > variable_location)
-		{
-			env_new_address[table_size - 1] = env[table_size];
-			table_size--;
-		}
+		while (table_size-- > variable_location)
+			env_new_address[table_size] = env[table_size + 1];
 		free(env[variable_location]);
 		while (variable_location-- > 0)
 			env_new_address[variable_location] = env[variable_location];
@@ -122,17 +119,4 @@ char	*get_value(char **env, char *key)
 		return (NULL);
 	start = ft_strchr(env[i], '=') - env[i] + 1;
 	return (ft_substr(env[i], start, ft_strlen(ft_strchr(env[i], '=') + 1)));
-}
-
-void	free_env(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		// ft_printf("%s %p\n", env[i], env[i]);
-		free(env[i]);
-		i++;
-	}
 }

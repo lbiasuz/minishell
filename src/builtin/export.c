@@ -6,12 +6,12 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:03:55 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/15 21:49:22 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/16 23:17:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../env.h"
+#include "../../include/minishell.h"
+#include "../../include/env.h"
 
 t_ms	g_ms;
 
