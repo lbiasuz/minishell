@@ -6,12 +6,12 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:15:48 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/13 23:11:52 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/16 23:18:03 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../env.h"
+#include "../include/minishell.h"
+#include "../include/env.h"
 #include <assert.h>
 
 extern t_ms	g_ms;
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*result;
 
 	envp = copy_environment(envp);
+	argv = copy_environment(argv);
 	g_ms.envp = envp;
 	export(argv);
 	result = get_value(g_ms.envp, "USER");
@@ -34,7 +35,10 @@ int	main(int argc, char **argv, char **envp)
 	result = get_value(g_ms.envp, "HELLO");
 	assert(!result);
 	free(result);
-	free_env(g_ms.envp);
+	free_table(g_ms.envp);
+	free_table(argv);
+	free(argv);
+	free(g_ms.envp);
 	cast_away(&argc);
 	return (0);
 }

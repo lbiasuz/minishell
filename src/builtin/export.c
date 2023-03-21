@@ -6,12 +6,12 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:03:55 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/13 22:15:02 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/16 23:17:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../env.h"
+#include "../../include/minishell.h"
+#include "../../include/env.h"
 
 t_ms	g_ms;
 
@@ -34,7 +34,7 @@ int	export(char **argv)
 		while (argv[i])
 		{
 			if (ft_strchr(argv[i], '='))
-				envp = set_value(envp, &argv[i]);
+				envp = set_value(envp, ft_strdup(argv[i]));
 			i++;
 		}
 		g_ms.envp = envp;
