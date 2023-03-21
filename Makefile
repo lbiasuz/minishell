@@ -1,10 +1,10 @@
 NAME	= minishell
 
-CC		= cc
+CC		= gcc-12
 
 OPT		= -Wall -Werror -Wextra -g
 
-SRC		= minishell.c
+SRC		= minishell.c \
 
 HEADER	= minishell.h
 
@@ -14,12 +14,22 @@ OBJ		= $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 DEP	=	libft.a
 
+BUILTIN_DIR	= mini_builtins
+
+BUILTIN_SRC	= cd.c echo.c pwd.c
+
+BUILTIN_OBJ	= $(BUILTIN_SRC:%.c=$(OBJ_DIR)/%.o)
+
 all: $(NAME)
 
 $(NAME): $(DEP) $(OBJ)
 	$(CC) $(OPT) $(OBJ) $(DEP) -lreadline -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.c $(HEADER)
+$(OBJ): $(SRC) $(HEADER)
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(OPT) -c $< -o $@
+
+$(BUILTIN_OBJ): $(BUILTIN_SRC:%.c=) $(HEADER)
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(OPT) -c $< -o $@
 
