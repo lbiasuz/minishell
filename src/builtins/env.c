@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 08:36:58 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/07 09:52:06 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/23 16:51:46 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../env.h"
+#include "../../include/minishell.h"
+#include "../../include/env.h"
 
 extern t_ms	g_ms;
 

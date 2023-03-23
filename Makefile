@@ -1,46 +1,56 @@
-NAME	= minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
+#    Updated: 2023/03/23 16:55:46 by rmiranda         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC		= gcc-12
-
-OPT		= -Wall -Werror -Wextra -g3
-
-SRC		= minishell.c \
-
-HEADER	= minishell.h
-
-OBJ_DIR	= obj
-
-OBJ		= $(SRC:%.c=$(OBJ_DIR)/%.o)
-
-DEP	=	libft.a
-
-BUILTIN_DIR	= mini_builtins
-
-BUILTIN_SRC	= cd.c echo.c pwd.c
-
-BUILTIN_OBJ	= $(BUILTIN_SRC:%.c=$(OBJ_DIR)/%.o)
+NAME	=	minishell
+CC		=	gcc-12
+OPT		=	-Wall -Werror -Wextra -g3
+# PATH
+PATH_NAME		=	src
+PATH_BUILTINS	=	$(PATH_NAME)/builtins
+PATH_OBJ		=	obj
+PATH_INCLUDE	=	include
+# SRC
+SRC				+=	$(PATH_NAME)/minishell.c
+SRC				+=	$(PATH_BUILTINS)/cd.c
+SRC				+=	$(PATH_BUILTINS)/echo.c
+SRC				+=	$(PATH_BUILTINS)/env.c
+SRC				+=	$(PATH_BUILTINS)/export.c
+SRC				+=	$(PATH_BUILTINS)/pwd.c
+SRC				+=	$(PATH_BUILTINS)/unset.c
+# OBJ
+OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
+# INCLUDES
+INCLUDES		+=	$(PATH_INCLUDE)/minishell.h
+INCLUDES		+=	$(PATH_INCLUDE)/env.h
+DEP				=	libft.a
 
 all: $(NAME)
 
 $(NAME): $(DEP) $(OBJ)
 	$(CC) $(OPT) $(OBJ) $(DEP) -lreadline -o $(NAME)
 
-$(OBJ): $(SRC) $(HEADER)
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(OPT) -c $< -o $@
-
-$(BUILTIN_OBJ): $(BUILTIN_SRC:%.c=) $(HEADER)
-	mkdir -p $(OBJ_DIR)
+$(PATH_OBJ)/%.o: %.c $(INCLUDES)
+	mkdir -p $(dir $@)
 	$(CC) $(OPT) -c $< -o $@
 
 $(DEP):
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(PATH_OBJ)
 	make -C libft/ all
 	mv libft/libft.a libft.a
 
 clean:
 	make -C libft/ clean
-	rm -rf $(OBJ_DIR)
+	rm -rf $(PATH_OBJ)
+	rm -f *.dSYM
 
 fclean: clean
 	make -C libft/ fclean
@@ -48,4 +58,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY:		all clean fclean re bonus
+.PHONY: all clean fclean re bonus
