@@ -6,12 +6,12 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/03/23 16:55:46 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/03/23 20:27:10 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
-CC		=	gcc-12
+CC		=	gcc
 OPT		=	-Wall -Werror -Wextra -g3
 # PATH
 PATH_NAME		=	src
@@ -20,6 +20,11 @@ PATH_OBJ		=	obj
 PATH_INCLUDE	=	include
 # SRC
 SRC				+=	$(PATH_NAME)/minishell.c
+SRC				+=	$(PATH_NAME)/bin_path.c
+SRC				+=	$(PATH_NAME)/env.c
+SRC				+=	$(PATH_NAME)/helper.c
+SRC				+=	$(PATH_NAME)/redirect.c
+SRC				+=	$(PATH_NAME)/runner.c
 SRC				+=	$(PATH_BUILTINS)/cd.c
 SRC				+=	$(PATH_BUILTINS)/echo.c
 SRC				+=	$(PATH_BUILTINS)/env.c
@@ -31,6 +36,7 @@ OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
 # INCLUDES
 INCLUDES		+=	$(PATH_INCLUDE)/minishell.h
 INCLUDES		+=	$(PATH_INCLUDE)/env.h
+INCLUDES		+=	$(PATH_INCLUDE)/redirect.h
 DEP				=	libft.a
 
 all: $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/21 20:51:00 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:26:29 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,13 @@ typedef struct s_cmd {
 	int		out_fd;
 	int		in_fd;
 }	t_cmd;
+
+// BUILTINS
+int	cd(int argc, char *argv[]);
+int	echo(int argc, char *argv[]);
+int	env(void);
+int	export(char **argv);
+int	pwd(void);
+int	unset(char **argv);
 
 #endif

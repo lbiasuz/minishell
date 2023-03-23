@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:13:23 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/16 23:30:05 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:23:39 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	parse_arguments(int arg_c, char *argv[]);
 static void	func_is_valid_char(unsigned int index, char *str);
 static void	output(int argc, char *argv[]);
 
-int	main(int argc, char *argv[])
+int	echo(int argc, char *argv[])
 {
 	parse_arguments(argc, argv);
 	output(argc, argv);

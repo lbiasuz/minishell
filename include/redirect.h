@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:51:18 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/21 21:34:06 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:22:55 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define REDIRECT_H
 
 # include <fcntl.h>
+# include <stdio.h>
+# include <unistd.h>
 
 /// @brief Opens file from recieved path (Read only)
 /// 		and duplicates content to STDIN

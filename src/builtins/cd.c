@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:25 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/16 23:29:25 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:23:32 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 static char	*parse_arguments(int argc, char *argv[]);
 
-int	main(int argc, char *argv[])
+int	cd(int argc, char *argv[])
 {
 	char	*path;
 	int		chdir_error;

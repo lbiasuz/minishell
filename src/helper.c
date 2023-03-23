@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/21 22:01:11 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:21:25 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	free_table(char **table)
 	int	i;
 
 	i = 0;
-	while (env[i])
+	while (table[i])
 	{
-		free(env[i]);
+		free(table[i]);
 		i++;
 	}
 }

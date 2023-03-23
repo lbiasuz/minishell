@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 11:03:16 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/16 23:30:14 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:23:48 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h> // perror
 #include <stdlib.h> // getenv
 
-int	main(void)
+int	pwd(void)
 {
 	char	*pwd_pathname;
 

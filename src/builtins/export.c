@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:03:55 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/16 23:17:30 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/23 17:00:41 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
 #include "../../include/env.h"
+#include "../../include/minishell.h"
 
 t_ms	g_ms;
 
