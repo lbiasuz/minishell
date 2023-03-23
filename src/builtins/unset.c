@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:24:23 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/16 23:18:39 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/21 21:36:40 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	unset(char **argv)
 	i = 0;
 	while (argv[i])
 	{
-		key = ft_strjoin(argv[i], "="); // TODO
+		key = ft_strjoin(argv[i], "=");
 		envp = unset_value(envp, key);
 		free(key);
 		i++;

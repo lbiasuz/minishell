@@ -1,8 +1,9 @@
 
 - [ ] Decidir atributos variável Global
-- [ ] Estruturar árvore de arquivos do projeto [Nomes, Pastas, Contextos]
+- [x] Estruturar árvore de arquivos do projeto [Nomes, Pastas, Contextos]
 - [ ] Estudar errno
 - [ ] Migrar pipex para o minishell
+- [ ] Remover includes absolutos [LINK](https://stackoverflow.com/questions/2741422/how-can-i-avoid-explicitly-declaring-directory-paths-in-c-or-c-include-direct)
 
 ### Env table
 - [x] ENV TABLE
