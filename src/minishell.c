@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/23 21:55:42 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/23 22:47:40 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,23 @@ int		execute_and_free_instruction(char **input);
 
 int	main(int argc, char *argv[])
 {
-	int		limiter = 2;
+	char	*prompt;
 
 	(void)argv;
 	if (argc >= 2)
 		return (-1);
-	while (limiter-- && !process_input(readline("MINI_PROMPT:")))
-		;
+	prompt = readline("MINI_PROMPT:");
+	while (prompt)
+	{
+		if (ft_strncmp("exit", prompt, 5) == 0)
+			break ;
+		if (process_input(prompt))
+			break ;
+		free(prompt);
+		prompt = readline("MINI_PROMPT:");
+	}
+	if (prompt)
+		free(prompt);
 	return (0);
 }
 
@@ -32,10 +42,10 @@ int	process_input(char *prompt)
 {
 	char	**input;
 
-	if (prompt == NULL)
-		return (-1);
+	if (!*prompt)
+		return (0);
+	add_history(prompt);
 	input = parse(prompt);
-	free(prompt);
 	if (!input)
 	{
 		perror("error on parse");
