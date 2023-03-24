@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/23 21:33:48 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/23 21:55:42 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ int		execute_and_free_instruction(char **input);
 
 int	main(int argc, char *argv[])
 {
+	int		limiter = 2;
+
 	(void)argv;
 	if (argc >= 2)
 		return (-1);
-	while (!process_input(readline("MINI_PROMPT:")))
+	while (limiter-- && !process_input(readline("MINI_PROMPT:")))
 		;
 	return (0);
 }
@@ -36,7 +38,7 @@ int	process_input(char *prompt)
 	free(prompt);
 	if (!input)
 	{
-		perror("error on ft_split");
+		perror("error on parse");
 		exit(-1);
 	}
 	execute_and_free_instruction(input);
