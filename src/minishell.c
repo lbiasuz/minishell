@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/21 21:38:18 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/23 21:33:48 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	process_input(char *prompt)
 
 	if (prompt == NULL)
 		return (-1);
-	input = parse_and_free_prompt(prompt);
+	input = parse(prompt);
+	free(prompt);
 	if (!input)
 	{
 		perror("error on ft_split");
@@ -40,15 +41,6 @@ int	process_input(char *prompt)
 	}
 	execute_and_free_instruction(input);
 	return (0);
-}
-
-char	**parse_and_free_prompt(char	*prompt)
-{
-	char	**split_result;
-
-	split_result = ft_split(prompt, ' ');
-	free(prompt);
-	return (split_result);
 }
 
 int	execute_and_free_instruction(char **input)
