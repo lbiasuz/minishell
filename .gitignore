@@ -9,3 +9,4 @@ tests/obj/*
 vgcore.*
 info.plist
 minishell
+*.supp
