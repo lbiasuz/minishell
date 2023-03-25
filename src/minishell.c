@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/25 15:39:41 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:45:07 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ int	main(int argc, char *argv[])
 
 static int	process_input(char *prompt)
 {
-	char	**input;
+	char	**parsed_input;
 
 	if (!*prompt)
 		return (0);
 	add_history(prompt);
-	input = parse(prompt);
-	if (input)
+	parsed_input = parse(prompt);
+	if (parsed_input)
 	{
-		print_parse(input);
-		free_parse(input);
+		print_parse(parsed_input);
+		free_parse(parsed_input);
 	}
 	rl_on_new_line();
 	return (0);
