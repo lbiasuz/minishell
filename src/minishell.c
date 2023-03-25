@@ -6,15 +6,15 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/24 21:33:35 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:39:41 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int		process_input(char *prompt);
-char	**parse_and_free_prompt(char	*prompt);
-int		execute_and_free_instruction(char **input);
+static int	process_input(char *prompt);
+static int	print_parse(char **input);
+static int	free_parse(char **input);
 
 int	main(int argc, char *argv[])
 {
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-int	process_input(char *prompt)
+static int	process_input(char *prompt)
 {
 	char	**input;
 
@@ -47,28 +47,36 @@ int	process_input(char *prompt)
 		return (0);
 	add_history(prompt);
 	input = parse(prompt);
-	if (!input)
+	if (input)
 	{
-		perror("error on parse");
-		exit(-1);
+		print_parse(input);
+		free_parse(input);
 	}
-	execute_and_free_instruction(input);
-	// remove_free(input);
 	rl_on_new_line();
 	return (0);
 }
 
-int	execute_and_free_instruction(char **input)
+static int	free_parse(char **input)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
-		ft_printf("%s ", input[i]);
-		free(input[i++]);
+		free(input[i]);
+		input[i] = NULL;
+		i++;
 	}
+	return (0);
+}
+
+static int	print_parse(char **input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+		ft_printf("%s ", input[i++]);
 	ft_printf("\n", input[i]);
-	free(input);
 	return (0);
 }
