@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/23 21:34:53 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:10:38 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,10 @@ typedef struct s_ms {
 	int		*exit_code;
 }	t_ms;
 
-typedef struct s_cmd {
-	char	*command;
-	char	**args;
-	int		err_fd;
-	int		out_fd;
-	int		in_fd;
-}	t_cmd;
+typedef struct s_tkn {
+	char	*value;
+	char	*token;
+}	t_tkn;
 
 char	**parse(char	*prompt);
 
