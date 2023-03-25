@@ -6,15 +6,15 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/25 15:45:07 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:05:07 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 static int	process_input(char *prompt);
-static int	print_parse(char **input);
-static int	free_parse(char **input);
+static void	print_parse(char **input);
+static void	free_parse(char **input);
 
 int	main(int argc, char *argv[])
 {
@@ -56,7 +56,7 @@ static int	process_input(char *prompt)
 	return (0);
 }
 
-static int	free_parse(char **input)
+static void	free_parse(char **input)
 {
 	int	i;
 
@@ -67,10 +67,9 @@ static int	free_parse(char **input)
 		input[i] = NULL;
 		i++;
 	}
-	return (0);
 }
 
-static int	print_parse(char **input)
+static void	print_parse(char **input)
 {
 	int	i;
 
@@ -78,5 +77,4 @@ static int	print_parse(char **input)
 	while (input[i])
 		ft_printf("%s ", input[i++]);
 	ft_printf("\n", input[i]);
-	return (0);
 }
