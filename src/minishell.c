@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/23 22:57:09 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/24 21:33:35 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	process_input(char *prompt)
 		exit(-1);
 	}
 	execute_and_free_instruction(input);
+	// remove_free(input);
 	rl_on_new_line();
 	return (0);
 }
