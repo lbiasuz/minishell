@@ -6,11 +6,13 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/25 12:36:27 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/25 21:03:05 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+#define SEPARATORS "&|$<>"
 
 static int	count_table_size(char *prompt);
 static char	*next_prompt_address(char *prompt);
@@ -42,28 +44,55 @@ char	**parse(char	*prompt)
 
 static int	count_table_size(char *prompt)
 {
+	char	*next_prompt;
 	int		counter;
 
 	counter = 0;
-	while (prompt && ++counter)
-		prompt = next_prompt_address(prompt);
+	next_prompt = prompt;
+	while (next_prompt && ++counter)
+	{
+		prompt = next_prompt;
+		next_prompt = next_prompt_address(prompt);
+	}
+	if (!next_prompt && *prompt)
+		return (0);
 	return (counter);
 }
 
 static char	*next_prompt_address(char *prompt)
 {
+	int	double_quotes_flag;
+	int	single_quotes_flag;
+
+	double_quotes_flag = 0;
+	single_quotes_flag = 0;
 	if (!*prompt)
 		return (NULL);
-	else if (ft_strchr("|;", *prompt))
+	if (ft_strchr(SEPARATORS, *prompt))
 		return (++prompt);
-	else
-		prompt++;
+	if (ft_strchr("\"", *prompt))
+		double_quotes_flag = 1;
+	else if (ft_strchr("\'", *prompt))
+		single_quotes_flag = 1;
+	prompt++;
 	while (*prompt)
 	{
-		if (ft_strchr("|;", *prompt))
+		if (ft_strchr(SEPARATORS, *prompt) && !(double_quotes_flag || single_quotes_flag))
 			break ;
-		if (ft_isspace(*prompt))
+		if (ft_isspace(*prompt) && !(double_quotes_flag || single_quotes_flag))
 			break ;
+		if (ft_strchr("\"", *prompt) && double_quotes_flag)
+		{
+			double_quotes_flag--;
+			prompt++;
+			break ;
+		}
+		if (ft_strchr("\'", *prompt) && single_quotes_flag)
+		{
+			single_quotes_flag--;
+			prompt++;
+			break ;
+		}
 		prompt++;
 	}
 	while (*prompt && ft_isspace(*prompt))
