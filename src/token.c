@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/26 10:53:20 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/26 17:08:01 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,10 @@ t_list	*compose_token(char *input)
 	char	*addr;
 
 	token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
-	addr = ft_strchr(input, '$');
-	if (addr && char_occurences(input, '\'') % 2 == 0
-		&& (ft_strchr(input, '\''))
-		&& (ft_strchr(input, '\'') > addr || ft_strrchr(input, '\'') < addr))
+	if (ft_strchr(input, '$'))
 		token->token = EXPAND;
-	else if (char_occurences(input, '\'') > 1)
-		token->token = SQUOTE;	
-	else if (char_occurences(input, '\"') > 1)
+	else if (ft_strchr(input, '\"'))
 		token->token = DQUOTE;
-	else if (addr)
-		token->token = EXPAND;
 	else
 		token->token = TEXT;
 	token->value = input;
@@ -67,7 +60,6 @@ t_list	*tokenize(char *input)
 	return (compose_token(input));
 }
 
-char	*scan_for_errors(t_list *token_list);
 int	char_occurences(char *string, int c)
 {
 	int	occurences;
@@ -83,3 +75,5 @@ int	char_occurences(char *string, int c)
 	}
 	return (occurences);
 }
+
+char	*scan_for_errors(t_list *token_list);
