@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 22:01:59 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/25 21:24:19 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/26 17:42:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,9 @@
 # define EXPAND "EXPAND"
 # define ERROR "Syntax error"
 # define HOME "~"
+
+t_list	*plain_token(char *input);
+t_list	*compose_token(char *input);
+t_list	*tokenize(char **inputs);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/03/25 21:23:06 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/03/26 17:46:01 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC				+=	$(PATH_NAME)/minishell.c
 SRC				+=	$(PATH_NAME)/parse.c
 SRC				+=	$(PATH_NAME)/redirect.c
 SRC				+=	$(PATH_NAME)/runner.c
+SRC				+=	$(PATH_NAME)/token.c
 SRC				+=	$(PATH_NAME)/signal_handler.c
 SRC				+=	$(PATH_BUILTINS)/cd.c
 SRC				+=	$(PATH_BUILTINS)/echo.c
@@ -39,6 +40,7 @@ OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
 INCLUDES		+=	$(PATH_INCLUDE)/minishell.h
 INCLUDES		+=	$(PATH_INCLUDE)/env.h
 INCLUDES		+=	$(PATH_INCLUDE)/redirect.h
+INCLUDES		+=	$(PATH_INCLUDE)/token.h
 DEP				=	libft.a
 
 all: $(NAME)

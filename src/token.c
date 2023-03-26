@@ -6,16 +6,32 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/26 17:08:01 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/26 17:47:52 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "token.h"
+#include "../include/minishell.h"
+#include "../include/token.h"
 
-t_list	*plain_token(char *input)
+// static int char_occurences(char *string, int c)
+// {
+// 	int occurences;
+// 	int index;
+
+// 	index = 0;
+// 	occurences = 0;
+// 	while (string[index])
+// 	{
+// 		if (string[index] == c)
+// 			occurences++;
+// 		index++;
+// 	}
+// 	return (occurences);
+// }
+
+t_list *plain_token(char *input)
 {
-	t_tkn	*token;
+	t_tkn *token;
 
 	token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
 	if (!ft_strncmp(input, PIPE, sizeof(input)))
@@ -34,10 +50,9 @@ t_list	*plain_token(char *input)
 	return (ft_lstnew(token));
 }
 
-t_list	*compose_token(char *input)
+t_list *compose_token(char *input)
 {
-	t_tkn	*token;
-	char	*addr;
+	t_tkn *token;
 
 	token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
 	if (ft_strchr(input, '$'))
@@ -50,30 +65,24 @@ t_list	*compose_token(char *input)
 	return (ft_lstnew(token));
 }
 
-t_list	*tokenize(char *input)
+t_list *tokenize(char **inputs)
 {
-	int		len;
-
-	len = ft_strlen(input);
-	if (len == 1 && input[0] && !ft_isalnum(input[0]))
-		return (plain_token(input));
-	return (compose_token(input));
-}
-
-int	char_occurences(char *string, int c)
-{
-	int	occurences;
-	int	index;
+	t_list *token_list;
+	int len;
+	int index;
 
 	index = 0;
-	occurences = 0;
-	while (string[index])
+	token_list = NULL;
+	while (inputs[index])
 	{
-		if (string[index] == c)
-			occurences++;
+		len = ft_strlen(inputs[index]);
+		if (len == 1 && inputs[index][0] && !ft_isalnum(inputs[index][0]))
+			ft_lstadd_back(&token_list, plain_token(inputs[index]));
+		else
+			ft_lstadd_back(&token_list, compose_token(inputs[index]));
 		index++;
 	}
-	return (occurences);
+	return (token_list);
 }
 
-char	*scan_for_errors(t_list *token_list);
+// char *scan_for_errors(t_list *token_list);
