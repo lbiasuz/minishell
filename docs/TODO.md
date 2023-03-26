@@ -15,7 +15,7 @@
 - [x] UNSET
 - [x] ECHO
 - [x] ENV
-- [ ] EXIT
+- [x] EXIT
 
 ### Prompt
 - [ ] Comportamento de history
@@ -27,7 +27,7 @@
 - [ ] COMMAND TABLE
 - [ ] $ EXPANSION [ $PATH, $USER ]
 - [ ] QUOTES [ ",  ', \, $ ]
-- [ ] HISTORY
+- [x] HISTORY
 
 ### Runner / Executor
 - [ ] REDIRECTION [< , <<, >> ,  >]
