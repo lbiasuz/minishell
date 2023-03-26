@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/25 23:34:49 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/26 17:49:47 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 
 // PROCESS HEADERS
 # include <sys/wait.h>
-
 
 typedef struct s_ms {
 	t_list	*cmdlist;

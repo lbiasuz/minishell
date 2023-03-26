@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/26 17:47:52 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/26 17:49:26 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 // 	return (occurences);
 // }
 
-t_list *plain_token(char *input)
+t_list	*plain_token(char *input)
 {
-	t_tkn *token;
+	t_tkn	*token;
 
 	token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
 	if (!ft_strncmp(input, PIPE, sizeof(input)))
@@ -50,9 +50,9 @@ t_list *plain_token(char *input)
 	return (ft_lstnew(token));
 }
 
-t_list *compose_token(char *input)
+t_list	*compose_token(char *input)
 {
-	t_tkn *token;
+	t_tkn	*token;
 
 	token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
 	if (ft_strchr(input, '$'))
@@ -65,11 +65,11 @@ t_list *compose_token(char *input)
 	return (ft_lstnew(token));
 }
 
-t_list *tokenize(char **inputs)
+t_list	*tokenize(char **inputs)
 {
-	t_list *token_list;
-	int len;
-	int index;
+	t_list	*token_list;
+	int		len;
+	int		index;
 
 	index = 0;
 	token_list = NULL;
@@ -85,4 +85,4 @@ t_list *tokenize(char **inputs)
 	return (token_list);
 }
 
-// char *scan_for_errors(t_list *token_list);
+// char *scan_for_errors(t_list	*token_list);
