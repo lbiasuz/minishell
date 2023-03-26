@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/25 20:05:07 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/25 21:23:49 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char *argv[])
 	(void)argv;
 	if (argc >= 2)
 		return (-1);
+	init_signal_handlers();
 	prompt = readline("MINI_PROMPT:");
 	while (prompt)
 	{
