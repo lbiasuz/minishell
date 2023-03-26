@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/25 20:56:39 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/25 21:03:05 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,6 @@ static char	*next_prompt_address(char *prompt)
 	}
 	while (*prompt && ft_isspace(*prompt))
 		prompt++;
-	if (double_quotes_flag || single_quotes_flag)
-	{
-		ft_printf("ERROR unclosed quotes\n");
-		return (NULL);
-	}
 	return (prompt);
 }
 
