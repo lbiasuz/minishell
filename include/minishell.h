@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/23 21:34:53 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/25 21:23:25 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_cmd {
 }	t_cmd;
 
 char	**parse(char	*prompt);
+void	init_signal_handlers(void);
 
 // BUILTINS
 int		cd(int argc, char *argv[]);

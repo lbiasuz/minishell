@@ -6,7 +6,7 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/03/23 21:35:18 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/03/25 21:23:06 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC				+=	$(PATH_NAME)/minishell.c
 SRC				+=	$(PATH_NAME)/parse.c
 SRC				+=	$(PATH_NAME)/redirect.c
 SRC				+=	$(PATH_NAME)/runner.c
+SRC				+=	$(PATH_NAME)/signal_handler.c
 SRC				+=	$(PATH_BUILTINS)/cd.c
 SRC				+=	$(PATH_BUILTINS)/echo.c
 SRC				+=	$(PATH_BUILTINS)/env.c
