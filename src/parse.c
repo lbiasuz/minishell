@@ -6,13 +6,13 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/25 21:03:05 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/03/25 23:35:48 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-#define SEPARATORS "&|$<>"
+#define SEPARATORS "&|$<>\"\'"
 
 static int	count_table_size(char *prompt);
 static char	*next_prompt_address(char *prompt);
@@ -68,7 +68,7 @@ static char	*next_prompt_address(char *prompt)
 	single_quotes_flag = 0;
 	if (!*prompt)
 		return (NULL);
-	if (ft_strchr(SEPARATORS, *prompt))
+	if (ft_strchr("(&|<>", *prompt))
 		return (++prompt);
 	if (ft_strchr("\"", *prompt))
 		double_quotes_flag = 1;
