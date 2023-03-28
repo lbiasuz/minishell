@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/03/26 17:46:01 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/03/27 21:21:37 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC				+=	$(PATH_NAME)/parse.c
 SRC				+=	$(PATH_NAME)/redirect.c
 SRC				+=	$(PATH_NAME)/runner.c
 SRC				+=	$(PATH_NAME)/token.c
+SRC				+=	$(PATH_NAME)/dollar.c
 SRC				+=	$(PATH_NAME)/signal_handler.c
 SRC				+=	$(PATH_BUILTINS)/cd.c
 SRC				+=	$(PATH_BUILTINS)/echo.c
