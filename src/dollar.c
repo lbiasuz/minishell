@@ -6,11 +6,14 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/27 21:24:23 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/28 22:29:40 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/env.h"
+
+extern t_ms	g_ms;
 
 int		char_count(char *string, char c)
 {
@@ -62,4 +65,33 @@ int	expand_dollar_sign(char *input, char *dollar)
 		flag = 0;
 	free(occurences);
 	return (flag);
+}
+
+char	*join_envp_var(char *variable, char *before, char *after)
+{
+	char	*join1;
+	char	*join2;
+
+	join1 = ft_strjoin(before, variable);
+	join2 = ft_strjoin(join1, after);
+	free(join1);
+	return (join2);
+}
+
+char	*expand_variable(char *input, char *dollar)
+{
+	int		index = 0;
+	char	*variable;
+	char	*value;
+
+	while (ft_isalnum(dollar[index]) || dollar[index] == '_')
+		index++;
+	variable = ft_substr(dollar, 1, index);
+	value = get_value(g_ms.envp, variable);
+	return (join_envp_var(
+		ft_substr(input, 0, dollar - input),
+		value,
+		ft_substr(&input[index], 0, ft_strlen(&input[index]))
+		)
+	);
 }
