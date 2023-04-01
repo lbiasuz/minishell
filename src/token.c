@@ -6,12 +6,28 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/25 23:32:50 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/03/26 17:49:26 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "token.h"
+#include "../include/minishell.h"
+#include "../include/token.h"
+
+// static int char_occurences(char *string, int c)
+// {
+// 	int occurences;
+// 	int index;
+
+// 	index = 0;
+// 	occurences = 0;
+// 	while (string[index])
+// 	{
+// 		if (string[index] == c)
+// 			occurences++;
+// 		index++;
+// 	}
+// 	return (occurences);
+// }
 
 t_list	*plain_token(char *input)
 {
@@ -37,45 +53,36 @@ t_list	*plain_token(char *input)
 t_list	*compose_token(char *input)
 {
 	t_tkn	*token;
-	char	*addr;
 
 	token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
-	addr = ft_strchr(input, '$');
-	if (addr
-		&& ft_strchr(input, '\'') > addr 
-		&& char_occurences(input, '\'') == 2)
+	if (ft_strchr(input, '$'))
 		token->token = EXPAND;
-	token->value = TEXT;
+	else if (ft_strchr(input, '\"'))
+		token->token = DQUOTE;
+	else
+		token->token = TEXT;
+	token->value = input;
 	return (ft_lstnew(token));
 }
 
-t_list	*tokenize(char *input)
+t_list	*tokenize(char **inputs)
 {
+	t_list	*token_list;
 	int		len;
-
-	len = ft_strlen(input);
-	if (len == 1 && input[0] && !ft_isalnum(input[0]))
-		return (plain_token(input));
-	return (compose_token(input));
-}
-
-char	*scan_for_errors(t_list *token_list)
-{
-	...
-}
-
-int	char_occurences(char *string, int c)
-{
-	int	occurences;
-	int	index;
+	int		index;
 
 	index = 0;
-	occurences = 0;
-	while (string[index])
+	token_list = NULL;
+	while (inputs[index])
 	{
-		if (string[index] == c)
-			occurences++;
+		len = ft_strlen(inputs[index]);
+		if (len == 1 && inputs[index][0] && !ft_isalnum(inputs[index][0]))
+			ft_lstadd_back(&token_list, plain_token(inputs[index]));
+		else
+			ft_lstadd_back(&token_list, compose_token(inputs[index]));
 		index++;
 	}
-	return (occurences);
+	return (token_list);
 }
+
+// char *scan_for_errors(t_list	*token_list);
