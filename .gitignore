@@ -10,3 +10,4 @@ vgcore.*
 info.plist
 minishell
 *.supp
+test_output.txt
