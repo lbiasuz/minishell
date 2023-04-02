@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/25 21:23:49 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/02 01:06:42 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static int	process_input(char *prompt)
 
 	if (!*prompt)
 		return (0);
-	add_history(prompt);
 	parsed_input = parse(prompt);
 	if (parsed_input)
 	{
+		add_history(prompt);
 		print_parse(parsed_input);
 		free_parse(parsed_input);
 	}
