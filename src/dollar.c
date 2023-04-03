@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/28 22:29:40 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/03 10:49:58 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 extern t_ms	g_ms;
 
-int		char_count(char *string, char c)
+int	char_count(char *string, char c)
 {
 	int	index;
 	int	count;
@@ -54,10 +54,10 @@ int	expand_dollar_sign(char *input, char *dollar)
 	char	**occurences;
 	int		flag;
 	int		index;
-	
+
 	occurences = char_occurences(input, '\'');
 	index = 0;
-	while(occurences[index] && occurences[index] < dollar)
+	while (occurences[index] && occurences[index] < dollar)
 		index++;
 	if (occurences[index] && index % 2 == 0)
 		flag = 1;
@@ -80,18 +80,19 @@ char	*join_envp_var(char *variable, char *before, char *after)
 
 char	*expand_variable(char *input, char *dollar)
 {
-	int		index = 0;
+	int		index;
 	char	*variable;
 	char	*value;
 
+	index = 0;
 	while (ft_isalnum(dollar[index]) || dollar[index] == '_')
 		index++;
 	variable = ft_substr(dollar, 1, index);
 	value = get_value(g_ms.envp, variable);
 	return (join_envp_var(
-		ft_substr(input, 0, dollar - input),
-		value,
-		ft_substr(&input[index], 0, ft_strlen(&input[index]))
+			ft_substr(input, 0, dollar - input),
+			value,
+			ft_substr(&input[index], 0, ft_strlen(&input[index]))
 		)
 	);
 }
