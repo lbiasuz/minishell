@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/26 17:49:47 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/03 20:01:12 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_tkn {
 
 char	**parse(char	*prompt);
 void	init_signal_handlers(void);
+char	*lookfor_error(t_list *tokens);
 
 // BUILTINS
 int		cd(int argc, char *argv[]);
