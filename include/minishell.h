@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/04 19:27:25 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:37:27 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_tkn {
 
 char	**parse(char	*prompt);
 void	init_signal_handlers(void);
+char	*lookfor_error(t_list *tokens);
 
 // BUILTINS
 int		cd(int argc, char *argv[]);
