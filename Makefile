@@ -6,7 +6,7 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/04 19:37:11 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/04 20:24:44 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,18 +44,18 @@ OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
 HEADER_FILES	=	$(foreach dir, $(PATH_HEADERS), $(wildcard $(dir)/*.h))
 LIBS			+=	ft
 LIBS			+=	readline
-DEP				=	libft.a
+LIBFT				=	libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(DEP) $(OBJ)
+$(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(OPT) -o $(NAME) $(OBJ) $(PATH_HEADERS:%=-I%/) $(PATH_LIBS:%=-L%/) $(LIBS:%=-l%)
 
 $(PATH_OBJ)/%.o: %.c $(HEADER_FILES)
 	mkdir -p $(dir $@)
 	$(CC) $(OPT) -c $< -o $@ $(PATH_HEADERS:%=-I%/)
 
-$(DEP):
+$(LIBFT):
 	@mkdir -p $(PATH_OBJ)
 	make -C libft/ all
 
@@ -63,6 +63,7 @@ clean:
 	make -C libft/ clean
 	rm -rf $(PATH_OBJ)
 	rm -f *.dSYM
+	make -C tests -f test_minishell.mk clean
 
 fclean: clean
 	make -C libft/ fclean
@@ -70,4 +71,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+test: all
+	make -C tests -f test_minishell.mk
+
+.PHONY: all clean fclean re test
