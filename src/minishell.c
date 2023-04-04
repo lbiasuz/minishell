@@ -6,11 +6,11 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/02 01:06:42 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:28:50 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include <minishell.h>
 
 static int	process_input(char *prompt);
 static void	print_parse(char **input);

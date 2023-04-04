@@ -3,22 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
+#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/03/27 21:21:37 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/04/04 19:26:43 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 CC		=	gcc
 OPT		=	-Wall -Werror -Wextra -g3
-# PATH
+
+# PATHS
 PATH_NAME		=	src
 PATH_BUILTINS	=	$(PATH_NAME)/builtins
 PATH_OBJ		=	obj
-PATH_INCLUDE	=	include
-# SRC
+PATH_HEADERS	+=	include
+PATH_HEADERS	+=	libft
+PATH_LIBS		+=	libft
+
+# FILES
 SRC				+=	$(PATH_NAME)/bin_path.c
 SRC				+=	$(PATH_NAME)/env.c
 SRC				+=	$(PATH_NAME)/helper.c
@@ -35,28 +39,24 @@ SRC				+=	$(PATH_BUILTINS)/env.c
 SRC				+=	$(PATH_BUILTINS)/export.c
 SRC				+=	$(PATH_BUILTINS)/pwd.c
 SRC				+=	$(PATH_BUILTINS)/unset.c
-# OBJ
 OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
-# INCLUDES
-INCLUDES		+=	$(PATH_INCLUDE)/minishell.h
-INCLUDES		+=	$(PATH_INCLUDE)/env.h
-INCLUDES		+=	$(PATH_INCLUDE)/redirect.h
-INCLUDES		+=	$(PATH_INCLUDE)/token.h
+HEADER_FILES	=	$(foreach dir, $(PATH_HEADERS), $(wildcard $(dir)/*.h))
+LIBS			+=	ft
+LIBS			+=	readline
 DEP				=	libft.a
 
 all: $(NAME)
 
 $(NAME): $(DEP) $(OBJ)
-	$(CC) $(OPT) $(OBJ) $(DEP) -lreadline -o $(NAME)
+	$(CC) $(OPT) -o $(NAME) $(OBJ) $(PATH_HEADERS:%=-I%/) $(PATH_LIBS:%=-L%/) $(LIBS:%=-l%)
 
-$(PATH_OBJ)/%.o: %.c $(INCLUDES)
+$(PATH_OBJ)/%.o: %.c $(HEADER_FILES)
 	mkdir -p $(dir $@)
-	$(CC) $(OPT) -c $< -o $@
+	$(CC) $(OPT) -c $< -o $@ $(PATH_HEADERS:%=-I%/)
 
 $(DEP):
 	@mkdir -p $(PATH_OBJ)
 	make -C libft/ all
-	mv libft/libft.a libft.a
 
 clean:
 	make -C libft/ clean
@@ -65,7 +65,7 @@ clean:
 
 fclean: clean
 	make -C libft/ fclean
-	rm -f $(NAME) $(DEP)
+	rm -f $(NAME)
 
 re: fclean all
 
