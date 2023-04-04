@@ -6,12 +6,12 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:03:55 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/23 17:00:41 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:05:38 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/env.h"
-#include "../../include/minishell.h"
+#include <minishell.h>
+#include <env.h>
 
 t_ms	g_ms;
 

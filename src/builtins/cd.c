@@ -6,11 +6,11 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:25 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/23 20:23:32 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:04:46 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
+#include <libft.h>
 #include <stdio.h> // perror
 #include <stdlib.h> // getenv
 #include <unistd.h> // chdir

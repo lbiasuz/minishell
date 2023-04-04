@@ -6,17 +6,17 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/04 19:34:13 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:02:13 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include "../include/token.h"
+#include <token.h>
 
 static int	process_input(char *prompt);
 static void	print_parse(char **input);
 static void	free_parse(char **input);
-static void print_tokens(t_list *tokens);
+static void	print_tokens(t_list *tokens);
 
 int	main(int argc, char *argv[])
 {

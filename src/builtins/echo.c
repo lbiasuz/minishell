@@ -6,11 +6,11 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:13:23 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/23 20:23:39 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:05:02 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h" // striteri putstr_fd putchar_fd
+#include <libft.h> // striteri putstr_fd putchar_fd
 #include <stdlib.h> // exit
 
 static void	parse_arguments(int arg_c, char *argv[]);

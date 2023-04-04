@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:20:00 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/03 21:35:54 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/04 19:52:33 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include "../include/token.h"
+#include <minishell.h>
+#include <token.h>
 
 char	*get_token(t_list *node)
 {

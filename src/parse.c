@@ -6,11 +6,11 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/03/31 21:27:54 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:53:22 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include <minishell.h>
 
 static int	count_table_size(char *prompt);
 static char	*next_prompt_address(char *prompt);

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:24:23 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/21 21:36:40 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/04 20:05:52 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-#include "../../include/env.h"
+#include <minishell.h>
+#include <env.h>
 
 extern t_ms	g_ms;
 
