@@ -6,7 +6,7 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/05 16:46:06 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/05 17:11:45 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ PATH_BUILTINS	=	$(PATH_NAME)/builtins
 PATH_OBJ		=	obj
 PATH_HEADERS	+=	include
 PATH_HEADERS	+=	libft
-# PATH_HEADERS	+=	/opt/local/include
+PATH_HEADERS	+=	/opt/local/include
 PATH_LIBS		+=	libft
-# PATH_LIBS		+=	/opt/local/lib
+PATH_LIBS		+=	/opt/local/lib
 
 # FILES
 SRC				+=	$(PATH_NAME)/bin_path.c
@@ -46,7 +46,6 @@ OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
 HEADER_FILES	=	$(foreach dir, $(PATH_HEADERS), $(wildcard $(dir)/*.h))
 LIBS			+=	ft
 LIBS			+=	readline
-LIBS			+=	history
 LIBFT			=	libft/libft.a
 
 all: $(NAME)
@@ -59,7 +58,6 @@ $(PATH_OBJ)/%.o: %.c $(HEADER_FILES)
 	$(CC) $(CFLAGS) -c $< -o $@ $(PATH_HEADERS:%=-I%/)
 
 $(LIBFT):
-	@mkdir -p $(PATH_OBJ)
 	make -C libft/ all
 
 clean:
