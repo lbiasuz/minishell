@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/05 16:57:54 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:16:56 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void print_tokens(t_list *tokens)
 	while (l)
 	{
 		t = l->content;
-		ft_printf("token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s\x1B[0m \n", t->token, t->value);
+		ft_printf("token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n", t->token, t->value);
 		l = l->next;
 	}
 }
