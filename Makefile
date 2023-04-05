@@ -20,9 +20,9 @@ PATH_BUILTINS	=	$(PATH_NAME)/builtins
 PATH_OBJ		=	obj
 PATH_HEADERS	+=	include
 PATH_HEADERS	+=	libft
-PATH_HEADERS	+=	/opt/local/include
+# PATH_HEADERS	+=	/opt/local/include
 PATH_LIBS		+=	libft
-PATH_LIBS		+=	/opt/local/lib
+# PATH_LIBS		+=	/opt/local/lib
 
 # FILES
 SRC				+=	$(PATH_NAME)/bin_path.c
@@ -45,8 +45,8 @@ SRC				+=	$(PATH_BUILTINS)/unset.c
 OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
 HEADER_FILES	=	$(foreach dir, $(PATH_HEADERS), $(wildcard $(dir)/*.h))
 LIBS			+=	ft
-LIBS			+=	history
 LIBS			+=	readline
+LIBS			+=	history
 LIBFT			=	libft/libft.a
 
 all: $(NAME)
