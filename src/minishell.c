@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/04 20:02:13 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/05 18:52:36 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,23 @@ int	main(int argc, char *argv[])
 	if (argc >= 2)
 		return (-1);
 	init_signal_handlers();
-	prompt = readline("MINI_PROMPT:");
-	while (prompt)
+	prompt = readline(PROMPT_DISPLAY_TEXT);
+	while (1)
 	{
-		if (ft_strncmp("exit", prompt, 5) == 0)
+		if (!prompt || ft_strncmp("exit", prompt, 5) == 0)
+		{
+			write(1, "exit", 4);
 			break ;
+		}
 		if (process_input(prompt))
 			break ;
 		free(prompt);
-		prompt = readline("MINI_PROMPT:");
+		prompt = readline(PROMPT_DISPLAY_TEXT);
 	}
 	if (prompt)
 		free(prompt);
+	write(1, "\n", 1);
+	rl_redisplay();
 	clear_history();
 	return (0);
 }
