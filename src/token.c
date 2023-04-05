@@ -3,31 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/04 19:53:39 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/05 12:01:59 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <token.h>
-
-// static int char_occurences(char *string, int c)
-// {
-// 	int occurences;
-// 	int index;
-
-// 	index = 0;
-// 	occurences = 0;
-// 	while (string[index])
-// 	{
-// 		if (string[index] == c)
-// 			occurences++;
-// 		index++;
-// 	}
-// 	return (occurences);
-// }
 
 t_list	*plain_token(char *input)
 {
@@ -46,7 +30,7 @@ t_list	*plain_token(char *input)
 		token->token = EXPAND;
 	else
 		token->token = TEXT;
-	token->value = input;
+	token->value = ft_strdup(input);
 	return (ft_lstnew(token));
 }
 
@@ -61,7 +45,7 @@ t_list	*compose_token(char *input)
 		token->token = DQUOTE;
 	else
 		token->token = TEXT;
-	token->value = input;
+	token->value = ft_strdup(input);
 	return (ft_lstnew(token));
 }
 

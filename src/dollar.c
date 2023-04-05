@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/04 19:51:55 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/05 09:46:08 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 extern t_ms	g_ms;
 
-int	char_count(char *string, char c)
+static int	char_count(char *string, char c)
 {
 	int	index;
 	int	count;
@@ -31,7 +31,7 @@ int	char_count(char *string, char c)
 	return (count);
 }
 
-char	**char_occurences(char *string, char c)
+static char	**char_occurences(char *string, char c)
 {
 	char	*aux;
 	int		index;

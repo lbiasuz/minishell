@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/05 18:52:36 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:01:02 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static int	process_input(char *prompt)
 	{
 		add_history(prompt);
 		print_parse(parsed_input);
-		print_tokens(tokens);
 		ft_printf("error: \x1B[37m%s\n", lookfor_error(tokens));
+		print_tokens(tokens);
 		free_parse(parsed_input);
 	}
 	rl_on_new_line();
