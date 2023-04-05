@@ -6,13 +6,13 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/05 16:39:54 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/05 16:46:06 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 CC		=	gcc
-OPT		=	-Wall -Werror -Wextra -g3
+CFLAGS		=	-Wall -Werror -Wextra -g3
 
 # PATHS
 PATH_NAME		=	src
@@ -52,11 +52,11 @@ LIBFT			=	libft/libft.a
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(OPT) -o $(NAME) $(OBJ) $(PATH_HEADERS:%=-I%/) $(PATH_LIBS:%=-L%/) $(LIBS:%=-l%)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(PATH_HEADERS:%=-I%/) $(PATH_LIBS:%=-L%/) $(LIBS:%=-l%)
 
 $(PATH_OBJ)/%.o: %.c $(HEADER_FILES)
 	mkdir -p $(dir $@)
-	$(CC) $(OPT) -c $< -o $@ $(PATH_HEADERS:%=-I%/)
+	$(CC) $(CFLAGS) -c $< -o $@ $(PATH_HEADERS:%=-I%/)
 
 $(LIBFT):
 	@mkdir -p $(PATH_OBJ)

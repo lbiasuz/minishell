@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/05 19:01:02 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:57:54 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ static int	process_input(char *prompt)
 	char	**parsed_input;
 	t_list	*tokens;
 
-	if (!*prompt)
-		return (0);
 	parsed_input = parse(prompt);
 	tokens = tokenize(parsed_input);
 	if (parsed_input)
