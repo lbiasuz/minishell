@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/06 11:44:26 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/06 11:54:16 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,13 @@ int	stdout_to_file(char *filepath)
 	return (fd);
 }
 
-int	heredoc_to_stdin(t_tkn token)
+int	heredoc_to_stdin(char *stop_str)
 {
 	char	*buff;
-	char	*stop_str;
 	int		stop_str_len;
 
 	buff = "";
-	stop_str = token.value;
-	stop_str_len = ft_strlen(token.value);
+	stop_str_len = ft_strlen(stop_str);
 	while (ft_strncmp(stop_str, buff, stop_str_len))
 	{
 		rl_on_new_line();
