@@ -1,9 +1,9 @@
 
 - [ ] Decidir atributos variável Global
 - [x] Estruturar árvore de arquivos do projeto [Nomes, Pastas, Contextos]
-- [ ] Estudar errno
-- [ ] Migrar pipex para o minishell
-- [ ] Remover includes absolutos [LINK](https://stackoverflow.com/questions/2741422/how-can-i-avoid-explicitly-declaring-directory-paths-in-c-or-c-include-direct)
+- [x] Estudar errno
+- [x] Migrar pipex para o minishell
+- [x] Remover includes absolutos [LINK](https://stackoverflow.com/questions/2741422/how-can-i-avoid-explicitly-declaring-directory-paths-in-c-or-c-include-direct)
 
 ### Env table
 - [x] ENV TABLE
@@ -18,24 +18,24 @@
 - [x] EXIT
 
 ### Prompt
-- [ ] Comportamento de history
-- [ ] Interceptação de teclas [Setas, Enter]
-- [ ] Estudar comportamento Crtl + D
+- [x] Comportamento de history
+- [x] Interceptação de teclas [Setas, Enter]
+- [x] Estudar comportamento Crtl + D
 - [ ] Gerenciamento de memória
 
-### Parser
-- [ ] COMMAND TABLE
+### Parser / Token
+- [x] COMMAND TABLE
 - [ ] $ EXPANSION [ $PATH, $USER ]
 - [ ] QUOTES [ ",  ', \, $ ]
 - [x] HISTORY
 
 ### Runner / Executor
 - [ ] REDIRECTION [< , <<, >> ,  >]
-- [ ] BUSCA DE BINÁRIO NO AMBIENTE
-- [ ] EXECVE
+- [x] BUSCA DE BINÁRIO NO AMBIENTE
+- [ ] estudar EXECVE
 
 ### Sinais
 - [ ] Exit variable
-- [ ] Crtl - D
-- [ ] Crtl - \
-- [ ] Crtl - C
+- [x] Crtl - D
+- [x] Crtl - \
+- [x] Crtl - C
