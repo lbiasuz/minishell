@@ -30,12 +30,12 @@
 - [x] HISTORY
 
 ### Runner / Executor
-- [ ] REDIRECTION [< , <<, >> ,  >]
+- [x] REDIRECTION [< , <<, >> ,  >]
 - [x] BUSCA DE BINÁRIO NO AMBIENTE
 - [ ] estudar EXECVE
+- [ ] Exit variable
 
 ### Sinais
-- [ ] Exit variable
 - [x] Crtl - D
 - [x] Crtl - \
 - [x] Crtl - C
