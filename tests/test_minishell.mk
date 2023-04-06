@@ -6,14 +6,14 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/31 21:15:56 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/04 20:23:34 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/06 10:20:21 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = test_output.txt
 
 TEST_INPUT = test_input.txt
-TEST_HASH = "e3ab27789415f3a2baf354b4f7299ac68df62f35 Utest_output.txt"
+TEST_HASH = "44e3c15ad40d770f577a6c7b38666c8ab63d85d1 Utest_output.txt"
 TEST_SUBJECT = ../minishell
 
 all: $(NAME)
