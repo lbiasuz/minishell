@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:51:18 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/06 11:38:38 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:38:22 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	file_to_stdin(char *filepath);
 ///			until defined token is found;
 /// @param token string with tells here-doc the user finished typing.
 /// @return fd returns opened fd
-int	heredoc_to_stdin(t_tkn token);
+int	heredoc_to_stdin(char *stop_str);
 
 /// @brief Opens/Creates file on recieved path (Write Only)
 /// 		and duplicates the content from STDOUT to it;
