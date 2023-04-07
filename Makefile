@@ -6,7 +6,7 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/05 17:11:45 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/07 02:05:41 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ clean:
 fclean: clean
 	make -C libft/ fclean
 	rm -f $(NAME)
+	make -C tests -f test_minishell.mk fclean
 
 re: fclean all
 

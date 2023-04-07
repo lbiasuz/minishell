@@ -11,3 +11,4 @@ info.plist
 minishell
 *.supp
 test_output.txt
+test_output.txt_old
