@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/06 11:54:16 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/06 23:02:47 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ int	heredoc_to_stdin(char *stop_str)
 		if (!buff)
 			return (-1);
 		write(STDIN_FILENO, buff, ft_strlen(buff));
+		free(buff);
 	}
+	if (buff)
+		free(buff);
 	return (0);
 }
 
