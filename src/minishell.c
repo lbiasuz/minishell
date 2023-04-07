@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/06 10:25:10 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:58:45 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char *argv[])
 	prompt = readline(PROMPT_DISPLAY_TEXT);
 	while (1)
 	{
+		rl_on_new_line();
 		if (!prompt || ft_strncmp("exit", prompt, 5) == 0)
 		{
 			write(1, "exit", 4);
@@ -52,16 +53,16 @@ static int	process_input(char *prompt)
 	t_list	*tokens;
 
 	parsed_input = parse(prompt);
+	if (!parsed_input)
+		return (0);
 	tokens = tokenize(parsed_input);
-	if (parsed_input)
-	{
-		add_history(prompt);
-		print_parse(parsed_input);
-		ft_printf("error: \x1B[37m%s\n", lookfor_error(tokens));
-		print_tokens(tokens);
-		free_parse(parsed_input);
-	}
-	rl_on_new_line();
+	if (!tokens)
+		return (0);
+	add_history(prompt);
+	print_parse(parsed_input);
+	free_parse(parsed_input);
+	ft_printf("error: \x1B[37m%s\n", lookfor_error(tokens));
+	print_tokens(tokens);
 	return (0);
 }
 
