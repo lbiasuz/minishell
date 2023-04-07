@@ -6,11 +6,14 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/04/04 19:53:22 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:37:38 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+#define SINGLE_QUOTES 1
+#define DOUBLE_QUOTES 2
 
 static int	count_table_size(char *prompt);
 static char	*next_prompt_address(char *prompt);
@@ -33,8 +36,6 @@ char	**parse(char	*prompt)
 		perror("ft_calloc by parse");
 		return (NULL);
 	}
-	// else
-	// insert_free(parse_result);
 	if (fill_parse_values(parse_result, prompt))
 		return (NULL);
 	return (parse_result);
@@ -59,38 +60,29 @@ static int	count_table_size(char *prompt)
 
 static char	*next_prompt_address(char *prompt)
 {
-	int	double_quotes_flag;
-	int	single_quotes_flag;
+	int	quotes_flag;
 
-	double_quotes_flag = 0;
-	single_quotes_flag = 0;
 	if (!*prompt)
 		return (NULL);
 	if (ft_strchr("(&|<>", *prompt))
 		return (++prompt);
+	quotes_flag = 0;
 	if (ft_strchr("\"", *prompt))
-		double_quotes_flag = 1;
+		quotes_flag = DOUBLE_QUOTES;
 	else if (ft_strchr("\'", *prompt))
-		single_quotes_flag = 1;
+		quotes_flag = SINGLE_QUOTES;
 	prompt++;
 	while (*prompt)
 	{
-		if (ft_strchr("&|$<>", *prompt) && !(double_quotes_flag || single_quotes_flag))
-			break ;
-		if (ft_isspace(*prompt) && !(double_quotes_flag || single_quotes_flag))
-			break ;
-		if (ft_strchr("\"", *prompt) && double_quotes_flag)
+		if (quotes_flag)
 		{
-			double_quotes_flag--;
-			prompt++;
-			break ;
+			if (quotes_flag == DOUBLE_QUOTES && ft_strchr("\"", *prompt) && quotes_flag-- && ++prompt)
+				break ;
+			if (quotes_flag == SINGLE_QUOTES && ft_strchr("\'", *prompt) && quotes_flag-- && ++prompt)
+				break ;
 		}
-		if (ft_strchr("\'", *prompt) && single_quotes_flag)
-		{
-			single_quotes_flag--;
-			prompt++;
+		else if (ft_strchr("&|$<>", *prompt) || ft_isspace(*prompt))
 			break ;
-		}
 		prompt++;
 	}
 	while (*prompt && ft_isspace(*prompt))
@@ -131,8 +123,6 @@ static char	*get_value(char *str_start, char *str_end)
 		perror("ft_calloc by get_vallue by fill_parse_values");
 		return (NULL);
 	}
-	// else
-	// 	insert_free(value);
 	ft_memcpy(value, str_start, str_len);
 	return (value);
 }
