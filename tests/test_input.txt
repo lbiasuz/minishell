@@ -2,3 +2,12 @@
     echo      $HOME
    echo     $HOME"HOME"
     echo      $HOME      "HOME"
+""
+"
+
+"m
+export HELLO=hi | acho $HELLO
+acho $HELLO
+export HELLO=hi
+acho $HELLO
+export HELLO=hi | acho $HELLO

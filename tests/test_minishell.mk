@@ -6,14 +6,14 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/31 21:15:56 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/07 02:36:41 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/08 12:54:15 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = test_output.txt
 
 TEST_INPUT = test_input.txt
-SHASUM = "44e3c15ad40d770f577a6c7b38666c8ab63d85d1 Utest_output.txt"
+SHASUM = "c702604009017018e7ab546511fe04533d7edb1e Utest_output.txt"
 TEST_SUBJECT = ../minishell
 
 all: clean $(NAME)
@@ -33,7 +33,7 @@ fclean: clean
 
 re: fclean all
 
-shasum: all
+shasum:
 	shasum -U $(NAME)
 
 show:
