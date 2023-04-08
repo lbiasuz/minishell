@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/05 09:46:08 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/08 11:16:45 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,6 @@
 #include <env.h>
 
 extern t_ms	g_ms;
-
-static int	char_count(char *string, char c)
-{
-	int	index;
-	int	count;
-
-	index = 0;
-	count = 0;
-	while (string[index])
-	{
-		if (string[index] == c)
-			count++;
-		index ++;
-	}
-	return (count);
-}
-
-static char	**char_occurences(char *string, char c)
-{
-	char	*aux;
-	int		index;
-	char	**occurences;
-
-	index = 0;
-	aux = string;
-	occurences = ft_calloc(char_count(string, c), sizeof(char **));
-	while (string[index])
-	{
-		aux = ft_strchr(aux, c);
-		occurences[index] = aux;
-		index++;
-	}
-	return (occurences);
-}
 
 int	expand_dollar_sign(char *input, char *dollar)
 {
@@ -67,7 +33,7 @@ int	expand_dollar_sign(char *input, char *dollar)
 	return (flag);
 }
 
-char	*join_envp_var(char *variable, char *before, char *after)
+char	*join_envp_var(char *before, char *variable, char *after)
 {
 	char	*join1;
 	char	*join2;
@@ -84,7 +50,7 @@ char	*expand_variable(char *input, char *dollar)
 	char	*variable;
 	char	*value;
 
-	index = 0;
+	index = 1;
 	while (ft_isalnum(dollar[index]) || dollar[index] == '_')
 		index++;
 	variable = ft_substr(dollar, 1, index);

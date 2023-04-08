@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/23 20:21:25 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/08 09:17:00 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <libft.h>
 
 void	free_table(char **table)
 {
@@ -22,4 +23,38 @@ void	free_table(char **table)
 		free(table[i]);
 		i++;
 	}
+}
+
+int	char_count(char *string, char c)
+{
+	int	index;
+	int	count;
+
+	index = 0;
+	count = 0;
+	while (string[index])
+	{
+		if (string[index] == c)
+			count++;
+		index ++;
+	}
+	return (count);
+}
+
+char	**char_occurences(char *string, char c)
+{
+	char	*aux;
+	int		index;
+	char	**occurences;
+
+	index = 0;
+	aux = string;
+	occurences = ft_calloc(char_count(string, c), sizeof(char **));
+	while (string[index])
+	{
+		aux = ft_strchr(aux, c);
+		occurences[index] = aux;
+		index++;
+	}
+	return (occurences);
 }
