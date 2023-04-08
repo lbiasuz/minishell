@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/06 22:58:45 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/08 11:19:37 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static void	print_parse(char **input);
 static void	free_parse(char **input);
 static void	print_tokens(t_list *tokens);
 
-int	main(int argc, char *argv[])
+t_ms	g_ms;
+
+int	main(int argc, char *argv[], char *envp[])
 {
 	char	*prompt;
 
@@ -26,6 +28,7 @@ int	main(int argc, char *argv[])
 	if (argc >= 2)
 		return (-1);
 	init_signal_handlers();
+	g_ms = init_minishell(envp);
 	prompt = readline(PROMPT_DISPLAY_TEXT);
 	while (1)
 	{
@@ -98,7 +101,13 @@ static void print_tokens(t_list *tokens)
 	while (l)
 	{
 		t = l->content;
-		ft_printf("token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n", t->token, t->value);
+		if (!ft_strncmp(t->token, EXPAND, sizeof(EXPAND)))
+			t->token = expand_variable(t->value, ft_strchr(t->value, '$'));
+		ft_printf(
+			"token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n",
+			t->token,
+			t->value
+			);
 		l = l->next;
 	}
 }

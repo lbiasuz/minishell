@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/05 18:53:17 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/08 10:18:56 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 typedef struct s_ms {
 	t_list	*cmdlist;
+	t_list	*tokenlist;
 	char	**envp;
 	int		*exit_code;
 }	t_ms;
@@ -40,6 +41,9 @@ typedef struct s_tkn {
 	char	*value;
 	char	*token;
 }	t_tkn;
+
+//	INIT
+t_ms	init_minishell(char **env);
 
 char	**parse(char	*prompt);
 void	init_signal_handlers(void);
@@ -52,5 +56,12 @@ int		env(void);
 int		export(char **argv);
 int		pwd(void);
 int		unset(char **argv);
+
+//HELPER
+char	**char_occurences(char *string, char c);
+int		char_count(char *string, char c);
+void	free_table(char **table);
+
+char	*expand_variable(char *input, char *dollar);
 
 #endif

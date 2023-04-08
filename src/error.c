@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:20:00 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/06 11:47:40 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/08 09:31:52 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	join_tokens(t_list *t1, t_list *t2)
 
 	if (!t1 || !t2)
 		return ;
-	token_value = ft_strjoin(((t_tkn *) t1->content)->value, ((t_tkn *) t2->content)->token);
-	join_value = ft_strjoin(((t_tkn *) t1->content)->token, ((t_tkn *) t2->content)->token);
+	token_value = ft_strjoin(
+			((t_tkn *) t1->content)->value, ((t_tkn *) t2->content)->token);
+	join_value = ft_strjoin(
+			((t_tkn *) t1->content)->token, ((t_tkn *) t2->content)->token);
 	free(((t_tkn *) t1->content)->value);
 	free(((t_tkn *) t2->content)->value);
 	((t_tkn *) t1->content)->value = join_value;
@@ -43,7 +45,6 @@ void	join_tokens(t_list *t1, t_list *t2)
 char	*lookfor_error(t_list *tokens)
 {
 	t_list	*aux;
-	// t_list	*before;
 
 	aux = tokens;
 	while (aux && aux->next)
@@ -63,7 +64,6 @@ char	*lookfor_error(t_list *tokens)
 			return (
 				ft_strjoin(get_token(aux), get_token(aux->next))
 			);
-		// before = aux;
 		aux = aux->next;
 	}
 	return (NULL);

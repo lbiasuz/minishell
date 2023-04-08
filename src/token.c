@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/05 12:01:59 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/08 08:55:45 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,3 @@ t_list	*tokenize(char **inputs)
 	}
 	return (token_list);
 }
-
-// char *scan_for_errors(t_list	*token_list);

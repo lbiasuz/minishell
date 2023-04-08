@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/07 02:05:41 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/08 10:16:44 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ PATH_LIBS		+=	/opt/local/lib
 # FILES
 SRC				+=	$(PATH_NAME)/bin_path.c
 SRC				+=	$(PATH_NAME)/env.c
+SRC				+=	$(PATH_NAME)/init.c
 SRC				+=	$(PATH_NAME)/helper.c
 SRC				+=	$(PATH_NAME)/minishell.c
 SRC				+=	$(PATH_NAME)/parse.c
