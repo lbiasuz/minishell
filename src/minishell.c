@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/08 11:19:37 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/08 15:21:11 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	print_parse(char **input)
 	ft_printf("\n", input[i]);
 }
 
-static void print_tokens(t_list *tokens)
+static void	print_tokens(t_list *tokens)
 {
 	t_list	*l;
 	t_tkn	*t;

@@ -6,21 +6,12 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:20:00 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/08 09:31:52 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/10 10:06:02 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <token.h>
-
-char	*get_token(t_list *node)
-{
-	if (node && node->content)
-	{
-		return (((t_tkn *) node->content)->token);
-	}
-	return (NULL);
-}
 
 void	join_tokens(t_list *t1, t_list *t2)
 {
@@ -49,20 +40,20 @@ char	*lookfor_error(t_list *tokens)
 	aux = tokens;
 	while (aux && aux->next)
 	{
-		if ((!ft_strncmp(get_token(aux), CHEV, sizeof(CHEV))
-				&& !ft_strncmp(get_token(aux->next), CHEV, sizeof(CHEV)))
-			|| (!ft_strncmp(get_token(aux), ICHEV, sizeof(ICHEV))
-				&& !ft_strncmp(get_token(aux->next), ICHEV, sizeof(ICHEV)))
+		if ((!ft_strncmp(gtkn(aux), CHEV, sizeof(CHEV))
+				&& !ft_strncmp(gtkn(aux->next), CHEV, sizeof(CHEV)))
+			|| (!ft_strncmp(gtkn(aux), ICHEV, sizeof(ICHEV))
+				&& !ft_strncmp(gtkn(aux->next), ICHEV, sizeof(ICHEV)))
 		)
 			join_tokens(aux, aux->next);
 		else if (
-			!ft_strncmp(get_token(aux), ERROR, sizeof(ERROR))
+			!ft_strncmp(gtkn(aux), ERROR, sizeof(ERROR))
 			|| (aux->next != NULL
-				&& ft_strchr("<>\"\'|$&~", get_token(aux)[0])
-			&& ft_strchr("<>\"\'|$&~", get_token(aux->next)[0]))
+				&& ft_strchr("<>\"\'|$&~", gtkn(aux)[0])
+			&& ft_strchr("<>\"\'|$&~", gtkn(aux->next)[0]))
 		)
 			return (
-				ft_strjoin(get_token(aux), get_token(aux->next))
+				ft_strjoin(gtkn(aux), gtkn(aux->next))
 			);
 		aux = aux->next;
 	}

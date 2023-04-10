@@ -6,12 +6,22 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/08 09:17:00 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/10 10:06:39 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <minishell.h>
 #include <stdlib.h>
 #include <libft.h>
+
+char	*gtkn(t_list *node)
+{
+	if (node && node->content)
+	{
+		return (((t_tkn *) node->content)->token);
+	}
+	return (NULL);
+}
 
 void	free_table(char **table)
 {
