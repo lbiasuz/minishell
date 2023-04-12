@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/06 23:02:47 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/12 11:04:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <redirect.h>
 
-int	file_to_stdin(char *filepath)
+int	file_to_stdin(char *filepath, int current_fd)
 {
 	int	fd;
 
@@ -27,7 +27,7 @@ int	file_to_stdin(char *filepath)
 	return (fd);
 }
 
-int	stdout_to_file(char *filepath)
+int	stdout_to_file(char *filepath, int current_fd)
 {
 	int	fd;
 
@@ -41,7 +41,7 @@ int	stdout_to_file(char *filepath)
 	return (fd);
 }
 
-int	heredoc_to_stdin(char *stop_str)
+int	heredoc_to_stdin(char *stop_str, int current_fd)
 {
 	char	*buff;
 	int		stop_str_len;
@@ -62,7 +62,7 @@ int	heredoc_to_stdin(char *stop_str)
 	return (0);
 }
 
-int	append_stdout_to_file(char *filepath)
+int	append_stdout_to_file(char *filepath, int current_fd)
 {
 	int	fd;
 

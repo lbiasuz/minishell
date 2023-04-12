@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/10 10:06:15 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/12 11:24:03 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	**char_occurences(char *string, char c);
 int		char_count(char *string, char c);
 void	free_table(char **table);
 char	*gtkn(t_list *node);
+char	*gvle(t_list *node);
 
 char	*expand_variable(char *input, char *dollar);
 
