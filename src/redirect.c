@@ -6,17 +6,19 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/13 10:29:24 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/13 11:47:29 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <redirect.h>
+#include <token.h>
 
-void	redirect_fd(t_list *tokens, int in_fd, int out_fd)
+void	redirect_fds(t_list *tokens, int in_fd, int out_fd)
 {
 	t_list	*node;
 
+	node = tokens;
 	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 	{
 		if (!ft_strncmp(gtkn(node), DICHEV, sizeof(DICHEV)))
@@ -41,7 +43,7 @@ int	file_to_stdin(char *filepath, int current_fd)
 		perror("File not found");
 		return (fd);
 	}
-	dup2(fd, STDIN_FILENO);
+	dup2(fd, current_fd);
 	return (fd);
 }
 
@@ -55,7 +57,7 @@ int	stdout_to_file(char *filepath, int current_fd)
 		perror("File not found");
 		return (fd);
 	}
-	dup2(fd, STDOUT_FILENO);
+	dup2(fd, current_fd);
 	return (fd);
 }
 
@@ -72,7 +74,7 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 		buff = readline("heredoc> ");
 		if (!buff)
 			return (-1);
-		write(STDIN_FILENO, buff, ft_strlen(buff));
+		write(current_fd, buff, ft_strlen(buff));
 		free(buff);
 	}
 	if (buff)
@@ -90,6 +92,6 @@ int	append_stdout_to_file(char *filepath, int current_fd)
 		perror("File not found");
 		return (fd);
 	}
-	dup2(fd, STDOUT_FILENO);
+	dup2(fd, current_fd);
 	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/13 11:06:42 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/13 11:48:18 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,25 @@
 #include <env.h>
 #include <unistd.h>
 
-void	invoke_child(t_list *tokens, int in_fd, int out_fd)
+extern t_ms g_ms;
+
+char	**append_table(char	**table, char *variable)
 {
-	execve(get_command(tokens), get_args(tokens), g_ms.envp);
+	int		i;
+	char	**new_address;
+
+	i = 0;
+	while (table && table[i])
+		i++;
+	new_address = ft_calloc(i + 2, sizeof(char *));
+	if (table)
+		ft_memmove(table, new_address, sizeof(char *) * (i + 1));
+	new_address[i] = variable;
+	new_address[i + 1] = NULL;
+	free(table);
+	return (new_address);
 }
+
 
 char	*get_command(t_list *list)
 {
@@ -54,19 +69,25 @@ char	**get_args(t_list *list)
 	node = list;
 	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 	{
-		if (!ft_strncmp(gtkn(node), EXPAND, sizeof(EXPAND))
+		if ((!ft_strncmp(gtkn(node), EXPAND, sizeof(EXPAND))
 			|| !ft_strncmp(gtkn(node), TEXT, sizeof(TEXT))
 			|| !ft_strncmp(gtkn(node), SQUOTE, sizeof(SQUOTE))
-			|| !ft_strncmp(gtkn(node), DQUOTE, sizeof(DQUOTE))
+			|| !ft_strncmp(gtkn(node), DQUOTE, sizeof(DQUOTE)))
 			&& (!ft_strncmp(gtkn(last_node), EXPAND, sizeof(EXPAND))
 				|| !ft_strncmp(gtkn(last_node), TEXT, sizeof(TEXT))
 				|| !ft_strncmp(gtkn(last_node), SQUOTE, sizeof(SQUOTE))
 				|| !ft_strncmp(gtkn(last_node), DQUOTE, sizeof(DQUOTE))))
-			append_table(args, gvle(node));
+			args = append_table(args, gvle(node));
 		last_node = node;
 		node = node->next;
 	}
 	return (args);
+}
+
+void	invoke_child(t_list *tokens, int in_fd, int out_fd)
+{
+	redirect_fds(tokens, in_fd, out_fd);
+	execve(get_command(tokens), get_args(tokens), g_ms.envp);
 }
 
 void	runner(t_list *token_list)
