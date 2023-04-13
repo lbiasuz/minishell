@@ -6,12 +6,30 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/12 11:04:30 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/13 10:29:24 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <redirect.h>
+
+void	redirect_fd(t_list *tokens, int in_fd, int out_fd)
+{
+	t_list	*node;
+
+	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
+	{
+		if (!ft_strncmp(gtkn(node), DICHEV, sizeof(DICHEV)))
+			in_fd = heredoc_to_stdin(gvle(node->next), in_fd);
+		else if (!ft_strncmp(gtkn(node), DCHEV, sizeof(DCHEV)))
+			out_fd = append_stdout_to_file(gvle(node->next), out_fd);
+		else if (!ft_strncmp(gtkn(node), CHEV, sizeof(CHEV)))
+			out_fd = stdout_to_file(gvle(node->next), out_fd);
+		else if (!ft_strncmp(gtkn(node), ICHEV, sizeof(ICHEV)))
+			in_fd = file_to_stdin(gvle(node->next), in_fd);
+		node = node->next;
+	}
+}
 
 int	file_to_stdin(char *filepath, int current_fd)
 {

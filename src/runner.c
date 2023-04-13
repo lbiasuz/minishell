@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/12 12:11:28 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/13 11:06:42 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,56 @@
 
 void	invoke_child(t_list *tokens, int in_fd, int out_fd)
 {
-	t_list	*node;
-
-	node = tokens;
-	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
-	{
-		if (!ft_strncmp(gtkn(node), DICHEV, sizeof(DICHEV)))
-			in_fd = heredoc_to_stdin(gvle(node->next), in_fd);
-		else if (!ft_strncmp(gtkn(node), DCHEV, sizeof(DCHEV)))
-			out_fd = append_stdout_to_file(gvle(node->next), out_fd);
-		else if (!ft_strncmp(gtkn(node), CHEV, sizeof(CHEV)))
-			out_fd = stdout_to_file(gvle(node->next), out_fd);
-		else if (!ft_strncmp(gtkn(node), ICHEV, sizeof(ICHEV)))
-			in_fd = file_to_stdin(gvle(node->next), in_fd);
-		node = node->next;
-	}
-	execve();
+	execve(get_command(tokens), get_args(tokens), g_ms.envp);
 }
 
+char	*get_command(t_list *list)
+{
+	t_list	*node;
+	t_list	*last_node;
 
+	node = list;
+	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
+	{
+		if (ft_strncmp(gtkn(last_node), DICHEV, sizeof(DICHEV))
+			&& ft_strncmp(gtkn(last_node), DCHEV, sizeof(DCHEV))
+			&& ft_strncmp(gtkn(last_node), CHEV, sizeof(CHEV))
+			&& ft_strncmp(gtkn(last_node), ICHEV, sizeof(ICHEV))
+			&& (!ft_strncmp(gtkn(node), EXPAND, sizeof(EXPAND))
+				|| !ft_strncmp(gtkn(node), TEXT, sizeof(TEXT))
+				|| !ft_strncmp(gtkn(node), SQUOTE, sizeof(SQUOTE))
+				|| !ft_strncmp(gtkn(node), DQUOTE, sizeof(DQUOTE))))
+			return (gvle(node));
+		last_node = node;
+		node = node->next;
+	}
+	return (NULL);
+}
 
+char	**get_args(t_list *list)
+{
+	t_list	*node;
+	t_list	*last_node;
+	char	**args;
+
+	args = NULL;
+	node = list;
+	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
+	{
+		if (!ft_strncmp(gtkn(node), EXPAND, sizeof(EXPAND))
+			|| !ft_strncmp(gtkn(node), TEXT, sizeof(TEXT))
+			|| !ft_strncmp(gtkn(node), SQUOTE, sizeof(SQUOTE))
+			|| !ft_strncmp(gtkn(node), DQUOTE, sizeof(DQUOTE))
+			&& (!ft_strncmp(gtkn(last_node), EXPAND, sizeof(EXPAND))
+				|| !ft_strncmp(gtkn(last_node), TEXT, sizeof(TEXT))
+				|| !ft_strncmp(gtkn(last_node), SQUOTE, sizeof(SQUOTE))
+				|| !ft_strncmp(gtkn(last_node), DQUOTE, sizeof(DQUOTE))))
+			append_table(args, gvle(node));
+		last_node = node;
+		node = node->next;
+	}
+	return (args);
+}
 
 void	runner(t_list *token_list)
 {
