@@ -6,9 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 09:50:14 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/16 09:50:39 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/16 10:30:35 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <minishell.h>
 
 void	free_table(char **table)
 {

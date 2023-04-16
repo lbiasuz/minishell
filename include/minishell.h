@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/15 21:07:58 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/16 10:31:49 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ int		unset(char **argv);
 char	**char_occurences(char *string, char c);
 int		char_count(char *string, char c);
 void	free_table(char **table);
-char	*gtkn(t_list *node);
-char	*gvle(t_list *node);
+char	**append_table(char	**table, char *variable);
 
 char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
@@ -149,5 +148,6 @@ void	redirect_fds(t_list *tokens, int in_fd, int out_fd);
 t_list	*plain_token(char *input);
 t_list	*compose_token(char *input);
 t_list	*tokenize(char **inputs);
-
+char	*gtkn(t_list *node);
+char	*gvle(t_list *node);
 #endif
