@@ -6,11 +6,29 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/15 20:57:39 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/16 10:14:22 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+char	*gtkn(t_list *node)
+{
+	if (node && node->content)
+	{
+		return (((t_tkn *) node->content)->token);
+	}
+	return (NULL);
+}
+
+char	*gvle(t_list *node)
+{
+	if (node && node->content)
+	{
+		return (((t_tkn *) node->content)->value);
+	}
+	return (NULL);
+}
 
 t_list	*plain_token(char *input)
 {

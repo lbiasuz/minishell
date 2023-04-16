@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/15 21:03:38 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/15 21:07:58 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@
 
 // FILE HEADER
 # include <fcntl.h>
-
-# include <stdio.h>
 # include <unistd.h>
 
 // PROCESS HEADERS
@@ -69,11 +67,11 @@ void	init_signal_handlers(void);
 char	*lookfor_error(t_list *tokens);
 
 // BUILTINS
+int		pwd(void);
 int		cd(int argc, char *argv[]);
 int		echo(int argc, char *argv[]);
 int		env(void);
 int		export(char **argv);
-int		pwd(void);
 int		unset(char **argv);
 
 //HELPER
@@ -84,7 +82,6 @@ char	*gtkn(t_list *node);
 char	*gvle(t_list *node);
 
 char	*expand_variable(char *input, char *dollar);
-
 char	*find_cmd_path(char **env, char	*command);
 
 void	runner(t_list *token_list);

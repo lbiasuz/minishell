@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/08 10:16:44 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/04/16 10:23:54 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,24 +25,25 @@ PATH_LIBS		+=	libft
 PATH_LIBS		+=	/opt/local/lib
 
 # FILES
-SRC				+=	$(PATH_NAME)/bin_path.c
 SRC				+=	$(PATH_NAME)/env.c
 SRC				+=	$(PATH_NAME)/init.c
-SRC				+=	$(PATH_NAME)/helper.c
-SRC				+=	$(PATH_NAME)/minishell.c
-SRC				+=	$(PATH_NAME)/parse.c
-SRC				+=	$(PATH_NAME)/redirect.c
-SRC				+=	$(PATH_NAME)/runner.c
-SRC				+=	$(PATH_NAME)/token.c
+SRC				+=	$(PATH_NAME)/table.c
 SRC				+=	$(PATH_NAME)/error.c
+SRC				+=	$(PATH_NAME)/parse.c
+SRC				+=	$(PATH_NAME)/token.c
+SRC				+=	$(PATH_NAME)/helper.c
 SRC				+=	$(PATH_NAME)/dollar.c
+SRC				+=	$(PATH_NAME)/runner.c
+SRC				+=	$(PATH_NAME)/redirect.c
+SRC				+=	$(PATH_NAME)/bin_path.c
+SRC				+=	$(PATH_NAME)/minishell.c
 SRC				+=	$(PATH_NAME)/signal_handler.c
 SRC				+=	$(PATH_BUILTINS)/cd.c
-SRC				+=	$(PATH_BUILTINS)/echo.c
-SRC				+=	$(PATH_BUILTINS)/env.c
-SRC				+=	$(PATH_BUILTINS)/export.c
 SRC				+=	$(PATH_BUILTINS)/pwd.c
+SRC				+=	$(PATH_BUILTINS)/env.c
+SRC				+=	$(PATH_BUILTINS)/echo.c
 SRC				+=	$(PATH_BUILTINS)/unset.c
+SRC				+=	$(PATH_BUILTINS)/export.c
 OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
 HEADER_FILES	=	$(foreach dir, $(PATH_HEADERS), $(wildcard $(dir)/*.h))
 LIBS			+=	ft
