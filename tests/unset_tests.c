@@ -6,12 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 09:52:40 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/03/16 23:18:23 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/15 20:58:52 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "../include/env.h"
 #include <assert.h>
 
 extern t_ms	g_ms;

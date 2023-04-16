@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bin_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:48:46 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/04 18:45:33 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/15 21:02:58 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <env.h>
 
 char	*find_cmd_path(char **env, char	*command)
 {

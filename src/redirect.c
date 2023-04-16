@@ -6,13 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/13 11:47:29 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/15 20:57:32 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <redirect.h>
-#include <token.h>
 
 void	redirect_fds(t_list *tokens, int in_fd, int out_fd)
 {

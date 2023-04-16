@@ -6,15 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/13 11:48:18 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/15 21:04:15 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <redirect.h>
-#include <token.h>
-#include <env.h>
-#include <unistd.h>
 
 extern t_ms g_ms;
 
@@ -35,7 +31,6 @@ char	**append_table(char	**table, char *variable)
 	return (new_address);
 }
 
-
 char	*get_command(t_list *list)
 {
 	t_list	*node;
@@ -52,7 +47,7 @@ char	*get_command(t_list *list)
 				|| !ft_strncmp(gtkn(node), TEXT, sizeof(TEXT))
 				|| !ft_strncmp(gtkn(node), SQUOTE, sizeof(SQUOTE))
 				|| !ft_strncmp(gtkn(node), DQUOTE, sizeof(DQUOTE))))
-			return (gvle(node));
+			return (find_cmd_path(g_ms.envp, gvle(node)));
 		last_node = node;
 		node = node->next;
 	}
@@ -70,9 +65,9 @@ char	**get_args(t_list *list)
 	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 	{
 		if ((!ft_strncmp(gtkn(node), EXPAND, sizeof(EXPAND))
-			|| !ft_strncmp(gtkn(node), TEXT, sizeof(TEXT))
-			|| !ft_strncmp(gtkn(node), SQUOTE, sizeof(SQUOTE))
-			|| !ft_strncmp(gtkn(node), DQUOTE, sizeof(DQUOTE)))
+				|| !ft_strncmp(gtkn(node), TEXT, sizeof(TEXT))
+				|| !ft_strncmp(gtkn(node), SQUOTE, sizeof(SQUOTE))
+				|| !ft_strncmp(gtkn(node), DQUOTE, sizeof(DQUOTE)))
 			&& (!ft_strncmp(gtkn(last_node), EXPAND, sizeof(EXPAND))
 				|| !ft_strncmp(gtkn(last_node), TEXT, sizeof(TEXT))
 				|| !ft_strncmp(gtkn(last_node), SQUOTE, sizeof(SQUOTE))
@@ -120,4 +115,6 @@ void	runner(t_list *token_list)
 		invoke_child(node, old_fd[0], fd[1]);
 	if (pid == 0 && !node)
 		invoke_child(node, old_fd[0], STDOUT_FILENO);
+	if (pid == 0)
+		exit(0);
 }

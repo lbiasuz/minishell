@@ -6,12 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:20:00 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/10 10:06:02 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/15 20:57:25 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <token.h>
 
 void	join_tokens(t_list *t1, t_list *t2)
 {

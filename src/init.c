@@ -6,12 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:57:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/08 10:18:52 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/15 20:58:10 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <env.h>
 
 t_ms	init_minishell(char **env)
 {

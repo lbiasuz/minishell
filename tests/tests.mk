@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/26 15:31:09 by lbiasuz           #+#    #+#              #
-#    Updated: 2023/03/16 23:32:04 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/04/15 20:58:50 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,14 @@ $(DEP):
 env_tests: $(DEP)
 	@$(CC) $(OPTIONS) \
 		$(SRC_DIR)/env_tests.c src/env.c src/helper.c \
-		include/env.h include/minishell.h $(DEP) \
+		include/minishell.h $(DEP) \
 		-o $(OBJ_DIR)/env_tests
 	@$(VALGRIND) ./$(OBJ_DIR)/env_tests
 
 export_tests: $(DEP)
 	@$(CC) $(OPTIONS) \
 		$(SRC_DIR)/export_tests.c src/builtin/export.c \
-		src/env.c src/helper.c include/env.h include/minishell.h \
+		src/env.c src/helper.c include/minishell.h \
 		$(DEP) -o $(OBJ_DIR)/export_tests
 	@$(VALGRIND) ./$(OBJ_DIR)/export_tests USER=coder HELLO
 	
@@ -45,6 +45,6 @@ unset_tests: $(DEP)
 	@$(CC) $(OPTIONS) \
 		$(SRC_DIR)/unset_tests.c \
 		src/builtin/unset.c src/builtin/export.c \
-		src/env.c src/helper.c include/env.h include/minishell.h \
+		src/env.c src/helper.c include/minishell.h \
 		$(DEP) -o $(OBJ_DIR)/unset_tests
 	@$(VALGRIND) ./$(OBJ_DIR)/unset_tests USER HELLO

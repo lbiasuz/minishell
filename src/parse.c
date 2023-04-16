@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/04/06 22:37:38 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/15 21:00:17 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 static int	count_table_size(char *prompt);
 static char	*next_prompt_address(char *prompt);
 static int	fill_parse_values(char **str_table, char *prompt);
-static char	*get_value(char *str_start, char *str_end);
+static char	*get_value_prompt(char *str_start, char *str_end);
 
 char	**parse(char	*prompt)
 {
@@ -99,7 +99,7 @@ static int	fill_parse_values(char **str_table, char *prompt)
 	next_prompt = next_prompt_address(prompt);
 	while (next_prompt)
 	{
-		str_table[index] = get_value(prompt, next_prompt);
+		str_table[index] = get_value_prompt(prompt, next_prompt);
 		if (!str_table[index])
 			return (-1);
 		prompt = next_prompt;
@@ -109,7 +109,7 @@ static int	fill_parse_values(char **str_table, char *prompt)
 	return (0);
 }
 
-static char	*get_value(char *str_start, char *str_end)
+static char	*get_value_prompt(char *str_start, char *str_end)
 {
 	char	*value;
 	int		str_len;
