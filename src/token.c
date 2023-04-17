@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/16 10:14:22 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/17 10:20:36 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 char	*gtkn(t_list *node)
 {
-	if (node && node->content)
-	{
-		return (((t_tkn *) node->content)->token);
-	}
+	if (node)
+		if (node->content)
+			return (((t_tkn *) node->content)->token);
 	return (NULL);
 }
 
 char	*gvle(t_list *node)
 {
-	if (node && node->content)
-	{
-		return (((t_tkn *) node->content)->value);
-	}
+	if (node)
+		if (node->content)
+			return (((t_tkn *) node->content)->value);
 	return (NULL);
 }
 

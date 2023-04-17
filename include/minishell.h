@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/16 11:53:06 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/17 11:35:16 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_ms {
 	t_list	*cmdlist;
 	t_list	*tokenlist;
 	char	**envp;
-	int		*exit_code;
+	int		exit_code;
 }	t_ms;
 
 typedef struct s_tkn {
