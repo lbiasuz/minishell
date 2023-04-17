@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/17 12:04:05 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/17 20:09:02 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	*get_command(t_list *list)
 	node = list;
 	last_node = NULL;
 	command = NULL;
-	ft_printf("node %p", node);
 	while (!command && node)
 	{
 		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
@@ -66,8 +65,8 @@ char	*get_command(t_list *list)
 	}
 	if (command)
 	{
-		expand_token_content(node);
-		command = find_cmd_path(g_ms.envp, gvle(node));
+		expand_token_content(last_node);
+		command = find_cmd_path(g_ms.envp, gvle(last_node));
 	}
 	return (command);
 }
@@ -109,9 +108,7 @@ static void	print_tokens(t_list *tokens)
 			t->token = expand_variable(t->value, ft_strchr(t->value, '$'));
 		ft_printf(
 			"token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n",
-			t->token,
-			t->value
-			);
+			t->token, t->value);
 		l = l->next;
 	}
 }

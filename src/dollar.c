@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/16 16:09:13 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/17 19:42:23 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ char	*expand_variable(char *input, char *dollar)
 	char	*value;
 
 	index = 1;
+	if (!dollar)
+		return (input);
 	while (ft_isalnum(dollar[index]) || dollar[index] == '_')
 		index++;
 	variable = ft_substr(dollar, 1, index);

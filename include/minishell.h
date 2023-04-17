@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/17 11:35:16 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/17 20:08:07 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char	**char_occurences(char *string, char c);
 int		char_count(char *string, char c);
 void	free_table(char **table);
 char	**append_table(char	**table, char *variable);
+char	*join_envp_var(char *before, char *variable, char *after);
+
 
 char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
