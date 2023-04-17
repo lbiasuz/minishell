@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/16 10:31:49 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/16 11:53:06 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,7 @@ t_list	*compose_token(char *input);
 t_list	*tokenize(char **inputs);
 char	*gtkn(t_list *node);
 char	*gvle(t_list *node);
+
+void	expand_token_content(t_list *node);
+
 #endif

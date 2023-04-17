@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/15 20:57:55 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/16 16:09:13 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,15 @@ char	*expand_variable(char *input, char *dollar)
 			ft_substr(&input[index], 0, ft_strlen(&input[index]))
 		)
 	);
+}
+
+void	expand_token_content(t_list *node)
+{
+	while (gvle(node) && ft_strchr(gvle(node), '$'))
+	{
+		((t_tkn *) node->content)->value = expand_variable(
+				gvle(node),
+				ft_strchr(gvle(node), '$')
+				);
+	}
 }

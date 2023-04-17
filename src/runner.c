@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/16 09:50:45 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/16 21:02:07 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,55 @@
 
 extern t_ms g_ms;
 
+int	is_command(char	*token, char *last_token)
+{
+	ft_printf("IS COMMAND: %s %s \n", token, last_token);
+	return (ft_strncmp(last_token, DICHEV, sizeof(DICHEV))
+		&& ft_strncmp(last_token, DCHEV, sizeof(DCHEV))
+		&& ft_strncmp(last_token, CHEV, sizeof(CHEV))
+		&& ft_strncmp(last_token, ICHEV, sizeof(ICHEV))
+		&& (!ft_strncmp(token, EXPAND, sizeof(EXPAND))
+			|| !ft_strncmp(token, TEXT, sizeof(TEXT))
+			|| !ft_strncmp(token, SQUOTE, sizeof(SQUOTE))
+			|| !ft_strncmp(token, DQUOTE, sizeof(DQUOTE)))
+	);
+}
+
+int	is_arg(char *token, char *last_token)
+{
+	return ((!ft_strncmp(token, EXPAND, sizeof(EXPAND))
+			|| !ft_strncmp(token, TEXT, sizeof(TEXT))
+			|| !ft_strncmp(token, SQUOTE, sizeof(SQUOTE))
+			|| !ft_strncmp(token, DQUOTE, sizeof(DQUOTE)))
+		&& (!ft_strncmp(last_token, EXPAND, sizeof(EXPAND))
+			|| !ft_strncmp(last_token, TEXT, sizeof(TEXT))
+			|| !ft_strncmp(last_token, SQUOTE, sizeof(SQUOTE))
+			|| !ft_strncmp(last_token, DQUOTE, sizeof(DQUOTE)))
+	);
+}
+
 char	*get_command(t_list *list)
 {
 	t_list	*node;
 	t_list	*last_node;
+	char	*command;
 
 	node = list;
-	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
+	command = NULL;
+	ft_printf("node %p", node);
+	while (!command && node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 	{
-		if (ft_strncmp(gtkn(last_node), DICHEV, sizeof(DICHEV))
-			&& ft_strncmp(gtkn(last_node), DCHEV, sizeof(DCHEV))
-			&& ft_strncmp(gtkn(last_node), CHEV, sizeof(CHEV))
-			&& ft_strncmp(gtkn(last_node), ICHEV, sizeof(ICHEV))
-			&& (!ft_strncmp(gtkn(node), EXPAND, sizeof(EXPAND))
-				|| !ft_strncmp(gtkn(node), TEXT, sizeof(TEXT))
-				|| !ft_strncmp(gtkn(node), SQUOTE, sizeof(SQUOTE))
-				|| !ft_strncmp(gtkn(node), DQUOTE, sizeof(DQUOTE))))
-			return (find_cmd_path(g_ms.envp, gvle(node)));
+		if (is_command(gtkn(node), gtkn(last_node)))
+			command = gvle(node);
 		last_node = node;
 		node = node->next;
 	}
-	return (NULL);
+	if (command)
+	{
+		expand_token_content(node);
+		command = find_cmd_path(g_ms.envp, gvle(node));
+	}
+	return (command);
 }
 
 char	**get_args(t_list *list)
@@ -47,23 +75,40 @@ char	**get_args(t_list *list)
 	node = list;
 	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 	{
-		if ((!ft_strncmp(gtkn(node), EXPAND, sizeof(EXPAND))
-				|| !ft_strncmp(gtkn(node), TEXT, sizeof(TEXT))
-				|| !ft_strncmp(gtkn(node), SQUOTE, sizeof(SQUOTE))
-				|| !ft_strncmp(gtkn(node), DQUOTE, sizeof(DQUOTE)))
-			&& (!ft_strncmp(gtkn(last_node), EXPAND, sizeof(EXPAND))
-				|| !ft_strncmp(gtkn(last_node), TEXT, sizeof(TEXT))
-				|| !ft_strncmp(gtkn(last_node), SQUOTE, sizeof(SQUOTE))
-				|| !ft_strncmp(gtkn(last_node), DQUOTE, sizeof(DQUOTE))))
+		if (is_arg(gtkn(node), gtkn(last_node)))
+		{
+			expand_token_content(node);
 			args = append_table(args, gvle(node));
+		}
 		last_node = node;
 		node = node->next;
 	}
 	return (args);
 }
 
+// static void	print_tokens(t_list *tokens)
+// {
+// 	t_list	*l;
+// 	t_tkn	*t;
+
+// 	l = tokens;
+// 	while (l)
+// 	{
+// 		t = l->content;
+// 		if (!ft_strncmp(t->token, EXPAND, sizeof(EXPAND)))
+// 			t->token = expand_variable(t->value, ft_strchr(t->value, '$'));
+// 		ft_printf(
+// 			"token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n",
+// 			t->token,
+// 			t->value
+// 			);
+// 		l = l->next;
+// 	}
+// }
+
 void	invoke_child(t_list *tokens, int in_fd, int out_fd)
 {
+	ft_printf("%d %d \n", in_fd, out_fd);
 	redirect_fds(tokens, in_fd, out_fd);
 	execve(get_command(tokens), get_args(tokens), g_ms.envp);
 }
@@ -97,7 +142,7 @@ void	runner(t_list *token_list)
 	if (pid == 0 && node)
 		invoke_child(node, old_fd[0], fd[1]);
 	if (pid == 0 && !node)
-		invoke_child(node, old_fd[0], STDOUT_FILENO);
+		invoke_child(token_list, old_fd[0], STDOUT_FILENO);
 	if (pid == 0)
 		exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/15 20:57:32 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/16 21:13:49 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	redirect_fds(t_list *tokens, int in_fd, int out_fd)
 	t_list	*node;
 
 	node = tokens;
-	while (node && ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
+	while (node)
 	{
+		if (ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
+			break ;
 		if (!ft_strncmp(gtkn(node), DICHEV, sizeof(DICHEV)))
 			in_fd = heredoc_to_stdin(gvle(node->next), in_fd);
 		else if (!ft_strncmp(gtkn(node), DCHEV, sizeof(DCHEV)))

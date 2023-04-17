@@ -6,14 +6,14 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/15 20:57:28 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/16 20:28:51 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static int	process_input(char *prompt);
-static void	print_parse(char **input);
+// static void	print_parse(char **input);
 static void	free_parse(char **input);
 // static void	print_tokens(t_list *tokens);
 
@@ -61,7 +61,6 @@ static int	process_input(char *prompt)
 	if (!tokens)
 		return (0);
 	add_history(prompt);
-	print_parse(parsed_input);
 	free_parse(parsed_input);
 	runner(tokens);
 	return (0);
@@ -80,15 +79,15 @@ static void	free_parse(char **input)
 	}
 }
 
-static void	print_parse(char **input)
-{
-	int	i;
+// static void	print_parse(char **input)
+// {
+// 	int	i;
 
-	i = 0;
-	while (input[i])
-		ft_printf("%s ", input[i++]);
-	ft_printf("\n", input[i]);
-}
+// 	i = 0;
+// 	while (input[i])
+// 		ft_printf("%s ", input[i++]);
+// 	ft_printf("\n", input[i]);
+// }
 
 // static void	print_tokens(t_list *tokens)
 // {
