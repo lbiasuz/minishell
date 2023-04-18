@@ -6,7 +6,7 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/31 21:15:56 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/08 12:54:15 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/17 21:16:43 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,10 @@ $(NAME):
 	@./$(TEST_SUBJECT) < $(TEST_INPUT) > $(NAME)
 
 clean:
-	rm -f $(NAME)
+	rm -rf $(NAME)
 
 fclean: clean
-	rm -f $(NAME)_old
+	rm -rf $(NAME)_old
 
 re: fclean all
 
