@@ -6,14 +6,14 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/31 21:15:56 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/08 12:54:15 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/17 21:22:51 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = test_output.txt
 
 TEST_INPUT = test_input.txt
-SHASUM = "c702604009017018e7ab546511fe04533d7edb1e Utest_output.txt"
+SHASUM = "0ea5f9f828d8eb1282b503577c4ee0746661ed9e Utest_output.txt"
 TEST_SUBJECT = ../minishell
 
 all: clean $(NAME)
@@ -26,10 +26,10 @@ $(NAME):
 	@./$(TEST_SUBJECT) < $(TEST_INPUT) > $(NAME)
 
 clean:
-	rm -f $(NAME)
+	rm -rf $(NAME)
 
 fclean: clean
-	rm -f $(NAME)_old
+	rm -rf $(NAME)_old
 
 re: fclean all
 
