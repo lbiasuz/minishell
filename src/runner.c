@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/17 20:09:02 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/18 21:18:50 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**get_args(t_list *list)
 	t_list	*last_node;
 	char	**args;
 
-	args = NULL;
+	args = append_table(NULL, get_command(list));
 	last_node = NULL;
 	node = list;
 	while (node)
@@ -95,28 +95,27 @@ char	**get_args(t_list *list)
 	return (args);
 }
 
-static void	print_tokens(t_list *tokens)
-{
-	t_list	*l;
-	t_tkn	*t;
+// static void	print_tokens(t_list *tokens)
+// {
+// 	t_list	*l;
+// 	t_tkn	*t;
 
-	l = tokens;
-	while (l)
-	{
-		t = l->content;
-		if (!ft_strncmp(t->token, EXPAND, sizeof(EXPAND)))
-			t->token = expand_variable(t->value, ft_strchr(t->value, '$'));
-		ft_printf(
-			"token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n",
-			t->token, t->value);
-		l = l->next;
-	}
-}
+// 	l = tokens;
+// 	while (l)
+// 	{
+// 		t = l->content;
+// 		if (!ft_strncmp(t->token, EXPAND, sizeof(EXPAND)))
+// 			t->token = expand_variable(t->value, ft_strchr(t->value, '$'));
+// 		ft_printf(
+// 			"token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n",
+// 			t->token, t->value);
+// 		l = l->next;
+// 	}
+// }
 
 void	invoke_child(t_list *tokens, int in_fd, int out_fd)
 {
 	redirect_fds(tokens, in_fd, out_fd);
-	print_tokens(tokens);
 	g_ms.exit_code = execve(get_command(tokens), get_args(tokens), g_ms.envp);
 }
 
