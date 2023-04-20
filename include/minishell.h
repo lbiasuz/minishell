@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/17 20:08:07 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/20 11:22:25 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,10 @@ void	free_table(char **table);
 char	**append_table(char	**table, char *variable);
 char	*join_envp_var(char *before, char *variable, char *after);
 
-
 char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
 
-void	runner(t_list *token_list);
+void	runner(t_list *token, int pid, int fd[2], int ofd[2]);
 
 // ENV.H
 /// @brief Copies an array of strings to heap.
