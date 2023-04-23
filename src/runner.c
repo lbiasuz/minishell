@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/20 12:15:36 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/23 09:46:25 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*get_command(t_list *list)
 	if (command)
 	{
 		expand_token_content(last_node);
-		command = find_cmd_path(g_ms.envp, gvle(last_node));
+		command = find_cmd_path(g_ms.envp, ft_strtrim(gvle(last_node), " "));
 	}
 	return (command);
 }
@@ -95,74 +95,27 @@ char	**get_args(t_list *list)
 	return (args);
 }
 
-// static void	print_tokens(t_list *tokens)
-// {
-// 	t_list	*l;
-// 	t_tkn	*t;
-
-// 	l = tokens;
-// 	while (l)
-// 	{
-// 		t = l->content;
-// 		if (!ft_strncmp(t->token, EXPAND, sizeof(EXPAND)))
-// 			t->token = expand_variable(t->value, ft_strchr(t->value, '$'));
-// 		ft_printf(
-// 			"token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n",
-// 			t->token, t->value);
-// 		l = l->next;
-// 	}
-// }
-
 void	invoke_child(t_list *tokens, int in_fd, int out_fd)
 {
-	redirect_fds(tokens, in_fd, out_fd);
-	g_ms.exit_code = execve(get_command(tokens), get_args(tokens), g_ms.envp);
+	char	*command;
+	char	**args;
+
+	command = get_command(tokens);
+	args = get_args(tokens);
+	if (command)
+	{
+		redirect_fds(tokens, in_fd, out_fd);
+		g_ms.exit_code = execve(command, args, g_ms.envp);
+	}
 	exit(g_ms.exit_code);
 }
-
-// void	runner_old(t_list *token_list, )
-// {
-// 	t_list	*node;
-// 	int		pid;
-// 	int		old_fd[2];
-// 	int		fd[2];
-// 	node = token_list;
-// 	fd[0] = STDIN_FILENO;
-// 	fd[1] = STDOUT_FILENO;
-// 	old_fd[0] = STDIN_FILENO;
-// 	old_fd[1] = STDOUT_FILENO;
-// 	pid = -1;
-// 	while (pid != 0 && node)
-// 	{
-// 		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)) && pid != 0)
-// 		{
-// 			old_fd[0] = fd[0];
-// 			old_fd[1] = fd[1];
-// 			pipe(fd);
-// 			pid = fork();
-// 		}
-// 		else if (!node->next && pid != 0)
-// 			pid = fork();
-// 		node = node->next;
-// 		if (pid == 0)
-// 			break ;
-// 	}
-// 	if (pid == 0 && node)
-// 		invoke_child(node, old_fd[0], fd[1]);
-// 	if (pid == 0 && !node)
-// 		invoke_child(token_list, fd[0], STDOUT_FILENO);
-// 	if (pid == 0)
-// 		exit(g_ms.exit_code);
-// 	else
-// 		wait(0);
-// }
 
 void	runner(t_list *token, int pid, int fd[2], int ofd[2])
 {
 	t_list	*node;
 
 	node = token;
-	while (node)
+	while (node && pid != 0)
 	{
 		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 			break ;
@@ -181,6 +134,6 @@ void	runner(t_list *token, int pid, int fd[2], int ofd[2])
 		invoke_child(token, ofd[0], fd[1]);
 	if (pid != 0 && node)
 		runner(node->next, pid, fd, ofd);
-	else if (pid != 0 && !node)
+	if (pid != 0 && !node)
 		wait(0);
 }

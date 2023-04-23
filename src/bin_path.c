@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:48:46 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/17 20:08:39 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/23 09:36:38 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*find_cmd_path(char **env, char	*command)
 	path_arr = ft_split(get_value(env, "PATH"), ':');
 	while (path_arr[index])
 	{
-		cmd_path = join_envp_var(path_arr[index],"/", command);
+		cmd_path = join_envp_var(path_arr[index], "/", command);
 		if (access(cmd_path, X_OK) != -1)
-			break ;		
+			break ;
 		free(cmd_path);
 		index++;
 	}
