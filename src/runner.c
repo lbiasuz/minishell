@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/23 09:46:25 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/24 11:18:19 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,13 @@ void	invoke_child(t_list *tokens, int in_fd, int out_fd)
 
 	command = get_command(tokens);
 	args = get_args(tokens);
-	if (command)
+	if (command && args)
 	{
 		redirect_fds(tokens, in_fd, out_fd);
 		g_ms.exit_code = execve(command, args, g_ms.envp);
 	}
+	close(in_fd);
+	close(out_fd);
 	exit(g_ms.exit_code);
 }
 
@@ -130,10 +132,12 @@ void	runner(t_list *token, int pid, int fd[2], int ofd[2])
 	}
 	else if (!node && pid != 0)
 		pid = fork();
-	if (pid == 0)
+	if (pid == 0 && node)
 		invoke_child(token, ofd[0], fd[1]);
+	if (pid == 0 && !node)
+		invoke_child(token, fd[0], STDOUT_FILENO);
 	if (pid != 0 && node)
 		runner(node->next, pid, fd, ofd);
-	if (pid != 0 && !node)
+	if (pid != 0)
 		wait(0);
 }
