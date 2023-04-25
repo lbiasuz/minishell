@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/24 22:15:04 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/25 20:15:34 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 extern t_ms g_ms;
+
+t_list	*return_pipe_or_null(t_list	*token);
 
 int	is_command(char	*token, char *last_token)
 {
@@ -111,29 +113,36 @@ void	invoke_child(t_list *tokens, int in_fd, int out_fd)
 void	runner(t_list *token, int pid, int fd[2], int ofd[2])
 {
 	t_list	*node;
+	int		child_status;
 
-	node = token;
-	while (node && pid != 0)
-	{
-		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
-			break ;
-		node = node->next;
-	}
-	if (node && !ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)) && pid != 0)
+	node = return_pipe_or_null(token);
+	if (node)
 	{
 		ofd[0] = fd[0];
 		ofd[1] = fd[1];
 		pipe(fd);
-		pid = fork();
 	}
-	else if (!node && pid != 0)
-		pid = fork();
-	if (pid == 0 && node)
-		invoke_child(token, ofd[0], fd[1]);
-	if (pid == 0 && !node)
-		invoke_child(token, fd[0], STDOUT_FILENO);
-	if (pid != 0 && node)
+	pid = fork();
+	if (pid == 0)
+	{
+		if (node)
+			invoke_child(token, ofd[0], fd[1]);
+		else
+			invoke_child(token, fd[0], STDOUT_FILENO);
+		return ;
+	}
+	waitpid(pid, &child_status, WUNTRACED);
+	if (node)
 		runner(node->next, pid, fd, ofd);
-	if (pid != 0)
-		wait(0);
+}
+
+t_list	*return_pipe_or_null(t_list	*token)
+{
+	while (token)
+	{
+		if (!ft_strncmp(gtkn(token), PIPE, sizeof(PIPE)))
+			break ;
+		token = token->next;
+	}
+	return (token);
 }
