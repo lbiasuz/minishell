@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/24 11:18:19 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/24 22:15:04 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	is_command(char	*token, char *last_token)
 {
 	if (!token)
 		return (0);
-	ft_printf("IS COMMAND: %s %s \n", token, last_token);
 	return (ft_strncmp(last_token, DICHEV, sizeof(DICHEV))
 		&& ft_strncmp(last_token, DCHEV, sizeof(DCHEV))
 		&& ft_strncmp(last_token, CHEV, sizeof(CHEV))
@@ -63,21 +62,17 @@ char	*get_command(t_list *list)
 		last_node = node;
 		node = node->next;
 	}
+	expand_token_content(last_node);
 	if (command)
-	{
-		expand_token_content(last_node);
 		command = find_cmd_path(g_ms.envp, ft_strtrim(gvle(last_node), " "));
-	}
 	return (command);
 }
 
-char	**get_args(t_list *list)
+char	**get_args(t_list *list, char **args)
 {
 	t_list	*node;
 	t_list	*last_node;
-	char	**args;
 
-	args = append_table(NULL, get_command(list));
 	last_node = NULL;
 	node = list;
 	while (node)
@@ -101,7 +96,7 @@ void	invoke_child(t_list *tokens, int in_fd, int out_fd)
 	char	**args;
 
 	command = get_command(tokens);
-	args = get_args(tokens);
+	args = get_args(tokens, append_table(NULL, command));
 	if (command && args)
 	{
 		redirect_fds(tokens, in_fd, out_fd);
@@ -109,6 +104,7 @@ void	invoke_child(t_list *tokens, int in_fd, int out_fd)
 	}
 	close(in_fd);
 	close(out_fd);
+	ft_lstclear(&tokens, free_token);
 	exit(g_ms.exit_code);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/16 10:14:09 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/24 22:12:24 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,10 @@ char	**char_occurences(char *string, char c)
 		index++;
 	}
 	return (occurences);
+}
+
+void	free_token(void *tkn)
+{
+	free(((t_tkn *) tkn)->value);
+	free(tkn);
 }

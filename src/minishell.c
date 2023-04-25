@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/20 11:48:59 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/24 22:15:10 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	main(int argc, char *argv[], char *envp[])
 	prompt = readline(PROMPT_DISPLAY_TEXT);
 	while (1)
 	{
-		rl_on_new_line();
 		if (!prompt || ft_strncmp("exit", prompt, 5) == 0)
 		{
 			write(1, "exit", 4);
@@ -40,6 +39,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (process_input(prompt))
 			break ;
 		free(prompt);
+		rl_on_new_line();
 		prompt = readline(PROMPT_DISPLAY_TEXT);
 	}
 	if (prompt)
@@ -69,6 +69,7 @@ static int	process_input(char *prompt)
 	old_fd[0] = STDIN_FILENO;
 	old_fd[1] = STDOUT_FILENO;
 	runner(tokens, -1, fd, old_fd);
+	ft_lstclear(&tokens, free_token);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/20 11:22:25 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/24 22:13:51 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # include <readline/history.h>
 # include <signal.h>
 
+# include <errno.h>
 // FILE HEADER
 # include <fcntl.h>
 # include <unistd.h>
@@ -78,6 +79,7 @@ int		unset(char **argv);
 char	**char_occurences(char *string, char c);
 int		char_count(char *string, char c);
 void	free_table(char **table);
+void	free_token(void *tkn);
 char	**append_table(char	**table, char *variable);
 char	*join_envp_var(char *before, char *variable, char *after);
 
