@@ -6,7 +6,7 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/27 11:30:25 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/27 11:39:42 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,6 @@ test: all
 	make -C tests -f test_minishell.mk
 
 valgrind: 
-	valgrind -s --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --log-fd=9 ./$(NAME) 9>memcheck.log
+	valgrind --suppressions=val_ignore -s --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --log-fd=9 ./$(NAME) 9>memcheck.log
 
 .PHONY: all clean fclean re test
