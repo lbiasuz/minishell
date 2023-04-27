@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/24 22:15:10 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/27 09:56:06 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void	free_parse(char **input)
 		input[i] = NULL;
 		i++;
 	}
+	free(input);
 }
 
 // static void	print_parse(char **input)

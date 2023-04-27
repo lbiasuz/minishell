@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/25 20:15:34 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/04/27 09:48:31 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 
 extern t_ms g_ms;
 
-t_list	*return_pipe_or_null(t_list	*token);
+t_list	*return_pipe_or_null(t_list	*token)
+{
+	while (token)
+	{
+		if (!ft_strncmp(gtkn(token), PIPE, sizeof(PIPE)))
+			break ;
+		token = token->next;
+	}
+	return (token);
+}
 
 int	is_command(char	*token, char *last_token)
 {
@@ -92,7 +101,7 @@ char	**get_args(t_list *list, char **args)
 	return (args);
 }
 
-void	invoke_child(t_list *tokens, int in_fd, int out_fd)
+void	invoke_child(t_list *tokens, int fd[2], int ofd[2])
 {
 	char	*command;
 	char	**args;
@@ -101,12 +110,9 @@ void	invoke_child(t_list *tokens, int in_fd, int out_fd)
 	args = get_args(tokens, append_table(NULL, command));
 	if (command && args)
 	{
-		redirect_fds(tokens, in_fd, out_fd);
+		redirect_fds(tokens, ofd[0], fd[1]);
 		g_ms.exit_code = execve(command, args, g_ms.envp);
 	}
-	close(in_fd);
-	close(out_fd);
-	ft_lstclear(&tokens, free_token);
 	exit(g_ms.exit_code);
 }
 
@@ -124,25 +130,8 @@ void	runner(t_list *token, int pid, int fd[2], int ofd[2])
 	}
 	pid = fork();
 	if (pid == 0)
-	{
-		if (node)
-			invoke_child(token, ofd[0], fd[1]);
-		else
-			invoke_child(token, fd[0], STDOUT_FILENO);
-		return ;
-	}
-	waitpid(pid, &child_status, WUNTRACED);
-	if (node)
+		invoke_child(token, fd, ofd);
+	if (node && pid != 0)
 		runner(node->next, pid, fd, ofd);
-}
-
-t_list	*return_pipe_or_null(t_list	*token)
-{
-	while (token)
-	{
-		if (!ft_strncmp(gtkn(token), PIPE, sizeof(PIPE)))
-			break ;
-		token = token->next;
-	}
-	return (token);
+	waitpid(0, &child_status, 0);
 }

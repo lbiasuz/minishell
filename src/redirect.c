@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/24 11:17:47 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/27 09:47:34 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ void	redirect_fds(t_list *tokens, int in_fd, int out_fd)
 		node = node->next;
 	}
 	dup2(in_fd, STDIN_FILENO);
-	dup2(out_fd, STDOUT_FILENO);
+	if (!return_pipe_or_null(tokens))
+		out_fd = STDOUT_FILENO;
+	else
+		dup2(out_fd, STDOUT_FILENO);
+
 }
 
 int	file_to_stdin(char *filepath, int current_fd)
