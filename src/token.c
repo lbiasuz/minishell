@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/17 10:20:36 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/27 10:10:03 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_list	*plain_token(char *input)
 		token->token = EXPAND;
 	else
 		token->token = TEXT;
-	token->value = ft_strdup(input);
+	token->value = ft_strtrim(input, " ");
 	return (ft_lstnew(token));
 }
 
@@ -60,7 +60,7 @@ t_list	*compose_token(char *input)
 		token->token = DQUOTE;
 	else
 		token->token = TEXT;
-	token->value = ft_strdup(input);
+	token->value = ft_strtrim(input, " ");
 	return (ft_lstnew(token));
 }
 

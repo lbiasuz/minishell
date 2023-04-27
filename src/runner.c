@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/27 09:48:31 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/27 10:19:24 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,37 @@ void	invoke_child(t_list *tokens, int fd[2], int ofd[2])
 	exit(g_ms.exit_code);
 }
 
+// static void	print_tokens(t_list *tokens)
+// {
+// 	t_list	*l;
+// 	t_tkn	*t;
+
+// 	l = tokens;
+// 	while (l)
+// 	{
+// 		t = l->content;
+// 		if (!ft_strncmp(t->token, EXPAND, sizeof(EXPAND)))
+// 			t->token = expand_variable(t->value, ft_strchr(t->value, '$'));
+// 		ft_printf(
+// 			"token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n",
+// 			t->token,
+// 			t->value
+// 			);
+// 		l = l->next;
+// 	}
+// }
 void	runner(t_list *token, int pid, int fd[2], int ofd[2])
 {
 	t_list	*node;
+	char	*error;
 	int		child_status;
 
+	error = lookfor_error(token);
+	if (error)
+	{
+		perror(error);
+		return ;
+	}
 	node = return_pipe_or_null(token);
 	if (node)
 	{
