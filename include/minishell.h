@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/26 10:51:23 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/27 12:36:04 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int		stdout_to_file(char *filepath, int current_fd);
 /// @return fd returns opened fd
 int		append_stdout_to_file(char *filepath, int current_fd);
 
-void	redirect_fds(t_list *tokens, int in_fd, int out_fd);
+void	redirect_fds(t_list *tokens, int fd[2], int ofd[2]);
 
 //TOKEN.H
 t_list	*plain_token(char *input);

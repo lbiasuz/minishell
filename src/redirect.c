@@ -6,13 +6,13 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/27 10:27:28 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/27 19:03:41 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	redirect_fds(t_list *tokens, int in_fd, int out_fd)
+void	redirect_fds(t_list *tokens, int fd[2], int ofd[2])
 {
 	t_list	*node;
 
@@ -22,21 +22,25 @@ void	redirect_fds(t_list *tokens, int in_fd, int out_fd)
 		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 			break ;
 		if (!ft_strncmp(gtkn(node), DICHEV, sizeof(DICHEV)))
-			in_fd = heredoc_to_stdin(gvle(node->next), in_fd);
+			ofd[0] = heredoc_to_stdin(gvle(node->next), ofd[0]);
 		else if (!ft_strncmp(gtkn(node), DCHEV, sizeof(DCHEV)))
-			out_fd = append_stdout_to_file(gvle(node->next), out_fd);
+			fd[1] = append_stdout_to_file(gvle(node->next), fd[1]);
 		else if (!ft_strncmp(gtkn(node), CHEV, sizeof(CHEV)))
-			out_fd = stdout_to_file(gvle(node->next), out_fd);
+			fd[1] = stdout_to_file(gvle(node->next), fd[1]);
 		else if (!ft_strncmp(gtkn(node), ICHEV, sizeof(ICHEV)))
-			in_fd = file_to_stdin(gvle(node->next), in_fd);
+			ofd[0] = file_to_stdin(gvle(node->next), ofd[0]);
 		node = node->next;
 	}
-	dup2(in_fd, STDIN_FILENO);
 	if (!return_pipe_or_null(tokens))
-		out_fd = STDOUT_FILENO;
+	{
+		dup2(fd[0], STDIN_FILENO);
+		dup2(STDOUT_FILENO, STDOUT_FILENO);
+	}
 	else
-		dup2(out_fd, STDOUT_FILENO);
-
+	{
+		dup2(ofd[0], STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
+	}
 }
 
 int	file_to_stdin(char *filepath, int current_fd)
