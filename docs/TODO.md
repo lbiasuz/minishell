@@ -1,5 +1,5 @@
 
-- [ ] Decidir atributos variável Global
+- [X] Decidir atributos variável Global
 - [x] Estruturar árvore de arquivos do projeto [Nomes, Pastas, Contextos]
 - [x] Estudar errno
 - [x] Migrar pipex para o minishell
@@ -21,19 +21,19 @@
 - [x] Comportamento de history
 - [x] Interceptação de teclas [Setas, Enter]
 - [x] Estudar comportamento Crtl + D
-- [ ] Gerenciamento de memória
+- [X] Gerenciamento de memória
 
 ### Parser / Token
 - [x] COMMAND TABLE
-- [ ] $ EXPANSION [ $PATH, $USER ]
-- [ ] QUOTES [ ",  ', \, $ ]
+- [X] $ EXPANSION [ $PATH, $USER ]
+- [X] QUOTES [ ",  ', \, $ ]
 - [x] HISTORY
 
 ### Runner / Executor
 - [x] REDIRECTION [< , <<, >> ,  >]
 - [x] BUSCA DE BINÁRIO NO AMBIENTE
-- [ ] estudar EXECVE
-- [ ] Exit variable
+- [X] estudar EXECVE
+- [X] Exit variable
 
 ### Sinais
 - [x] Crtl - D

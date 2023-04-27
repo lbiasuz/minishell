@@ -1,0 +1,6 @@
+- [ ] heredoc completamente quebrado
+- [ ] heredoc em conflito com minishell após sigint recebido
+- [ ] redirections antes do comando não funcionam
+- [ ] pipe não é fechada corretamente, congelando o grep e efins
+- [ ] builtin ainda não foram integrados
+- [ ] prompt sendo mostrado duas vezes no ctrl-c
