@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/29 00:56:54 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/29 11:11:43 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	redirect_fds(t_list *tokens, int fd[2], int ofd[2])
 	{
 		dup2(fd[0], STDIN_FILENO);
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
+		if (fd[0] >= 3)
+			close(fd[0]);
 		if (fd[1] >= 3)
 			close(fd[1]);
 		if (ofd[0] >= 3)
@@ -48,8 +50,12 @@ void	redirect_fds(t_list *tokens, int fd[2], int ofd[2])
 		dup2(fd[1], STDOUT_FILENO);
 		if (ofd[1] >= 3)
 			close(ofd[1]);
+		if (ofd[0] >= 3)
+			close(ofd[0]);
 		if (fd[0] >= 3)
 			close(fd[0]);
+		if (fd[1] >= 3)
+			close(fd[1]);
 	}
 }
 
