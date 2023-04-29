@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/27 19:01:29 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/29 00:42:38 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,11 +138,13 @@ void	runner(t_list *token, int pid, int fd[2], int ofd[2])
 	pid = fork();
 	if (pid == 0)
 		invoke_child(token, fd, ofd);
+	if (fd[1] >= 3)
+		close(fd[1]);
 	if (ofd[0] >= 3)
 		close(ofd[0]);
-	if (fd[1])
-		close(fd[1]);
 	if (node && pid != 0)
 		runner(node->next, pid, fd, ofd);
 	waitpid(0, &child_status, 0);
+	close(fd[0]);
+	close(ofd[1]);
 }
