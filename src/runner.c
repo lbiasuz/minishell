@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/29 00:42:38 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/04/29 16:50:45 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ int	is_arg(char *token, char *last_token)
 	);
 }
 
+int is_redirect(char *token)
+{
+	if (!token)
+		return (0);
+	return (ft_strncmp(token, DICHEV, sizeof(DICHEV))
+		|| ft_strncmp(token, DCHEV, sizeof(DCHEV))
+		|| ft_strncmp(token, CHEV, sizeof(CHEV))
+		|| ft_strncmp(token, ICHEV, sizeof(ICHEV)));
+}
+
 char	*get_command(t_list *list)
 {
 	t_list	*node;
@@ -68,7 +78,13 @@ char	*get_command(t_list *list)
 	{
 		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 			break ;
-		if (!last_node || is_command(gtkn(node), gtkn(last_node)))
+		if (is_redirect(gtkn(last_node)))
+		{
+				last_node = node;
+				node = node->next;
+		}
+		if ((!last_node && !is_redirect(gtkn(node)))
+			|| is_command(gtkn(node), gtkn(last_node)))
 			command = gvle(node);
 		last_node = node;
 		node = node->next;
