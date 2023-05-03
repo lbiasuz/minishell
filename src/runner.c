@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/29 16:50:45 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/03 10:11:07 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ int is_redirect(char *token)
 {
 	if (!token)
 		return (0);
-	return (ft_strncmp(token, DICHEV, sizeof(DICHEV))
-		|| ft_strncmp(token, DCHEV, sizeof(DCHEV))
-		|| ft_strncmp(token, CHEV, sizeof(CHEV))
-		|| ft_strncmp(token, ICHEV, sizeof(ICHEV)));
+	return (!ft_strncmp(token, DICHEV, sizeof(DICHEV))
+		|| !ft_strncmp(token, DCHEV, sizeof(DCHEV))
+		|| !ft_strncmp(token, CHEV, sizeof(CHEV))
+		|| !ft_strncmp(token, ICHEV, sizeof(ICHEV)));
 }
 
 char	*get_command(t_list *list)
@@ -78,14 +78,10 @@ char	*get_command(t_list *list)
 	{
 		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 			break ;
-		if (is_redirect(gtkn(last_node)))
-		{
-				last_node = node;
-				node = node->next;
-		}
-		if ((!last_node && !is_redirect(gtkn(node)))
-			|| is_command(gtkn(node), gtkn(last_node)))
-			command = gvle(node);
+		if ((!is_redirect(gtkn(last_node)) || !last_node)
+			&& (!is_redirect(gtkn(node))
+				&& is_command(gtkn(node), gtkn(last_node))))
+			command = ft_strtrim(gvle(node), " ");
 		last_node = node;
 		node = node->next;
 	}
