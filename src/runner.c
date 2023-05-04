@@ -6,13 +6,24 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/03 10:11:07 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/03 22:04:47 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 extern t_ms g_ms;
+
+int	is_redirect(char *token)
+{
+	if (!token)
+		return (0);
+	return (!ft_strncmp(token, DICHEV, sizeof(DICHEV))
+		|| !ft_strncmp(token, DCHEV, sizeof(DCHEV))
+		|| !ft_strncmp(token, CHEV, sizeof(CHEV))
+		|| !ft_strncmp(token, ICHEV, sizeof(ICHEV)));
+}
+
 
 t_list	*return_pipe_or_null(t_list	*token)
 {
@@ -29,10 +40,7 @@ int	is_command(char	*token, char *last_token)
 {
 	if (!token)
 		return (0);
-	return (ft_strncmp(last_token, DICHEV, sizeof(DICHEV))
-		&& ft_strncmp(last_token, DCHEV, sizeof(DCHEV))
-		&& ft_strncmp(last_token, CHEV, sizeof(CHEV))
-		&& ft_strncmp(last_token, ICHEV, sizeof(ICHEV))
+	return (!is_redirect(last_token)
 		&& (!ft_strncmp(token, EXPAND, sizeof(EXPAND))
 			|| !ft_strncmp(token, TEXT, sizeof(TEXT))
 			|| !ft_strncmp(token, SQUOTE, sizeof(SQUOTE))
@@ -55,16 +63,6 @@ int	is_arg(char *token, char *last_token)
 	);
 }
 
-int is_redirect(char *token)
-{
-	if (!token)
-		return (0);
-	return (!ft_strncmp(token, DICHEV, sizeof(DICHEV))
-		|| !ft_strncmp(token, DCHEV, sizeof(DCHEV))
-		|| !ft_strncmp(token, CHEV, sizeof(CHEV))
-		|| !ft_strncmp(token, ICHEV, sizeof(ICHEV)));
-}
-
 char	*get_command(t_list *list)
 {
 	t_list	*node;
@@ -78,7 +76,7 @@ char	*get_command(t_list *list)
 	{
 		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
 			break ;
-		if ((!is_redirect(gtkn(last_node)) || !last_node)
+		if ((!last_node || !is_redirect(gtkn(last_node)))
 			&& (!is_redirect(gtkn(node))
 				&& is_command(gtkn(node), gtkn(last_node))))
 			command = ft_strtrim(gvle(node), " ");
@@ -105,7 +103,7 @@ char	**get_args(t_list *list, char **args)
 		if (is_arg(gtkn(node), gtkn(last_node)))
 		{
 			expand_token_content(node);
-			args = append_table(args, gvle(node));
+			args = append_table(args, ft_strtrim(gvle(node), " "));
 		}
 		last_node = node;
 		node = node->next;
