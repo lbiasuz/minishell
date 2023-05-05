@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/29 16:50:45 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/05 10:01:13 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,35 +132,57 @@ void	invoke_child(t_list *tokens, int fd[2], int ofd[2])
 	exit(g_ms.exit_code);
 }
 
-void	runner(t_list *token, int pid, int fd[2], int ofd[2])
+void	runner(char	**parsed_input)
 {
-	t_list	*node;
-	char	*error;
-	int		child_status;
+	t_cmd	command;
 
-	error = lookfor_error(token);
-	if (error)
+	command.str_table = compose_str_table(parsed_input);
+	command.str = compose_str(parsed_input);
+	setup_fds(&parsed_input);
+	setup_pipes(&parsed_input);
+	command.exec_exit_code = exec_command(command);
+
+}
+
+t_fd	setup_pipes(t_cmd	*command)
+{
+	t_fd	fds;
+	char	*pipe_address;
+
+	fds.in = 0;
+	fds.out = 0;
+	pipe_address = return_pipe_or_null(command->str_table);
+	if (pipe_address)
 	{
-		perror(error);
-		return ;
+		command->ofds.in = command->fds.in;
+		command->ofds.out = command->fds.out;
+		return (pipe((int *)&command->fds));
 	}
-	node = return_pipe_or_null(token);
-	if (node)
-	{
-		ofd[0] = fd[0];
-		ofd[1] = fd[1];
-		pipe(fd);
-	}
+	return (0);
+}
+
+int	exec_command(t_cmd command)
+{
+	int		pid;
+
+	command.exec_exit_code = 0;
 	pid = fork();
 	if (pid == 0)
-		invoke_child(token, fd, ofd);
-	if (fd[1] >= 3)
-		close(fd[1]);
-	if (ofd[0] >= 3)
-		close(ofd[0]);
-	if (node && pid != 0)
-		runner(node->next, pid, fd, ofd);
-	waitpid(0, &child_status, 0);
-	close(fd[0]);
-	close(ofd[1]);
+		command.exec_exit_code = invoke_child(token, (int *)&command.fds, (int *)&command.fds);
+	else
+	{
+		waitpid(0, &command.exec_exit_code, 0);
+		{
+		if (command.fds.out >= 3)
+			close(command.fds.out);
+		if (command.ofds.in >= 3)
+			close(command.ofds.in);
+		if (command.fds.in >= 3)
+			close(command.fds.in);
+		if (command.ofds.out >= 3)
+			close(command.ofds.out);
+		}
+		runner(return_pipe_or_null(command.str_table));
+	}
+	return (0);
 }

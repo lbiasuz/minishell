@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/27 12:36:04 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/05 10:01:13 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define SQUOTE "\'"
 # define DQUOTE "\""
 # define PIPE "|"
-# define SEMI ";"
+# define SEMI ";" // not to be handled
 # define DOLL "$"
 # define ECOM "&"
 # define TEXT "TEXT"
@@ -59,6 +59,19 @@ typedef struct s_tkn {
 	char	*value;
 	char	*token;
 }	t_tkn;
+
+typedef struct s_cmd {
+	char	*str_table;
+	char	*str;
+	t_fd	fds;
+	t_fd	ofds;
+	int		exec_exit_code;
+}	t_cmd;
+
+typedef struct s_fd {
+	int		in;
+	int		out;
+}	t_fd;
 
 //	INIT
 t_ms	init_minishell(char **env);
