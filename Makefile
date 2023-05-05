@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/29 14:53:39 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/05/04 21:55:57 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC				+=	$(PATH_NAME)/table.c
 SRC				+=	$(PATH_NAME)/error.c
 SRC				+=	$(PATH_NAME)/parse.c
 SRC				+=	$(PATH_NAME)/token.c
+SRC				+=	$(PATH_NAME)/token_type.c
 SRC				+=	$(PATH_NAME)/helper.c
 SRC				+=	$(PATH_NAME)/dollar.c
 SRC				+=	$(PATH_NAME)/runner.c
@@ -79,6 +80,9 @@ test: all
 	make -C tests -f test_minishell.mk
 
 valgrind: all
-	valgrind -s --trace-children=yes --log-fd=9 ./$(NAME) 9>memcheck.log
+	valgrind -s # --leak-check=full --show-leak-kinds=all \
+			# --track-origins=yes --trace-children=yes \
+			# --suppressions=./readline.supp \
+			--log-fd=9 \ ./$(NAME)   9>memcheck.log
 
 .PHONY: all clean fclean re test

@@ -6,57 +6,43 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/03 09:51:47 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/04 22:26:03 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	redirect_fds(t_list *tokens, int fd[2], int ofd[2])
+static void	close_fd(int fd)
 {
-	t_list	*node;
+	if (fd >= 3)
+		close(fd);
+}
 
-	node = tokens;
-	while (node)
+void	redirect_fds(t_list *tokens, t_cmd cmd, int fd[2], int ofd[2])
+{
+	cmd.file_in = ofd[0];
+	cmd.file_out = fd[1];
+	while (tokens && !ft_strncmp(gtkn(tokens), PIPE, sizeof(PIPE)))
 	{
-		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
-			break ;
-		if (!ft_strncmp(gtkn(node), DICHEV, sizeof(DICHEV)))
-			ofd[0] = heredoc_to_stdin(gvle(node->next), ofd[0]);
-		else if (!ft_strncmp(gtkn(node), DCHEV, sizeof(DCHEV)))
-			fd[1] = append_stdout_to_file(gvle(node->next), fd[1]);
-		else if (!ft_strncmp(gtkn(node), CHEV, sizeof(CHEV)))
-			fd[1] = stdout_to_file(gvle(node->next), fd[1]);
-		else if (!ft_strncmp(gtkn(node), ICHEV, sizeof(ICHEV)))
-			ofd[0] = file_to_stdin(gvle(node->next), ofd[0]);
-		node = node->next;
+		if (!ft_strncmp(gtkn(tokens), ICHEV, sizeof(ICHEV)))
+			cmd.file_in = file_to_stdin(gvle(tokens->next), ofd[0]);
+		else if (!ft_strncmp(gtkn(tokens), DICHEV, sizeof(DICHEV)))
+			cmd.file_in = heredoc_to_stdin(gvle(tokens->next), ofd[0]);
+		else if (!ft_strncmp(gtkn(tokens), CHEV, sizeof(CHEV)))
+			cmd.file_out = stdout_to_file(gvle(tokens->next), fd[1]);
+		else if (!ft_strncmp(gtkn(tokens), DCHEV, sizeof(DCHEV)))
+			cmd.file_out = append_stdout_to_file(gvle(tokens->next), fd[1]);
+		tokens = tokens->next;
 	}
 	if (!return_pipe_or_null(tokens))
-	{
-		dup2(fd[0], STDIN_FILENO);
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
-		if (fd[0] >= 3)
-			close(fd[0]);
-		if (fd[1] >= 3)
-			close(fd[1]);
-		if (ofd[0] >= 3)
-			close(ofd[0]);
-		if (ofd[1] >= 3)
-			close(ofd[1]);
-	}
 	else
-	{
-		dup2(ofd[0], STDIN_FILENO);
-		dup2(fd[1], STDOUT_FILENO);
-		if (ofd[1] >= 3)
-			close(ofd[1]);
-		if (ofd[0] >= 3)
-			close(ofd[0]);
-		if (fd[0] >= 3)
-			close(fd[0]);
-		if (fd[1] >= 3)
-			close(fd[1]);
-	}
+		dup2(cmd.file_out, STDOUT_FILENO);
+	dup2(cmd.file_in, STDIN_FILENO);
+	close_fd(ofd[1]);
+	close_fd(ofd[0]);
+	close_fd(fd[0]);
+	close_fd(fd[1]);
 }
 
 int	file_to_stdin(char *filepath, int current_fd)
@@ -70,6 +56,7 @@ int	file_to_stdin(char *filepath, int current_fd)
 		return (fd);
 	}
 	dup2(fd, current_fd);
+	close(current_fd);
 	return (fd);
 }
 
@@ -84,6 +71,7 @@ int	stdout_to_file(char *filepath, int current_fd)
 		return (fd);
 	}
 	dup2(fd, current_fd);
+	close(current_fd);
 	return (fd);
 }
 
@@ -119,5 +107,6 @@ int	append_stdout_to_file(char *filepath, int current_fd)
 		return (fd);
 	}
 	dup2(fd, current_fd);
+	close(current_fd);
 	return (fd);
 }

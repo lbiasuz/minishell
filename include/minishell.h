@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/27 12:36:04 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/05 11:26:31 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,15 @@ typedef struct s_ms {
 	int		exit_code;
 }	t_ms;
 
+typedef struct s_cmd {
+	char	*exe;
+	char	*exe_path;
+	int		file_in;
+	int		file_out;
+	char	**args;
+	char	**
+}	t_cmd;
+
 typedef struct s_tkn {
 	char	*value;
 	char	*token;
@@ -86,8 +95,8 @@ char	*join_envp_var(char *before, char *variable, char *after);
 char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
 
-void	runner(t_list *token, int pid, int fd[2], int ofd[2]);
-t_list	*return_pipe_or_null(t_list	*token);
+void	runner(char **parse, int pid, int fd[2], int ofd[2]);
+char	*return_pipe_or_null(char	**string, int index);
 
 // ENV.H
 /// @brief Copies an array of strings to heap.
@@ -146,7 +155,7 @@ int		stdout_to_file(char *filepath, int current_fd);
 /// @return fd returns opened fd
 int		append_stdout_to_file(char *filepath, int current_fd);
 
-void	redirect_fds(t_list *tokens, int fd[2], int ofd[2]);
+void	redirect_fds(t_list *tokens, t_cmd cmd, int fd[2], int ofd[2]);
 
 //TOKEN.H
 t_list	*plain_token(char *input);
@@ -154,7 +163,10 @@ t_list	*compose_token(char *input);
 t_list	*tokenize(char **inputs);
 char	*gtkn(t_list *node);
 char	*gvle(t_list *node);
+int		is_redirect(char *token);
+int		is_arg(char *token, char *last_token, t_cmd cmd);
+int		is_command(char *token, char *last_token);
 
-void	expand_token_content(t_list *node);
+char	*expand_string_content(char *node);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/18 21:34:26 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/05 11:23:55 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*join_envp_var(char *before, char *variable, char *after)
 {
 	char	*join1;
 	char	*join2;
-	
+
 	if (!before)
 		before = "";
 	if (!variable)
@@ -58,6 +58,12 @@ char	*expand_variable(char *input, char *dollar)
 	index = 1;
 	if (!dollar)
 		return (input);
+	if (dollar[index] == '?')
+		return (join_envp_var(
+				ft_substr(input, 0, dollar - input),
+				ft_itoa(g_ms.exit_code),
+				ft_substr(&input[index - 1], 0, ft_strlen(&input[index]))
+			));
 	while (ft_isalnum(dollar[index]) || dollar[index] == '_')
 		index++;
 	variable = ft_substr(dollar, 1, index);
@@ -66,19 +72,21 @@ char	*expand_variable(char *input, char *dollar)
 			ft_substr(input, 0, dollar - input),
 			value,
 			ft_substr(&input[index - 1], 0, ft_strlen(&input[index]))
-		)
-	);
+		));
 }
 
-void	expand_token_content(t_list *node)
+char	*expand_string_content(char *string)
 {
-	while (gvle(node))
+	char	*new_string;
+
+	while (ft_strchr(string, '$'))
 	{
-		if (!ft_strchr(gvle(node), '$'))
-			break ;
-		((t_tkn *) node->content)->value = expand_variable(
-				gvle(node),
-				ft_strchr(gvle(node), '$')
-				);
+		new_string = expand_variable(string, ft_strchr(string, '$'));
+		if (new_string != string)
+		{
+			free(string);
+			string = new_string;
+		}
 	}
+	return (string);
 }

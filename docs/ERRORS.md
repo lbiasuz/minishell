@@ -1,6 +1,10 @@
+- [ ] minishell fechando após execução do programa
+- [ ] commandos por caminho absoluto não estão rodando
+- [ ] $? Não implementado
+- [ ] argumentos incorretos na presença de redirect
 - [ ] heredoc completamente quebrado
 - [ ] heredoc em conflito com minishell após sigint recebido
 - [X] redirections antes do comando não funcionam
 - [X] pipe não é fechada corretamente, congelando o grep e efins
 - [ ] builtin ainda não foram integrados
-- [ ] prompt sendo mostrado duas vezes no ctrl-c
+- [X] prompt sendo mostrado duas vezes no ctrl-c
