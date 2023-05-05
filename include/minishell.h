@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/05 11:26:31 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/05 11:42:56 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define SQUOTE "\'"
 # define DQUOTE "\""
 # define PIPE "|"
-# define SEMI ";"
+# define SEMI ";" // not to be handled
 # define DOLL "$"
 # define ECOM "&"
 # define TEXT "TEXT"
@@ -61,13 +61,25 @@ typedef struct s_cmd {
 	int		file_in;
 	int		file_out;
 	char	**args;
-	char	**
 }	t_cmd;
 
 typedef struct s_tkn {
 	char	*value;
 	char	*token;
 }	t_tkn;
+
+typedef struct s_cmd {
+	char	*str_table;
+	char	*str;
+	t_fd	fds;
+	t_fd	ofds;
+	int		exec_exit_code;
+}	t_cmd;
+
+typedef struct s_fd {
+	int		in;
+	int		out;
+}	t_fd;
 
 //	INIT
 t_ms	init_minishell(char **env);
