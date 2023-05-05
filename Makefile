@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/28 00:55:35 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/04/29 14:53:39 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,6 @@ test: all
 	make -C tests -f test_minishell.mk
 
 valgrind: all
-	valgrind --suppressions=val_ignore -s --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --log-fd=9 ./$(NAME) 9>memcheck.log
+	valgrind -s --trace-children=yes --log-fd=9 ./$(NAME) 9>memcheck.log
 
 .PHONY: all clean fclean re test
