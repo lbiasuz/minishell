@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/05 11:42:56 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/08 11:38:24 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,6 @@ typedef struct s_tkn {
 	char	*token;
 }	t_tkn;
 
-typedef struct s_cmd {
-	char	*str_table;
-	char	*str;
-	t_fd	fds;
-	t_fd	ofds;
-	int		exec_exit_code;
-}	t_cmd;
-
-typedef struct s_fd {
-	int		in;
-	int		out;
-}	t_fd;
-
 //	INIT
 t_ms	init_minishell(char **env);
 
@@ -108,7 +95,7 @@ char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
 
 void	runner(char **parse, int pid, int fd[2], int ofd[2]);
-char	*return_pipe_or_null(char	**string, int index);
+char	**return_pipe_or_null(char	**string, int index);
 
 // ENV.H
 /// @brief Copies an array of strings to heap.
@@ -167,7 +154,7 @@ int		stdout_to_file(char *filepath, int current_fd);
 /// @return fd returns opened fd
 int		append_stdout_to_file(char *filepath, int current_fd);
 
-void	redirect_fds(t_list *tokens, t_cmd cmd, int fd[2], int ofd[2]);
+void	redirect_fds(char **tokens, t_cmd cmd, int fd[2], int ofd[2]);
 
 //TOKEN.H
 t_list	*plain_token(char *input);
