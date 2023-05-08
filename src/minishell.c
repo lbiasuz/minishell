@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/08 12:06:09 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:18:37 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	main(int argc, char *argv[], char *envp[])
 static int	process_input(char *prompt)
 {
 	char	**parsed_input;
-	t_list	*tokens;
 	int		old_fd[2];
 	int		fd[2];
 
@@ -60,17 +59,13 @@ static int	process_input(char *prompt)
 		return (0);
 	if (syntax_analysis(parsed_input))
 		return (0);
-	tokens = tokenize(parsed_input);
-	if (!tokens)
-		return (0);
 	add_history(prompt);
 	free_parse(parsed_input);
 	fd[0] = STDIN_FILENO;
 	fd[1] = STDOUT_FILENO;
 	old_fd[0] = STDIN_FILENO;
 	old_fd[1] = STDOUT_FILENO;
-	runner(tokens, -1, fd, old_fd);
-	ft_lstclear(&tokens, free_token);
+	runner(parsed_input, -1, fd, old_fd);
 	return (0);
 }
 

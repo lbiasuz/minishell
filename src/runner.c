@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/05 11:45:33 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/08 11:51:50 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ t_cmd	get_command(char **parse, t_cmd cmd)
 	while (!cmd.exe && parse[i] && !ft_strncmp(parse[i], PIPE, sizeof(PIPE)))
 	{
 		if (is_command(parse[i], parse[i - 1]))
-			cmd.exe = parse[i]
+			cmd.exe = parse[i];
 		i++;
 	}
-	command = expand_token_content(cmd.exe);
+	command = expand_string_content(cmd.exe);
 	if (command && (!ft_strchr(command, '/') || command[0] != '.'))
 	{
 		cmd.exe_path = find_cmd_path(g_ms.envp, command);
@@ -49,103 +49,41 @@ t_cmd	get_command(char **parse, t_cmd cmd)
 	return (cmd);
 }
 
-void	invoke_child(t_list *tokens, int fd[2], int ofd[2])
+void	invoke_child(char **tokens, int fd[2], int ofd[2])
 {
 	t_cmd	cmd;
 
-	cmd = redirect_fds(tokens, cmd, fd, ofd);
+	redirect_fds(tokens, cmd, fd, ofd);
 	cmd = get_command(tokens, cmd);
-	cmd = get_args(tokens, cmd);
+	// cmd = get_args(tokens, cmd);
 	if (cmd.exe_path)
 		g_ms.exit_code = execve(cmd.exe_path, cmd.args, g_ms.envp);
 	exit(g_ms.exit_code);
 }
 
-// void	runner(char **parsed, int pid, int fd[2], int ofd[2])
-// {
-
-// 	node = return_pipe_or_null(token);
-// 	if (node)
-// 	{
-// 		ofd[0] = fd[0];
-// 		ofd[1] = fd[1];
-// 		pipe(fd);
-// 	}
-// 	return (0);
-// }
-
-// int	exec_command(t_cmd command)
-// {
-// 	int		pid;
-
-// 	command.exec_exit_code = 0;
-// 	pid = fork();
-// 	if (pid == 0)
-// 		invoke_child(token, fd, ofd);
-// 	if (fd[1] >= 3)
-// 		close(fd[1]);
-// 	if (ofd[0] >= 3)
-// 		close(ofd[0]);
-// 	if (node && pid != 0)
-// 		runner(node->next, pid, fd, ofd);
-// 	waitpid(0, &g_ms.exit_code, 0);
-// 	if (fd[0] >= 3)
-// 		close(fd[0]);
-// 	if (ofd[1] >= 3)
-// 		close(ofd[1]);
-// }
-
-void	runner(char	**parsed_input)
+void	runner(char **parsed, int pid, int fd[2], int ofd[2])
 {
-	t_cmd	command;
+	char **node;
 
-	command.str_table = compose_str_table(parsed_input);
-	command.str = compose_str(parsed_input);
-	setup_fds(&parsed_input);
-	setup_pipes(&parsed_input);
-	command.exec_exit_code = exec_command(command);
-
-}
-
-t_fd	setup_pipes(t_cmd	*command)
-{
-	t_fd	fds;
-	char	*pipe_address;
-
-	fds.in = 0;
-	fds.out = 0;
-	pipe_address = return_pipe_or_null(command->str_table);
-	if (pipe_address)
+	node = return_pipe_or_null(parsed, 0);
+	if (node[0])
 	{
-		command->ofds.in = command->fds.in;
-		command->ofds.out = command->fds.out;
-		return (pipe((int *)&command->fds));
+		ofd[0] = fd[0];
+		ofd[1] = fd[1];
+		pipe(fd);
 	}
-	return (0);
-}
-
-int	exec_command(t_cmd command)
-{
-	int		pid;
-
-	command.exec_exit_code = 0;
 	pid = fork();
 	if (pid == 0)
-		command.exec_exit_code = invoke_child(token, (int *)&command.fds, (int *)&command.fds);
-	else
-	{
-		waitpid(0, &command.exec_exit_code, 0);
-		{
-		if (command.fds.out >= 3)
-			close(command.fds.out);
-		if (command.ofds.in >= 3)
-			close(command.ofds.in);
-		if (command.fds.in >= 3)
-			close(command.fds.in);
-		if (command.ofds.out >= 3)
-			close(command.ofds.out);
-		}
-		runner(return_pipe_or_null(command.str_table));
-	}
-	return (0);
+		invoke_child(node, fd, ofd);
+	if (fd[1] >= 3)
+		close(fd[1]);
+	if (ofd[0] >= 3)
+		close(ofd[0]);
+	if (node[0] && pid != 0)
+		runner(node, pid, fd, ofd);
+	waitpid(0, &g_ms.exit_code, 0);
+	if (fd[0] >= 3)
+		close(fd[0]);
+	if (ofd[1] >= 3)
+		close(ofd[1]);
 }
