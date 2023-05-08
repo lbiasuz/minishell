@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/04/15 21:00:17 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/08 09:58:12 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,30 +62,34 @@ static char	*next_prompt_address(char *prompt)
 {
 	int	quotes_flag;
 
-	if (!*prompt)
+	if (!prompt[0])
 		return (NULL);
-	if (ft_strchr("(&|<>", *prompt))
+	if (ft_strchr("&|<>", prompt[0]))
+	{
+		if (ft_strchr("<>", prompt[1]))
+			prompt++;
 		return (++prompt);
+	}
 	quotes_flag = 0;
-	if (ft_strchr("\"", *prompt))
+	if (ft_strchr("\"", prompt[0]))
 		quotes_flag = DOUBLE_QUOTES;
-	else if (ft_strchr("\'", *prompt))
+	else if (ft_strchr("\'", prompt[0]))
 		quotes_flag = SINGLE_QUOTES;
 	prompt++;
-	while (*prompt)
+	while (prompt[0])
 	{
 		if (quotes_flag)
 		{
-			if (quotes_flag == DOUBLE_QUOTES && ft_strchr("\"", *prompt) && quotes_flag-- && ++prompt)
+			if (quotes_flag == DOUBLE_QUOTES && ft_strchr("\"", prompt[0]) && quotes_flag-- && ++prompt)
 				break ;
-			if (quotes_flag == SINGLE_QUOTES && ft_strchr("\'", *prompt) && quotes_flag-- && ++prompt)
+			if (quotes_flag == SINGLE_QUOTES && ft_strchr("\'", prompt[0]) && quotes_flag-- && ++prompt)
 				break ;
 		}
-		else if (ft_strchr("&|$<>", *prompt) || ft_isspace(*prompt))
+		else if (ft_strchr("&|$<>", prompt[0]) || ft_isspace(prompt[0]))
 			break ;
 		prompt++;
 	}
-	while (*prompt && ft_isspace(*prompt))
+	while (prompt[0] && ft_isspace(prompt[0]))
 		prompt++;
 	return (prompt);
 }

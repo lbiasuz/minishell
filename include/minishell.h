@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/05 11:42:56 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/08 12:05:47 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_fd {
 //	INIT
 t_ms	init_minishell(char **env);
 
+int		syntax_analysis(char **parsed_input);
 char	**parse(char	*prompt);
 void	init_signal_handlers(void);
 char	*lookfor_error(t_list *tokens);
@@ -101,6 +102,7 @@ char	**char_occurences(char *string, char c);
 int		char_count(char *string, char c);
 void	free_table(char **table);
 void	free_token(void *tkn);
+void	free_parse(char **input);
 char	**append_table(char	**table, char *variable);
 char	*join_envp_var(char *before, char *variable, char *after);
 

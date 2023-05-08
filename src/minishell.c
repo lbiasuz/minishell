@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/27 09:56:06 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/08 12:06:09 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	process_input(char *prompt);
 // static void	print_parse(char **input);
-static void	free_parse(char **input);
 // static void	print_tokens(t_list *tokens);
 
 t_ms	g_ms;
@@ -59,6 +58,8 @@ static int	process_input(char *prompt)
 	parsed_input = parse(prompt);
 	if (!parsed_input)
 		return (0);
+	if (syntax_analysis(parsed_input))
+		return (0);
 	tokens = tokenize(parsed_input);
 	if (!tokens)
 		return (0);
@@ -71,20 +72,6 @@ static int	process_input(char *prompt)
 	runner(tokens, -1, fd, old_fd);
 	ft_lstclear(&tokens, free_token);
 	return (0);
-}
-
-static void	free_parse(char **input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		free(input[i]);
-		input[i] = NULL;
-		i++;
-	}
-	free(input);
 }
 
 // static void	print_parse(char **input)
