@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/09 11:55:07 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/09 11:59:13 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,11 @@ void	invoke_child(char ***tokens, int fd[2], int ofd[2])
 	exit(g_ms.exit_code);
 }
 
-void	runner(t_list *cmdlist, int pid, int fd[2], int ofd[2])
+void	runner(t_list **cmdlist, int pid, int fd[2], int ofd[2])
 {
-	if (cmd_list[0])
+
+	index = return_pipe_or_null(*parsed, index);
+	if (parsed[index][0])
 	{
 		ofd[0] = fd[0];
 		ofd[1] = fd[1];
