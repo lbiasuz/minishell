@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/08 09:58:12 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:01:58 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,13 @@ static char	*next_prompt_address(char *prompt)
 		return (NULL);
 	if (ft_strchr("&|<>", prompt[0]))
 	{
-		if (ft_strchr("<>", prompt[1]))
+		if (!ft_strncmp(">>", prompt, 2) || !ft_strncmp("<<", prompt, 2))
+			prompt += 2;
+		else
 			prompt++;
-		return (++prompt);
+		while (prompt[0] && ft_isspace(prompt[0]))
+			prompt++;
+		return (prompt);
 	}
 	quotes_flag = 0;
 	if (ft_strchr("\"", prompt[0]))
