@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:54:46 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/08 12:15:28 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:19:30 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static char	**syntax_error_location_or_null(char **parsed_input)
 {
+	(void)parsed_input;
 	// int	pipe_allowed;
 	// int	chev_allowed;
 	// int	ecom_allowed;
