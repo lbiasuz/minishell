@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/08 12:18:37 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:43:25 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,9 @@ static int	process_input(char *prompt)
 	parsed_input = parse(prompt);
 	if (!parsed_input)
 		return (0);
-	if (syntax_analysis(parsed_input))
-		return (0);
+	// if (syntax_analysis(parsed_input))
+	//	 return (0);
 	add_history(prompt);
-	free_parse(parsed_input);
 	fd[0] = STDIN_FILENO;
 	fd[1] = STDOUT_FILENO;
 	old_fd[0] = STDIN_FILENO;

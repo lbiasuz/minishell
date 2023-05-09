@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analysis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:54:46 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/08 12:15:28 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/08 20:53:11 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 static char	**syntax_error_location_or_null(char **parsed_input)
 {
-	// int	pipe_allowed;
-	// int	chev_allowed;
-	// int	ecom_allowed;
+	int	pipe_allowed;
+	int	chev_allowed;
+	int	ecom_allowed;
 
-	// pipe_allowed = 0;
-	// chev_allowed = 0;
-	// ecom_allowed = 0;
-	// while (parsed_input)
-	// {
-	// 	if (pipe_allowed && ft_strncmp(parsed_input[0], DICHEV, sizeof(DICHEV)))
-	// 		return (parsed_input);
-	// 	if (chev_allowed && ft_strncmp(parsed_input[0], DICHEV, sizeof(DICHEV)))
-	// 		return (parsed_input);
-	// 	if (ecom_allowed && ft_strncmp(parsed_input[0], DICHEV, sizeof(DICHEV)))
-	// 		return (parsed_input);
-	// }
+	pipe_allowed = 0;
+	chev_allowed = 0;
+	ecom_allowed = 0;
+	while (parsed_input)
+	{
+		if (pipe_allowed && ft_strncmp(parsed_input[0], DICHEV, sizeof(DICHEV)))
+			return (parsed_input);
+		if (chev_allowed && ft_strncmp(parsed_input[0], DICHEV, sizeof(DICHEV)))
+			return (parsed_input);
+		if (ecom_allowed && ft_strncmp(parsed_input[0], DICHEV, sizeof(DICHEV)))
+			return (parsed_input);
+	}
 	return (NULL);
 }
 
