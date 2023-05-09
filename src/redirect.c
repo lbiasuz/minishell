@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/08 12:12:07 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/09 11:28:48 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@ static void	close_fd(int fd)
 		close(fd);
 }
 
-void	redirect_fds(char **tokens, t_cmd cmd, int fd[2], int ofd[2])
+void	redirect_fds(char ***tokens, t_cmd cmd, int fd[2], int ofd[2])
 {
 	int	i;
 
 	i = 0;
 	cmd.file_in = ofd[0];
 	cmd.file_out = fd[1];
-	while (tokens[i] && !ft_strncmp(tokens[i], PIPE, sizeof(PIPE)))
+	while (*tokens[i] && !ft_strncmp(*tokens[i], PIPE, sizeof(PIPE)))
 	{
-		if (!ft_strncmp(tokens[i], ICHEV, sizeof(ICHEV)))
-			cmd.file_in = file_to_stdin(tokens[i + 1], ofd[0]);
-		else if (!ft_strncmp(tokens[i], DICHEV, sizeof(DICHEV)))
-			cmd.file_in = heredoc_to_stdin(tokens[i + 1], ofd[0]);
-		else if (!ft_strncmp(tokens[i], CHEV, sizeof(CHEV)))
-			cmd.file_out = stdout_to_file(tokens[i + 1], fd[1]);
-		else if (!ft_strncmp(tokens[i], DCHEV, sizeof(DCHEV)))
-			cmd.file_out = append_stdout_to_file(tokens[i + 1], fd[1]);
+		if (!ft_strncmp(*tokens[i], ICHEV, sizeof(ICHEV)))
+			cmd.file_in = file_to_stdin(*tokens[i + 1], ofd[0]);
+		else if (!ft_strncmp(*tokens[i], DICHEV, sizeof(DICHEV)))
+			cmd.file_in = heredoc_to_stdin(*tokens[i + 1], ofd[0]);
+		else if (!ft_strncmp(*tokens[i], CHEV, sizeof(CHEV)))
+			cmd.file_out = stdout_to_file(*tokens[i + 1], fd[1]);
+		else if (!ft_strncmp(*tokens[i], DCHEV, sizeof(DCHEV)))
+			cmd.file_out = append_stdout_to_file(*tokens[i + 1], fd[1]);
 		i++;
 	}
-	if (!return_pipe_or_null(tokens, 0))
+	if ( return_pipe_or_null(*tokens, 0))
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
 	else
 		dup2(cmd.file_out, STDOUT_FILENO);
