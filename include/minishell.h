@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/08 12:17:49 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:57:28 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int		char_count(char *string, char c);
 void	free_table(char **table);
 void	free_token(void *tkn);
 void	free_parse(char **input);
-char	**append_table(char	**table, char *variable);
+char	**append_table(char **table, char *variable);
+char	**pop_table(char **table, char *address);
 char	*join_envp_var(char *before, char *variable, char *after);
 
 char	*expand_variable(char *input, char *dollar);

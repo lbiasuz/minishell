@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/08 11:51:50 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/08 22:01:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@ t_cmd	get_command(char **parse, t_cmd cmd)
 
 	i = 0;
 	cmd.exe = NULL;
+	command = NULL;
 	while (!cmd.exe && parse[i] && !ft_strncmp(parse[i], PIPE, sizeof(PIPE)))
 	{
-		if (is_command(parse[i], parse[i - 1]))
+		if (i == 0 || is_command(parse[i], parse[i - 1]))
 			cmd.exe = parse[i];
+		ft_printf("%s \n", cmd.exe);
 		i++;
 	}
-	command = expand_string_content(cmd.exe);
+	if (cmd.exe)
+		command = expand_string_content(ft_strdup(cmd.exe));
 	if (command && (!ft_strchr(command, '/') || command[0] != '.'))
 	{
 		cmd.exe_path = find_cmd_path(g_ms.envp, command);
