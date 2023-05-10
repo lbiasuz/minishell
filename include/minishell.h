@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/09 17:46:36 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:33:23 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ typedef struct s_ms {
 typedef struct s_cmd {
 	char	*exe;
 	char	*exe_path;
-	int		file_in;
-	int		file_out;
+	int		fd[2];
 	char	**args;
 	char	**raw;
 	int		raw_size;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/09 11:59:13 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/09 22:33:22 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,44 @@ void	invoke_child(char ***tokens, int fd[2], int ofd[2])
 	exit(g_ms.exit_code);
 }
 
-void	runner(t_list **cmdlist, int pid, int fd[2], int ofd[2])
+void	runner(t_list *cmd_list)
+{
+	while (cmd_list)
+	{
+		set_pipes(cmd_list);
+		run_cmd((t_cmd *) cmd_list->content);
+		close_fd(((t_cmd *)cmd_list->content)->fd[1]);
+		close_fd(((t_cmd *)cmd_list->content)->fd[0]);
+		cmd_list = cmd_list->next;
+	}
+}
+
+void	set_pipes(t_list *cmd_list)
 {
 
-	index = return_pipe_or_null(*parsed, index);
-	if (parsed[index][0])
-	{
-		ofd[0] = fd[0];
-		ofd[1] = fd[1];
-		pipe(fd);
-	}
-	pid = fork();
+	if (!cmd_list->next)
+		return ;
+	pipe(cmd_list->next->cmd.fd);
+}
+
+void	run_cmd(t_cmd *cmd)
+{
+	int	pid;
+
 	if (pid == 0)
 		invoke_child(parsed[index], fd, ofd);
-	if (fd[1] >= 3)
-		close(fd[1]);
-	if (ofd[0] >= 3)
-		close(ofd[0]);
-	if (parsed[index][0] && pid != 0)
-		runner(parsed, , pid, fd, ofd);
-	waitpid(0, &g_ms.exit_code, 0);
-	if (fd[0] >= 3)
-		close(fd[0]);
-	if (ofd[1] >= 3)
-		close(ofd[1]);
+	else
+	{
+		if (fd[1] >= 3)
+			close(fd[1]);
+		if (ofd[0] >= 3)
+			close(ofd[0]);
+		waitpid(0, &g_ms.exit_code, 0);
+		if (fd[0] >= 3)
+			close(fd[0]);
+		if (ofd[1] >= 3)
+			close(ofd[1]);
+		if (cmd_list->cmd.output_status)
+			printf("%i ", g_ms.exit_code);
+	}
 }
