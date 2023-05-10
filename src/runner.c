@@ -6,7 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/10 11:15:27 by lbiasuz          ###   ########.fr       */
+=======
+/*   Updated: 2023/05/10 09:07:03 by rmiranda         ###   ########.fr       */
+>>>>>>> 30f8654f13a246b2d5fac17a119307c85e76221f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +89,7 @@ void	runner(t_list *cmd_list)
 // 	pipe(cmd_list->next->cmd.fd);
 // }
 
-void	run_cmd(t_cmd *cmd)
+static void	run_cmd(t_cmd *cmd)
 {
 	int	pid;
 
