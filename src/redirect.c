@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/09 11:28:48 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:52:29 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,32 @@ static void	close_fd(int fd)
 		close(fd);
 }
 
-void	redirect_fds(char ***tokens, t_cmd cmd, int fd[2], int ofd[2])
+void	redirect_fds(t_cmd *cmd, t_cmd *next)
 {
 	int	i;
 
 	i = 0;
-	cmd.file_in = ofd[0];
-	cmd.file_out = fd[1];
-	while (*tokens[i] && !ft_strncmp(*tokens[i], PIPE, sizeof(PIPE)))
+	while (cmd->raw[i] && !ft_strncmp(cmd->raw[i], PIPE, sizeof(PIPE)))
 	{
-		if (!ft_strncmp(*tokens[i], ICHEV, sizeof(ICHEV)))
-			cmd.file_in = file_to_stdin(*tokens[i + 1], ofd[0]);
-		else if (!ft_strncmp(*tokens[i], DICHEV, sizeof(DICHEV)))
-			cmd.file_in = heredoc_to_stdin(*tokens[i + 1], ofd[0]);
-		else if (!ft_strncmp(*tokens[i], CHEV, sizeof(CHEV)))
-			cmd.file_out = stdout_to_file(*tokens[i + 1], fd[1]);
-		else if (!ft_strncmp(*tokens[i], DCHEV, sizeof(DCHEV)))
-			cmd.file_out = append_stdout_to_file(*tokens[i + 1], fd[1]);
+		if (!ft_strncmp(cmd->raw[i], ICHEV, sizeof(ICHEV)))
+			cmd->fd[0] = file_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
+		else if (!ft_strncmp(cmd->raw[i], DICHEV, sizeof(DICHEV)))
+			cmd->fd[0] = heredoc_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
+		else if (!ft_strncmp(cmd->raw[i], CHEV, sizeof(CHEV)))
+			cmd->next->fd[1] = stdout_to_file(cmd->raw[i + 1], cmd->next->fd[1]);
+		else if (!ft_strncmp(cmd->raw[i], DCHEV, sizeof(DCHEV)))
+			cmd->next->fd[1] = append_stdout_to_file(cmd->raw[i + 1], cmd->next->fd[1]);
 		i++;
 	}
-	if ( return_pipe_or_null(*tokens, 0))
+	if (return_pipe_or_null(*tokens, 0))
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
 	else
-		dup2(cmd.file_out, STDOUT_FILENO);
-	dup2(cmd.file_in, STDIN_FILENO);
-	close_fd(ofd[1]);
-	close_fd(ofd[0]);
-	close_fd(fd[0]);
-	close_fd(fd[1]);
+		dup2(cmd->next->fd[1], STDOUT_FILENO);
+	dup2(cmd->fd[0], STDIN_FILENO);
+	close_fd(cmd->fd[1]);
+	close_fd(cmd->fd[0]);
+	close_fd(cmd->next->fd[0]);
+	close_fd(cmd->next->fd[1]);
 }
 
 int	file_to_stdin(char *filepath, int current_fd)
