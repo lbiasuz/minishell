@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/10 09:04:19 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:07:03 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	runner(t_list *cmd_list)
 	}
 }
 
-void	set_pipes(t_list *cmd_list)
+static void	set_pipes(t_list *cmd_list)
 {
 
 	if (!cmd_list->next)
@@ -97,7 +97,7 @@ void	set_pipes(t_list *cmd_list)
 	pipe(cmd_list->next->cmd.fd);
 }
 
-void	run_cmd(t_cmd *cmd)
+static void	run_cmd(t_cmd *cmd)
 {
 	int	pid;
 
