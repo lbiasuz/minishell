@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/10 08:58:55 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:10:04 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,12 @@ typedef struct s_cmd {
 	char	**raw;
 }	t_cmd;
 
-typedef struct s_tkn {
-	char	*value;
-	char	*token;
-}	t_tkn;
-
 //	INIT
 t_ms	init_minishell(char **env);
 
 int		syntax_analysis(char **parsed_input);
 char	**parse(char	*prompt);
 void	init_signal_handlers(void);
-char	*lookfor_error(t_list *tokens);
 
 // BUILTINS
 int		pwd(void);
@@ -88,7 +82,6 @@ int		unset(char **argv);
 char	**char_occurences(char *string, char c);
 int		char_count(char *string, char c);
 void	free_table(char **table);
-void	free_token(void *tkn);
 void	free_parse(char **input);
 char	**append_table(char **table, char *variable);
 char	**pop_table(char **table, char *address);
@@ -96,9 +89,12 @@ char	*join_envp_var(char *before, char *variable, char *after);
 
 char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
+char	*expand_string_content(char *node);
 
-void	runner(char ***parse, int pid, int fd[2], int ofd[2]);
-int		return_pipe_or_null(char	**string, int index);
+void	runner(t_list *list);
+void	run_cmd(t_cmd *cmd);
+// void	set_pipes(t_list *list);
+// int		return_pipe_or_null(char	**string, int index);
 
 // ENV.H
 /// @brief Copies an array of strings to heap.
@@ -158,15 +154,16 @@ int		stdout_to_file(char *filepath, int current_fd);
 int		append_stdout_to_file(char *filepath, int current_fd);
 
 void	redirect_fds(char ***tokens, t_cmd cmd, int fd[2], int ofd[2]);
+void	close_fd(int fd);
 
 //TOKEN.H
 t_list	*tokenize(char **inputs);
+t_cmd	*cast_cmd(t_list *node);
 
 // TOKEN_TYPE.H
 int		is_redirect(char *token);
 int		is_command(char *string);
 int		is_arg(char *token, char *last_token, t_cmd cmd);
 
-char	*expand_string_content(char *node);
 
 #endif

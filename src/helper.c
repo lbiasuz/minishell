@@ -6,13 +6,20 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/09 21:21:30 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/10 10:56:21 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <stdlib.h>
 #include <libft.h>
+
+t_cmd	*cast_cmd(t_list *node)
+{
+	if (node && node->content)
+		return ((t_cmd *) node->content);
+	return (NULL);
+}
 
 int	char_count(char *string, char c)
 {

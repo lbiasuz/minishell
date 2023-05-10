@@ -3,29 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/09 22:33:22 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:15:27 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 extern t_ms g_ms;
-
-// static void	print_parse(char **input)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (input[i])
-// 	{
-// 		ft_printf("%s ", input[i]);
-// 		ft_printf("%p ", input[i++]);
-// 	}
-// 	ft_printf("\n", input[i]);
-// }
 
 int	return_pipe_or_null(char ***parse, int index)
 {
@@ -80,40 +67,45 @@ void	runner(t_list *cmd_list)
 {
 	while (cmd_list)
 	{
-		set_pipes(cmd_list);
-		run_cmd((t_cmd *) cmd_list->content);
-		close_fd(((t_cmd *)cmd_list->content)->fd[1]);
-		close_fd(((t_cmd *)cmd_list->content)->fd[0]);
+		if (cmd_list->next)
+			pipe(cast_cmd(cmd_list)->fd);
+		// set_pipes(cmd_list);
+		run_cmd(cast_cmd(cmd_list));
+		close_fd(cast_cmd(cmd_list)->fd[1]);
+		close_fd(cast_cmd(cmd_list)->fd[0]);
 		cmd_list = cmd_list->next;
 	}
 }
 
-void	set_pipes(t_list *cmd_list)
-{
+// void	set_pipes(t_list *cmd_list)
+// {
 
-	if (!cmd_list->next)
-		return ;
-	pipe(cmd_list->next->cmd.fd);
-}
+// 	if (!cmd_list->next)
+// 		return ;
+// 	pipe(cmd_list->next->cmd.fd);
+// }
 
 void	run_cmd(t_cmd *cmd)
 {
 	int	pid;
 
+	pid = fork();
 	if (pid == 0)
-		invoke_child(parsed[index], fd, ofd);
-	else
 	{
-		if (fd[1] >= 3)
-			close(fd[1]);
-		if (ofd[0] >= 3)
-			close(ofd[0]);
-		waitpid(0, &g_ms.exit_code, 0);
-		if (fd[0] >= 3)
-			close(fd[0]);
-		if (ofd[1] >= 3)
-			close(ofd[1]);
-		if (cmd_list->cmd.output_status)
-			printf("%i ", g_ms.exit_code);
+		redirect_fds(cmd);
+		cmd = get_command(cmd);
+	// 	cmd = get_args(tokens, cmd);
+		if (cmd.exe_path)
+			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
+		exit(g_ms.exit_code);
 	}
+	if (fd[1] >= 3)
+		close(fd[1]);
+	if (ofd[0] >= 3)
+		close(ofd[0]);
+	waitpid(0, &g_ms.exit_code, 0);
+	if (fd[0] >= 3)
+		close(fd[0]);
+	if (ofd[1] >= 3)
+		close(ofd[1]);
 }
