@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/09 22:33:23 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/10 08:58:55 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_cmd {
 	int		fd[2];
 	char	**args;
 	char	**raw;
-	int		raw_size;
 }	t_cmd;
 
 typedef struct s_tkn {
