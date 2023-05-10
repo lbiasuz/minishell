@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/08 12:05:38 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:21:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ char	**char_occurences(char *string, char c)
 	return (occurences);
 }
 
-void	free_token(void *tkn)
-{
-	free(((t_tkn *) tkn)->value);
-	free(tkn);
-}
+// void	free_command(void *cmd)
+// {
+// 	free(((t_cmd *) cmd));
+// 	free(tkn);
+// }
 
 void	free_parse(char **input)
 {
