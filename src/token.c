@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/09 18:01:27 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:35:10 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ t_list	*tokenize(char **parsed_input)
 		cmd = (t_cmd *) ft_calloc(sizeof(t_cmd), 1);
 		if (!cmd)
 			return (NULL);
-		ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
 		cmd->raw = parsed_input;
 		temp = return_pipe_or_null(parsed_input);
 		if (temp)
 			cmd->raw_size = temp - parsed_input;
 		else
 			cmd->raw_size = ft_strlen((const char *) parsed_input);
-		parsed_input = temp + 1;
+		parsed_input = ++temp;
+		ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
 	}
 	return (cmd_list);
 }
