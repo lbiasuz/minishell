@@ -6,13 +6,13 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/10 11:52:29 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/10 20:27:23 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	close_fd(int fd)
+void	close_fd(int fd)
 {
 	if (fd >= 3)
 		close(fd);
@@ -29,21 +29,21 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next)
 			cmd->fd[0] = file_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
 		else if (!ft_strncmp(cmd->raw[i], DICHEV, sizeof(DICHEV)))
 			cmd->fd[0] = heredoc_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
-		else if (!ft_strncmp(cmd->raw[i], CHEV, sizeof(CHEV)))
-			cmd->next->fd[1] = stdout_to_file(cmd->raw[i + 1], cmd->next->fd[1]);
-		else if (!ft_strncmp(cmd->raw[i], DCHEV, sizeof(DCHEV)))
-			cmd->next->fd[1] = append_stdout_to_file(cmd->raw[i + 1], cmd->next->fd[1]);
+		else if (next && !ft_strncmp(cmd->raw[i], CHEV, sizeof(CHEV)))
+			next->fd[1] = stdout_to_file(cmd->raw[i + 1], next->fd[1]);
+		else if (next && !ft_strncmp(cmd->raw[i], DCHEV, sizeof(DCHEV)))
+			next->fd[1] = append_stdout_to_file(cmd->raw[i + 1], next->fd[1]);
 		i++;
 	}
-	if (return_pipe_or_null(*tokens, 0))
+	if (next)
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
 	else
-		dup2(cmd->next->fd[1], STDOUT_FILENO);
+		dup2(next->fd[1], STDOUT_FILENO);
 	dup2(cmd->fd[0], STDIN_FILENO);
 	close_fd(cmd->fd[1]);
 	close_fd(cmd->fd[0]);
-	close_fd(cmd->next->fd[0]);
-	close_fd(cmd->next->fd[1]);
+	close_fd(next->fd[0]);
+	close_fd(next->fd[1]);
 }
 
 int	file_to_stdin(char *filepath, int current_fd)

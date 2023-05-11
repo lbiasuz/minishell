@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/08 12:03:54 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/05/10 20:29:49 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRC				+=	$(PATH_NAME)/env.c
 SRC				+=	$(PATH_NAME)/init.c
 SRC				+=	$(PATH_NAME)/syntax_analysis.c
 SRC				+=	$(PATH_NAME)/table.c
-SRC				+=	$(PATH_NAME)/error.c
 SRC				+=	$(PATH_NAME)/parse.c
 SRC				+=	$(PATH_NAME)/token.c
 SRC				+=	$(PATH_NAME)/token_type.c

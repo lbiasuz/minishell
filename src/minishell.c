@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/09 11:58:59 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/10 20:29:09 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,16 @@ int	main(int argc, char *argv[], char *envp[])
 static int	process_input(char *prompt)
 {
 	char	**parsed_input;
-	int		old_fd[2];
-	int		fd[2];
+	t_list	*commands;
 
 	parsed_input = parse(prompt);
 	if (!parsed_input)
 		return (0);
-	// if (syntax_analysis(parsed_input))
-	// 	 return (0);
+	if (syntax_analysis(parsed_input))
+		 return (0);
 	add_history(prompt);
-	fd[0] = STDIN_FILENO;
-	fd[1] = STDOUT_FILENO;
-	old_fd[0] = STDIN_FILENO;
-	old_fd[1] = STDOUT_FILENO;
-	runner(&parsed_input, -1, fd, old_fd);
+	commands = tokenize(parsed_input);
+	runner(commands);
 	return (0);
 }
 

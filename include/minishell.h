@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/10 11:10:04 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/10 20:24:52 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*find_cmd_path(char **env, char	*command);
 char	*expand_string_content(char *node);
 
 void	runner(t_list *list);
-void	run_cmd(t_cmd *cmd);
+void	run_cmd(t_cmd *cmd, t_cmd *next);
 // void	set_pipes(t_list *list);
 // int		return_pipe_or_null(char	**string, int index);
 
@@ -153,7 +153,7 @@ int		stdout_to_file(char *filepath, int current_fd);
 /// @return fd returns opened fd
 int		append_stdout_to_file(char *filepath, int current_fd);
 
-void	redirect_fds(char ***tokens, t_cmd cmd, int fd[2], int ofd[2]);
+void	redirect_fds(t_cmd *cmd, t_cmd *next);
 void	close_fd(int fd);
 
 //TOKEN.H
