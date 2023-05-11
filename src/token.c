@@ -6,62 +6,71 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/10 20:58:59 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/11 11:53:08 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	**return_pipe_or_null(char **str_table);
-static char	**str_table_dup(char **parsed_input, int size);
+static int return_pipe_or_null(char **str_table, int index);
+static char **str_table_dup(char **parsed_input, int size);
 
-t_list	*tokenize(char **parsed_input)
+t_list *tokenize(char **parsed_input)
 {
-	char	**temp;
-	t_cmd	*cmd;
-	t_list	*cmd_list;
+	t_cmd *cmd;
+	t_list *cmd_list;
+	int temp;
+	int index;
 
+	index = 0;
 	cmd_list = NULL;
-	while (parsed_input)
+	while (parsed_input[index])
 	{
 		cmd = (t_cmd *) ft_calloc(sizeof(t_cmd), 1);
-		if (!cmd)
-			return (NULL);
-		temp = return_pipe_or_null(parsed_input);
-		cmd->raw = str_table_dup(parsed_input, temp - parsed_input);
-		if (!cmd->raw)
-			return (NULL);
-		parsed_input = ++temp;
+		temp = return_pipe_or_null(parsed_input, index);
+		cmd->raw = str_table_dup(
+			&parsed_input[index], temp - index);
+		cmd->fd[0] = 0;
+		cmd->fd[1] = 1;
+		index = temp++;
 		ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
 	}
 	return (cmd_list);
 }
 
-static char	**return_pipe_or_null(char **str_table)
+static int return_pipe_or_null(char **parse, int index)
 {
-	int	i;
-
-	i = 0;
-	if (!str_table)
-		return (NULL);
-	while (str_table[i])
+	while (parse[index])
 	{
-		if (!ft_strncmp(str_table[i], PIPE, sizeof(PIPE)))
-			break ;
-		i++;
+		if (!ft_strncmp((parse)[index], PIPE, sizeof(PIPE)))
+			break;
+		index++;
 	}
-	return (&str_table[i]);
+	return (index);
 }
 
-static char	**str_table_dup(char **parsed_input, int size)
+// static char	**return_pipe_or_null(char **str_table)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (!str_table)
+// 		return (NULL);
+// 	while (str_table[i])
+// 	{
+// 		if (!ft_strncmp(str_table[i], PIPE, sizeof(PIPE)))
+// 			break ;
+// 		i++;
+// 	}
+// 	return (&str_table[i]);
+// }
+
+static char **str_table_dup(char **parsed_input, int size)
 {
 	char	**dupped_table;
 
-	if (size <= 0)
-		size = sizeof(parsed_input);
-	dupped_table = calloc(sizeof(char **), size);
-	if (!dupped_table)
-		return (NULL);
+	dupped_table = ft_calloc(sizeof(char *), size + 1);
+	dupped_table[size] = NULL;
 	while (--size >= 0)
 		dupped_table[size] = ft_strdup(parsed_input[size]);
 	return (dupped_table);

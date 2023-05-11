@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/10 20:30:57 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/11 11:55:12 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,27 @@
 
 extern t_ms g_ms;
 
-int	return_pipe_or_null(char ***parse, int index)
+t_cmd	*get_command(t_cmd *cmd)
 {
-	while (*parse[index])
-	{
-		if (!ft_strncmp((*parse)[index], PIPE, sizeof(PIPE)))
-			break ;
-		index ++;
-	}
-	return (index);
-}
-
-t_cmd	get_command(char **parse, t_cmd cmd)
-{
-	char	*command;
 	int		i;
+	char	*temp;
 
 	i = 0;
-	cmd.exe = NULL;
-	command = NULL;
-	while (!cmd.exe && parse[i] && !ft_strncmp(parse[i], PIPE, sizeof(PIPE)))
+	while (!cmd->exe && cmd->raw[i] && !ft_strncmp(cmd->raw[i], PIPE, sizeof(PIPE)))
 	{
-		if (i == 0 && is_command(parse[i]))
-			cmd.exe = parse[i];
+		if (i == 0 && is_command(cmd->raw[i]))
+			cmd->exe = cmd->raw[i];
 		i++;
 	}
-	if (cmd.exe)
-		command = expand_string_content(ft_strdup(cmd.exe));
-	if (command && (!ft_strchr(command, '/') || command[0] != '.'))
+	if (cmd->exe)
+		temp = expand_string_content(ft_strdup(cmd->exe));
+	if (temp && (!ft_strchr(temp, '/') || temp[0] != '.'))
 	{
-		cmd.exe_path = find_cmd_path(g_ms.envp, command);
-		free(command);
+		cmd->exe_path = find_cmd_path(g_ms.envp, temp);
+		free(temp);
 	}
 	else
-		cmd.exe = command;
+		cmd->exe = temp;
 	return (cmd);
 }
 
@@ -76,14 +63,6 @@ void	runner(t_list *cmd_list)
 	}
 }
 
-// void	set_pipes(t_list *cmd_list)
-// {
-
-// 	if (!cmd_list->next)
-// 		return ;
-// 	pipe(cmd_list->next->cmd.fd);
-// }
-
 void	run_cmd(t_cmd *cmd, t_cmd *next)
 {
 	int	pid;
@@ -92,8 +71,8 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 	if (pid == 0)
 	{
 		redirect_fds(cmd, next);
-		// cmd = get_command(cmd);
-	// 	cmd = get_args(tokens, cmd);
+		//cmd = get_command(cmd);
+		//cmd = get_args(tokens, cmd);
 		if (cmd->exe_path)
 			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
 		exit(g_ms.exit_code);
