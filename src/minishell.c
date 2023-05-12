@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/12 15:48:32 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:54:30 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	process_input(char *prompt)
 	if (syntax_analysis(parsed_input))
 		 return (0);
 	add_history(prompt);
-	commands = tokenize(parsed_input);
+	commands = build_cmd_list(parsed_input);
 	runner(commands);
 	return (0);
 }

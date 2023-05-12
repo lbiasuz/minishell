@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/12 15:48:32 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:54:30 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next);
 void	close_fd(int fd);
 
 //TOKEN.H
-t_list	*tokenize(char **inputs);
+t_list	*build_cmd_list(char **inputs);
 t_cmd	*cast_cmd(t_list *node);
 
 // TOKEN_TYPE.H

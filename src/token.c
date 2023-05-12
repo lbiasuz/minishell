@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/11 11:53:08 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/12 15:54:30 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int return_pipe_or_null(char **str_table, int index);
 static char **str_table_dup(char **parsed_input, int size);
 
-t_list *tokenize(char **parsed_input)
+t_list *build_cmd_list(char **parsed_input)
 {
 	t_cmd *cmd;
 	t_list *cmd_list;
