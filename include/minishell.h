@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/10 20:24:52 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/11 20:48:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ t_list	*tokenize(char **inputs);
 t_cmd	*cast_cmd(t_list *node);
 
 // TOKEN_TYPE.H
+int		is_token(char *string);
 int		is_redirect(char *token);
 int		is_command(char *string);
 int		is_arg(char *token, char *last_token, t_cmd cmd);

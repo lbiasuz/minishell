@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/11 11:55:12 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:19:50 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 extern t_ms g_ms;
 
-t_cmd	*get_command(t_cmd *cmd)
+void	get_command(t_cmd *cmd)
 {
 	int		i;
-	char	*temp;
 
 	i = 0;
-	while (!cmd->exe && cmd->raw[i] && !ft_strncmp(cmd->raw[i], PIPE, sizeof(PIPE)))
+	cmd->exe = NULL;
+	while (cmd->raw[i] && ft_strncmp(cmd->raw[i], PIPE, sizeof(PIPE)))
 	{
-		if (i == 0 && is_command(cmd->raw[i]))
-			cmd->exe = cmd->raw[i];
+		if (is_redirect(cmd->raw[i]))
+			i++;
+		else if (!is_token(cmd->raw[i]) && !cmd->exe)
+		{
+			cmd->exe = expand_string_content(ft_strdup(cmd->raw[i]));
+			cmd->args = append_table(NULL, ft_strdup(cmd->exe));
+		}
+		else if (!is_token(cmd->raw[i]))
+			cmd->args = append_table(cmd->args, expand_string_content(cmd->raw[i]));
 		i++;
 	}
-	if (cmd->exe)
-		temp = expand_string_content(ft_strdup(cmd->exe));
-	if (temp && (!ft_strchr(temp, '/') || temp[0] != '.'))
-	{
-		cmd->exe_path = find_cmd_path(g_ms.envp, temp);
-		free(temp);
-	}
-	else
-		cmd->exe = temp;
-	return (cmd);
+	if (cmd->exe && (!ft_strchr(cmd->exe, '/') || cmd->exe[0] != '.'))
+		cmd->exe_path = find_cmd_path(g_ms.envp, cmd->exe);
 }
 
 // void	invoke_child(char ***tokens, int fd[2], int ofd[2])
@@ -71,8 +70,7 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 	if (pid == 0)
 	{
 		redirect_fds(cmd, next);
-		//cmd = get_command(cmd);
-		//cmd = get_args(tokens, cmd);
+		get_command(cmd);
 		if (cmd->exe_path)
 			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
 		exit(g_ms.exit_code);
