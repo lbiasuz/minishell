@@ -6,21 +6,21 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/12 15:54:30 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:22:30 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int return_pipe_or_null(char **str_table, int index);
-static char **str_table_dup(char **parsed_input, int size);
+static int	return_pipe_or_null(char **str_table, int index);
+static char	**str_table_dup(char **parsed_input, int size);
 
-t_list *build_cmd_list(char **parsed_input)
+t_list	*build_cmd_list(char **parsed_input)
 {
-	t_cmd *cmd;
-	t_list *cmd_list;
-	int temp;
-	int index;
+	t_cmd	*cmd;
+	t_list	*cmd_list;
+	int		temp;
+	int		index;
 
 	index = 0;
 	cmd_list = NULL;
@@ -28,8 +28,7 @@ t_list *build_cmd_list(char **parsed_input)
 	{
 		cmd = (t_cmd *) ft_calloc(sizeof(t_cmd), 1);
 		temp = return_pipe_or_null(parsed_input, index);
-		cmd->raw = str_table_dup(
-			&parsed_input[index], temp - index);
+		cmd->raw = str_table_dup(&parsed_input[index], temp - index);
 		cmd->fd[0] = 0;
 		cmd->fd[1] = 1;
 		index = temp++;
@@ -38,12 +37,12 @@ t_list *build_cmd_list(char **parsed_input)
 	return (cmd_list);
 }
 
-static int return_pipe_or_null(char **parse, int index)
+static int	return_pipe_or_null(char **parse, int index)
 {
 	while (parse[index])
 	{
 		if (!ft_strncmp((parse)[index], PIPE, sizeof(PIPE)))
-			break;
+			break ;
 		index++;
 	}
 	return (index);
@@ -65,7 +64,7 @@ static int return_pipe_or_null(char **parse, int index)
 // 	return (&str_table[i]);
 // }
 
-static char **str_table_dup(char **parsed_input, int size)
+static char	**str_table_dup(char **parsed_input, int size)
 {
 	char	**dupped_table;
 
