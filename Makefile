@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/10 20:29:49 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/05/12 11:32:51 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,9 +80,9 @@ test: all
 	make -C tests -f test_minishell.mk
 
 valgrind: all
-	valgrind -s # --leak-check=full --show-leak-kinds=all \
-			# --track-origins=yes --trace-children=yes \
-			# --suppressions=./readline.supp \
-			--log-fd=9 \ ./$(NAME)   9>memcheck.log
+	valgrind -s --leak-check=full --show-leak-kinds=all \
+			 --track-origins=yes --trace-children=yes \
+			 --suppressions=./readline.supp \
+			 --log-fd=9 ./$(NAME) 9>memcheck.log
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re test valgrind

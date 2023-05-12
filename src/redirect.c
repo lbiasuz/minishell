@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/11 11:56:46 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/12 12:10:50 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next)
 	int	i;
 
 	i = 0;
-	while (cmd->raw[i] && !ft_strncmp(cmd->raw[i], PIPE, sizeof(PIPE)))
+	while (cmd->raw[i] && ft_strncmp(cmd->raw[i], PIPE, sizeof(PIPE)))
 	{
+		write(1, cmd->raw[i + 1], ft_strlen(cmd->raw[i + 1]));
+		fflush(NULL);
 		if (!ft_strncmp(cmd->raw[i], ICHEV, sizeof(ICHEV)))
 			cmd->fd[0] = file_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
 		else if (!ft_strncmp(cmd->raw[i], DICHEV, sizeof(DICHEV)))
@@ -35,15 +37,18 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next)
 			next->fd[1] = append_stdout_to_file(cmd->raw[i + 1], next->fd[1]);
 		i++;
 	}
-	if (!next)
-		dup2(STDOUT_FILENO, STDOUT_FILENO);
-	else
-		dup2(next->fd[1], STDOUT_FILENO);
 	dup2(cmd->fd[0], STDIN_FILENO);
-	close_fd(cmd->fd[1]);
-	close_fd(cmd->fd[0]);
-	if (next)
+	if (!cmd->raw[i])
 	{
+		dup2(STDOUT_FILENO, STDOUT_FILENO);
+		close_fd(cmd->fd[0]);
+		close_fd(cmd->fd[1]);
+	}
+	else
+	{
+		dup2(next->fd[1], STDOUT_FILENO);
+		close_fd(cmd->fd[1]);
+		close_fd(cmd->fd[0]);
 		close_fd(next->fd[0]);
 		close_fd(next->fd[1]);
 	}
@@ -60,7 +65,7 @@ int	file_to_stdin(char *filepath, int current_fd)
 		return (fd);
 	}
 	dup2(fd, current_fd);
-	close(current_fd);
+	close(fd);
 	return (fd);
 }
 
