@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/10 10:56:21 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/12 15:48:32 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**char_occurences(char *string, char c)
 // 	free(tkn);
 // }
 
-void	free_parse(char **input)
+void	free_str_table(char **input)
 {
 	int	i;
 

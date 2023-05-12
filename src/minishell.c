@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/10 20:29:09 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/12 15:48:32 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int argc, char *argv[], char *envp[])
 		free(prompt);
 	write(1, "\n", 1);
 	clear_history();
+	free_str_table(g_ms.envp);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/11 20:48:30 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/12 15:48:32 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		unset(char **argv);
 char	**char_occurences(char *string, char c);
 int		char_count(char *string, char c);
 void	free_table(char **table);
-void	free_parse(char **input);
+void	free_str_table(char **input);
 char	**append_table(char **table, char *variable);
 char	**pop_table(char **table, char *address);
 char	*join_envp_var(char *before, char *variable, char *after);

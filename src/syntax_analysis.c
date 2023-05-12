@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analysis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:54:46 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/09 11:59:06 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/12 15:48:32 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	syntax_analysis(char **parsed_input)
 	if (error)
 	{
 		printf("syntax error: %s", error[0]);
-		free_parse(parsed_input);
+		free_str_table(parsed_input);
 		return (-1);
 	}
 	return (0);
