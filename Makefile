@@ -6,7 +6,7 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/12 15:43:31 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/05/14 14:46:16 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,26 +25,26 @@ PATH_LIBS		+=	libft
 PATH_LIBS		+=	/opt/local/lib
 
 # FILES
+SRC				+=	$(PATH_NAME)/bin_path.c
+SRC				+=	$(PATH_NAME)/build_cmd_list.c
+SRC				+=	$(PATH_NAME)/dollar.c
 SRC				+=	$(PATH_NAME)/env.c
+SRC				+=	$(PATH_NAME)/helper.c
 SRC				+=	$(PATH_NAME)/init.c
+SRC				+=	$(PATH_NAME)/minishell.c
+SRC				+=	$(PATH_NAME)/parse.c
+SRC				+=	$(PATH_NAME)/redirect.c
+SRC				+=	$(PATH_NAME)/runner.c
+SRC				+=	$(PATH_NAME)/signal_handler.c
 SRC				+=	$(PATH_NAME)/syntax_analysis.c
 SRC				+=	$(PATH_NAME)/table.c
-SRC				+=	$(PATH_NAME)/parse.c
-SRC				+=	$(PATH_NAME)/token.c
 SRC				+=	$(PATH_NAME)/token_type.c
-SRC				+=	$(PATH_NAME)/helper.c
-SRC				+=	$(PATH_NAME)/dollar.c
-SRC				+=	$(PATH_NAME)/runner.c
-SRC				+=	$(PATH_NAME)/redirect.c
-SRC				+=	$(PATH_NAME)/bin_path.c
-SRC				+=	$(PATH_NAME)/minishell.c
-SRC				+=	$(PATH_NAME)/signal_handler.c
 SRC				+=	$(PATH_BUILTINS)/cd.c
-SRC				+=	$(PATH_BUILTINS)/pwd.c
-SRC				+=	$(PATH_BUILTINS)/env.c
 SRC				+=	$(PATH_BUILTINS)/echo.c
-SRC				+=	$(PATH_BUILTINS)/unset.c
+SRC				+=	$(PATH_BUILTINS)/env.c
 SRC				+=	$(PATH_BUILTINS)/export.c
+SRC				+=	$(PATH_BUILTINS)/pwd.c
+SRC				+=	$(PATH_BUILTINS)/unset.c
 OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
 HEADER_FILES	=	$(foreach dir, $(PATH_HEADERS), $(wildcard $(dir)/*.h))
 LIBS			+=	ft
@@ -80,7 +80,7 @@ test: all
 	make -C tests -f test_minishell.mk
 
 valgrind: all
-	valgrind -s -q --leak-check=full --show-leak-kinds=all \
+	valgrind -s --leak-check=full --show-leak-kinds=all \
 			--track-origins=yes --trace-children=yes \
 			--suppressions=./readline.supp \
 			--log-fd=9 ./$(NAME)   9>memcheck.log

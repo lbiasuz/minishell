@@ -6,13 +6,14 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/12 15:54:30 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:13:17 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static int	process_input(char *prompt);
+static void	free_node_contents(void *node);
 // static void	print_parse(char **input);
 // static void	print_tokens(t_list *tokens);
 
@@ -58,11 +59,36 @@ static int	process_input(char *prompt)
 	if (!parsed_input)
 		return (0);
 	if (syntax_analysis(parsed_input))
-		 return (0);
+		return (0);
 	add_history(prompt);
 	commands = build_cmd_list(parsed_input);
 	runner(commands);
+	ft_lstdelone(commands, &free_node_contents);
+	free_table(parsed_input);
+	free(parsed_input);
 	return (0);
+}
+
+static void	free_node_contents(void *node)
+{
+	t_cmd	*cmd;
+
+	cmd = (t_cmd *)node;
+	if (cmd->exe)
+		free(cmd->exe);
+	if (cmd->exe_path)
+		free(cmd->exe_path);
+	if (cmd->args)
+	{
+		free(cmd->args);
+		free_table(cmd->args);
+	}
+	if (cmd->raw)
+	{
+		free(cmd->args);
+		free_table(cmd->raw);
+	}
+	free(cmd);
 }
 
 // static void	print_parse(char **input)
