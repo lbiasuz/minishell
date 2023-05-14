@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/12 16:22:30 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/13 21:04:26 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_list	*build_cmd_list(char **parsed_input)
 		cmd->raw = str_table_dup(&parsed_input[index], temp - index);
 		cmd->fd[0] = 0;
 		cmd->fd[1] = 1;
-		index = temp++;
+		index = ++temp;
 		ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
 	}
 	return (cmd_list);
@@ -41,7 +41,7 @@ static int	return_pipe_or_null(char **parse, int index)
 {
 	while (parse[index])
 	{
-		if (!ft_strncmp((parse)[index], PIPE, sizeof(PIPE)))
+		if (!ft_strncmp(parse[index], PIPE, sizeof(PIPE)))
 			break ;
 		index++;
 	}
