@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/14 02:33:09 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/14 02:36:13 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,7 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 	{
 		redirect_fds(cmd, next);
 		if (byp_builtin(cmd->raw))
-		{
-			ft_printf("HERE"); 
 			exit(exec_builtin(cmd->raw));
-		}
 		get_command(cmd);
 		if (cmd->exe_path)
 			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
