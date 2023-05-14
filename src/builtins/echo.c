@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:13:23 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/04/04 20:05:02 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/14 01:09:42 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 static void	parse_arguments(int arg_c, char *argv[]);
 static void	func_is_valid_char(unsigned int index, char *str);
 static void	output(int argc, char *argv[]);
+static int	find_argv_len(char **argv);
 
-int	echo(int argc, char *argv[])
+int	echo(char *argv[])
 {
+	int	argc;
+
+	argc = find_argv_len(argv);
 	parse_arguments(argc, argv);
 	output(argc, argv);
 	return (0);
@@ -68,4 +72,17 @@ static void	output(int argc, char *argv[])
 	}
 	if (!nl_flag)
 		ft_putchar_fd('\n', 1);
+}
+
+static int	find_argv_len(char **argv)
+{
+	int	counter;
+
+	counter = 0;
+	while (argv[0])
+	{
+		argv++;
+		counter++;
+	}
+	return (counter);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/13 21:04:26 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/14 02:21:47 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ t_list	*build_cmd_list(char **parsed_input)
 		cmd->raw = str_table_dup(&parsed_input[index], temp - index);
 		cmd->fd[0] = 0;
 		cmd->fd[1] = 1;
-		index = ++temp;
+		if (parsed_input[temp])
+			index = ++temp;
+		else
+			index = temp;
 		ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
 	}
 	return (cmd_list);

@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:25 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/04/04 20:04:46 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/14 01:06:50 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 #include <unistd.h> // chdir
 
 static char	*parse_arguments(int argc, char *argv[]);
+static int	find_argv_len(char **argv);
 
-int	cd(int argc, char *argv[])
+int	cd(char *argv[])
 {
 	char	*path;
 	int		chdir_error;
+	int		argc;
 
+	argc = find_argv_len(argv);
 	path = parse_arguments(argc, argv);
 	chdir_error = chdir(path);
 	if (path)
@@ -46,4 +49,17 @@ static char	*parse_arguments(int argc, char *argv[])
 		exit(-1);
 	}
 	return (final_path);
+}
+
+static int	find_argv_len(char **argv)
+{
+	int	counter;
+
+	counter = 0;
+	while (argv[0])
+	{
+		argv++;
+		counter++;
+	}
+	return (counter);
 }
