@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/14 02:36:13 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/15 10:15:03 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ static int		byp_builtin(char **cmd_str_table)
 
 void	runner(t_list *cmd_list)
 {
+	t_list *aux;
+
+	aux = cmd_list;
 	while (cmd_list)
 	{
 		if (cmd_list->next)
@@ -79,7 +82,14 @@ void	runner(t_list *cmd_list)
 			g_ms.exit_code = exec_builtin(cast_cmd(cmd_list)->raw);
 		else
 			run_cmd(cast_cmd(cmd_list), cast_cmd(cmd_list->next));
+		close_fd(cast_cmd(cmd_list)->fd[1]);
+		close_fd(cast_cmd(cmd_list)->fd[0]);
 		cmd_list = cmd_list->next;
+	}
+	while(aux)
+	{
+		waitpid(0, &g_ms.exit_code, 0);
+		aux = aux->next;
 	}
 }
 
@@ -96,13 +106,5 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 		get_command(cmd);
 		if (cmd->exe_path)
 			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
-		exit(g_ms.exit_code);
 	}
-	if (next)
-		close_fd(next->fd[1]);
-	close_fd(cmd->fd[0]);
-	waitpid(0, &g_ms.exit_code, 0);
-	if (next)
-		close_fd(next->fd[0]);
-	close_fd(cmd->fd[1]);
 }
