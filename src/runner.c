@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/15 11:58:19 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/15 12:00:52 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern t_ms g_ms;
 
 void	get_command(t_cmd *cmd)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	cmd->exe = NULL;
@@ -26,11 +26,11 @@ void	get_command(t_cmd *cmd)
 			i++;
 		else if (!is_token(cmd->raw[i]) && !cmd->exe)
 		{
-			cmd->exe = expand_string_content(ft_strdup(cmd->raw[i]));
+			cmd->exe = exp_str_content(ft_strdup(cmd->raw[i]));
 			cmd->args = append_table(NULL, ft_strdup(cmd->exe));
 		}
 		else if (!is_token(cmd->raw[i]))
-			cmd->args = append_table(cmd->args, expand_string_content(cmd->raw[i]));
+			cmd->args = append_table(cmd->args, exp_str_content(cmd->raw[i]));
 		i++;
 	}
 	if (cmd->exe && (!ft_strchr(cmd->exe, '/') && cmd->exe[0] != '.'))
@@ -58,7 +58,7 @@ static int	exec_builtin(char	**cmd_str_table)
 	return (-1);
 }
 
-static int		byp_builtin(char **cmd_str_table)
+static int	byp_builtin(char **cmd_str_table)
 {
 	int		is_builtin;
 
@@ -75,7 +75,7 @@ static int		byp_builtin(char **cmd_str_table)
 
 void	runner(t_list *cmd_list)
 {
-	t_list *aux;
+	t_list	*aux;
 
 	aux = cmd_list;
 	while (cmd_list)
@@ -90,7 +90,7 @@ void	runner(t_list *cmd_list)
 		close_fd(cast_cmd(cmd_list)->fd[0]);
 		cmd_list = cmd_list->next;
 	}
-	while(aux)
+	while (aux)
 	{
 		waitpid(0, &g_ms.exit_code, 0);
 		aux = aux->next;

@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/15 09:44:27 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:08:22 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*join_envp_var(char *before, char *variable, char *after);
 
 char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
-char	*expand_string_content(char *node);
+char	*exp_str_content(char *node);
 
 void	runner(t_list *list);
 void	run_cmd(t_cmd *cmd, t_cmd *next);

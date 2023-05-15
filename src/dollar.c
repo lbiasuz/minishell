@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/05 11:23:55 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/15 11:08:22 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*expand_variable(char *input, char *dollar)
 		));
 }
 
-char	*expand_string_content(char *string)
+char	*exp_str_content(char *string)
 {
 	char	*new_string;
 
