@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/15 11:57:26 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/15 14:27:54 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static int	matches_exit_instruction(char *prompt);
 static int	process_input(char *prompt);
 static void	free_node_contents(void *node);
+static char	*new_prompt_input(char **prompt_ptr);
 // static void	print_parse(char **input);
 // static void	print_tokens(t_list *tokens);
 
@@ -28,25 +30,30 @@ int	main(int argc, char *argv[], char *envp[])
 		return (-1);
 	init_signal_handlers();
 	g_ms = init_minishell(envp);
-	prompt = readline(PROMPT_DISPLAY_TEXT);
-	while (1)
+	prompt = NULL;
+	while (new_prompt_input(&prompt))
 	{
-		if (!prompt || ft_strncmp("exit", prompt, 5) == 0)
+		if (!prompt)
+			break ;
+		if (matches_exit_instruction(prompt) || process_input(prompt))
 		{
-			write(1, "exit", 4);
+			free(prompt);
 			break ;
 		}
-		if (process_input(prompt))
-			break ;
-		free(prompt);
-		rl_on_new_line();
-		prompt = readline(PROMPT_DISPLAY_TEXT);
 	}
-	if (prompt)
-		free(prompt);
 	write(1, "\n", 1);
 	clear_history();
 	free_str_table(g_ms.envp);
+	return (0);
+}
+
+static int	matches_exit_instruction(char *prompt)
+{
+	if (ft_strncmp("exit", prompt, 5) == 0)
+	{
+		write(1, "exit", 4);
+		return (1);
+	}
 	return (0);
 }
 
@@ -86,9 +93,20 @@ static void	free_node_contents(void *content)
 	if (cmd->raw)
 	{
 		free_table(cmd->raw);
-		free(cmd->args);
+		free(cmd->raw);
 	}
 	free(cmd);
+}
+
+static char	*new_prompt_input(char **prompt_ptr)
+{
+	if (*prompt_ptr)
+	{
+		free(*prompt_ptr);
+		rl_on_new_line();
+	}
+	*prompt_ptr = readline(PROMPT_DISPLAY_TEXT);
+	return (*prompt_ptr);
 }
 
 // static void	print_parse(char **input)
