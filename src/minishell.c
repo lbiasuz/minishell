@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/14 15:13:17 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/15 09:31:40 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	process_input(char *prompt)
 	add_history(prompt);
 	commands = build_cmd_list(parsed_input);
 	runner(commands);
-	ft_lstdelone(commands, &free_node_contents);
+	ft_lstclear(&commands, &free_node_contents);
 	free_table(parsed_input);
 	free(parsed_input);
 	return (0);
@@ -80,13 +80,13 @@ static void	free_node_contents(void *node)
 		free(cmd->exe_path);
 	if (cmd->args)
 	{
-		free(cmd->args);
 		free_table(cmd->args);
+		free(cmd->args);
 	}
 	if (cmd->raw)
 	{
-		free(cmd->args);
 		free_table(cmd->raw);
+		free(cmd->args);
 	}
 	free(cmd);
 }
