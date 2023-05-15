@@ -14,3 +14,6 @@ TESTE RÉGUA 15/05
 - [x] Comando por caminho absoluto não funciona
 - [ ] Comando não encontrado não printando erro e gerando invalid read
 - [x] std fd sendo fechado ha ausência de pipe
+- [ ] EXIT não exitando com comandos extras
+- [ ] ECHO bypass de formatação "aparecendo"
+- [ ] $? Não implementado
