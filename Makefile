@@ -6,13 +6,13 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/14 14:46:16 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/05/15 09:53:22 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 CC		=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g3
+CFLAGS	=	-Wall -Werror -Wextra -g3
 
 # PATHS
 PATH_NAME		=	src
@@ -46,7 +46,11 @@ SRC				+=	$(PATH_BUILTINS)/export.c
 SRC				+=	$(PATH_BUILTINS)/pwd.c
 SRC				+=	$(PATH_BUILTINS)/unset.c
 OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
-HEADER_FILES	=	$(foreach dir, $(PATH_HEADERS), $(wildcard $(dir)/*.h))
+HEADER_FILES	+=	include/includes.h
+HEADER_FILES	+=	include/defines.h
+HEADER_FILES	+=	include/minishell.h
+HEADER_FILES	+=	libft/ft_printf.h
+HEADER_FILES	+=	libft/libft.h
 LIBS			+=	ft
 LIBS			+=	readline
 LIBFT			=	libft/libft.a

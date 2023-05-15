@@ -6,62 +6,15 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/14 02:27:25 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/15 09:44:27 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define CHEV ">"
-# define DCHEV ">>"
-# define ICHEV "<"
-# define DICHEV "<<"
-# define SQUOTE "\'"
-# define DQUOTE "\""
-# define PIPE "|"
-# define SEMI ";" // not to be handled
-# define DOLL "$"
-# define ECOM "&"
-# define TEXT "TEXT"
-# define EXPAND "EXPAND"
-# define ERROR "Syntax error"
-# define HOME "~"
-# define NL "newline"
-
-# include <libft.h>
-# include <ft_printf.h>
-
-// READLINE FUNCTION HEADERS
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-
-# include <errno.h>
-// FILE HEADER
-# include <fcntl.h>
-# include <unistd.h>
-
-// PROCESS HEADERS
-# include <sys/wait.h>
-
-# define PROMPT_DISPLAY_TEXT "MINI_PROMPT: "
-
-typedef struct s_ms {
-	t_list	*cmdlist;
-	t_list	*tokenlist;
-	char	**envp;
-	int		exit_code;
-}	t_ms;
-
-typedef struct s_cmd {
-	char	*exe;
-	char	*exe_path;
-	int		fd[2];
-	char	**args;
-	char	**raw;
-}	t_cmd;
+# include "defines.h"
+# include "includes.h"
 
 //	INIT
 t_ms	init_minishell(char **env);
@@ -93,8 +46,6 @@ char	*expand_string_content(char *node);
 
 void	runner(t_list *list);
 void	run_cmd(t_cmd *cmd, t_cmd *next);
-// void	set_pipes(t_list *list);
-// int		return_pipe_or_null(char	**string, int index);
 
 // ENV.H
 /// @brief Copies an array of strings to heap.
@@ -156,7 +107,7 @@ int		append_stdout_to_file(char *filepath, int current_fd);
 void	redirect_fds(t_cmd *cmd, t_cmd *next);
 void	close_fd(int fd);
 
-//TOKEN.H
+// BUILD_CMD_LIST
 t_list	*build_cmd_list(char **inputs);
 t_cmd	*cast_cmd(t_list *node);
 
