@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/15 10:16:25 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/15 11:57:26 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ static int	process_input(char *prompt)
 	return (0);
 }
 
-static void	free_node_contents(void *node)
+static void	free_node_contents(void *content)
 {
 	t_cmd	*cmd;
 
-	cmd = (t_cmd *)node;
+	cmd = (t_cmd *)content;
 	if (cmd->exe)
 		free(cmd->exe);
 	if (cmd->exe_path)

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/15 10:15:03 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/15 11:58:19 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ void	get_command(t_cmd *cmd)
 			cmd->args = append_table(cmd->args, expand_string_content(cmd->raw[i]));
 		i++;
 	}
-	if (cmd->exe && (!ft_strchr(cmd->exe, '/') || cmd->exe[0] != '.'))
+	if (cmd->exe && (!ft_strchr(cmd->exe, '/') && cmd->exe[0] != '.'))
 		cmd->exe_path = find_cmd_path(g_ms.envp, cmd->exe);
+	else if (access(cmd->exe, X_OK) != -1)
+		cmd->exe_path = cmd->exe;
+	else
+		cmd->exe_path = NULL;
 }
 
 static int	exec_builtin(char	**cmd_str_table)
