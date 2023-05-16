@@ -6,7 +6,7 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/15 09:53:22 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/05/16 10:58:20 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC				+=	$(PATH_NAME)/token_type.c
 SRC				+=	$(PATH_BUILTINS)/cd.c
 SRC				+=	$(PATH_BUILTINS)/echo.c
 SRC				+=	$(PATH_BUILTINS)/env.c
+SRC				+=	$(PATH_BUILTINS)/exit.c
 SRC				+=	$(PATH_BUILTINS)/export.c
 SRC				+=	$(PATH_BUILTINS)/pwd.c
 SRC				+=	$(PATH_BUILTINS)/unset.c

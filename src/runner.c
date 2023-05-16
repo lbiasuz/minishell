@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/15 12:00:52 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/16 11:00:06 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int	exec_builtin(char	**cmd_str_table)
 		return (echo(cmd_str_table));
 	if (!ft_strncmp(cmd_str_table[0], "env", sizeof("env")))
 		return (env());
+	if (!ft_strncmp(cmd_str_table[0], "exit", sizeof("exit")))
+		return (ms_exit(cmd_str_table));
 	if (!ft_strncmp(cmd_str_table[0], "export", sizeof("export")))
 		return (export(cmd_str_table));
 	if (!ft_strncmp(cmd_str_table[0], "pwd", sizeof("pwd")))
@@ -66,6 +68,7 @@ static int	byp_builtin(char **cmd_str_table)
 	if (!ft_strncmp(cmd_str_table[0], "cd", sizeof("cd"))
 		|| !ft_strncmp(cmd_str_table[0], "echo", sizeof("echo"))
 		|| !ft_strncmp(cmd_str_table[0], "env", sizeof("env"))
+		|| !ft_strncmp(cmd_str_table[0], "exit", sizeof("exit"))
 		|| !ft_strncmp(cmd_str_table[0], "export", sizeof("export"))
 		|| !ft_strncmp(cmd_str_table[0], "pwd", sizeof("pwd"))
 		|| !ft_strncmp(cmd_str_table[0], "unset", sizeof("unset")))
