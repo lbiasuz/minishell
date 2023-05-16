@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/15 11:08:22 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:55:57 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void	init_signal_handlers(void);
 
 // BUILTINS
 int		pwd(void);
-int		cd(char *argv[]);
-int		echo(char *argv[]);
+int		cd(char **argv);
+int		echo(char **argv);
 int		env(void);
+int		ms_exit(char **argv);
 int		export(char **argv);
 int		unset(char **argv);
 

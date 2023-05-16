@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/16 12:03:34 by lbiasuz          ###   ########.fr       */
+=======
+/*   Updated: 2023/05/16 11:00:06 by rmiranda         ###   ########.fr       */
+>>>>>>> 1fffba809435368741cc18e5d3163a0ac0e3c801
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +54,17 @@ static int	exec_builtin(t_cmd *cmd)
 		return (echo(cmd->args));
 	if (!ft_strncmp(cmd->args[0], "env", sizeof("env")))
 		return (env());
+<<<<<<< HEAD
 	if (!ft_strncmp(cmd->args[0], "export", sizeof("export")))
 		return (export(cmd->args));
 	if (!ft_strncmp(cmd->args[0], "pwd", sizeof("pwd")))
+=======
+	if (!ft_strncmp(cmd_str_table[0], "exit", sizeof("exit")))
+		return (ms_exit(cmd_str_table));
+	if (!ft_strncmp(cmd_str_table[0], "export", sizeof("export")))
+		return (export(cmd_str_table));
+	if (!ft_strncmp(cmd_str_table[0], "pwd", sizeof("pwd")))
+>>>>>>> 1fffba809435368741cc18e5d3163a0ac0e3c801
 		return (pwd());
 	if (!ft_strncmp(cmd->args[0], "unset", sizeof("unset")))
 		return (unset(cmd->args));
@@ -71,6 +83,7 @@ static int	byp_builtin(char *cmd_str)
 	return (0);
 }
 
+<<<<<<< HEAD
 static char *get_exe(char **table)
 {
 	int i;
@@ -85,6 +98,18 @@ static char *get_exe(char **table)
 		i++;
 	}
 	return (table[i]);
+=======
+	is_builtin = 0;
+	if (!ft_strncmp(cmd_str_table[0], "cd", sizeof("cd"))
+		|| !ft_strncmp(cmd_str_table[0], "echo", sizeof("echo"))
+		|| !ft_strncmp(cmd_str_table[0], "env", sizeof("env"))
+		|| !ft_strncmp(cmd_str_table[0], "exit", sizeof("exit"))
+		|| !ft_strncmp(cmd_str_table[0], "export", sizeof("export"))
+		|| !ft_strncmp(cmd_str_table[0], "pwd", sizeof("pwd"))
+		|| !ft_strncmp(cmd_str_table[0], "unset", sizeof("unset")))
+		is_builtin++;
+	return (is_builtin);
+>>>>>>> 1fffba809435368741cc18e5d3163a0ac0e3c801
 }
 
 void	runner(t_list *cmd_list)

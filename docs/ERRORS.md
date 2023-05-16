@@ -19,3 +19,6 @@ TESTE RÉGUA 15/05
 - [ ] $? Não implementado
 - [ ] Falha ao abrir arquivo não exitando filho
 - [ ] Caso especial de redireção para builtins
+
+https://www.thegeekstuff.com/2010/10/linux-error-codes/
+errno list (above)
