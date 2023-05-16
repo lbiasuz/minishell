@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/15 12:00:52 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/16 12:03:34 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_ms g_ms;
 
-void	get_command(t_cmd *cmd)
+void	build_command(t_cmd *cmd)
 {
 	int	i;
 
@@ -41,36 +41,50 @@ void	get_command(t_cmd *cmd)
 		cmd->exe_path = NULL;
 }
 
-static int	exec_builtin(char	**cmd_str_table)
+static int	exec_builtin(t_cmd *cmd)
 {
-	if (!ft_strncmp(cmd_str_table[0], "cd", sizeof("cd")))
-		return (cd(cmd_str_table));
-	if (!ft_strncmp(cmd_str_table[0], "echo", sizeof("echo")))
-		return (echo(cmd_str_table));
-	if (!ft_strncmp(cmd_str_table[0], "env", sizeof("env")))
+	build_command(cmd);
+	if (!ft_strncmp(cmd->args[0], "cd", sizeof("cd")))
+		return (cd(cmd->args));
+	if (!ft_strncmp(cmd->args[0], "echo", sizeof("echo")))
+		return (echo(cmd->args));
+	if (!ft_strncmp(cmd->args[0], "env", sizeof("env")))
 		return (env());
-	if (!ft_strncmp(cmd_str_table[0], "export", sizeof("export")))
-		return (export(cmd_str_table));
-	if (!ft_strncmp(cmd_str_table[0], "pwd", sizeof("pwd")))
+	if (!ft_strncmp(cmd->args[0], "export", sizeof("export")))
+		return (export(cmd->args));
+	if (!ft_strncmp(cmd->args[0], "pwd", sizeof("pwd")))
 		return (pwd());
-	if (!ft_strncmp(cmd_str_table[0], "unset", sizeof("unset")))
-		return (unset(cmd_str_table));
+	if (!ft_strncmp(cmd->args[0], "unset", sizeof("unset")))
+		return (unset(cmd->args));
 	return (-1);
 }
 
-static int	byp_builtin(char **cmd_str_table)
+static int	byp_builtin(char *cmd_str)
 {
-	int		is_builtin;
+	if (!ft_strncmp(cmd_str, "cd", sizeof("cd"))
+		|| !ft_strncmp(cmd_str, "echo", sizeof("echo"))
+		|| !ft_strncmp(cmd_str, "env", sizeof("env"))
+		|| !ft_strncmp(cmd_str, "export", sizeof("export"))
+		|| !ft_strncmp(cmd_str, "pwd", sizeof("pwd"))
+		|| !ft_strncmp(cmd_str, "unset", sizeof("unset")))
+		return (1);
+	return (0);
+}
 
-	is_builtin = 0;
-	if (!ft_strncmp(cmd_str_table[0], "cd", sizeof("cd"))
-		|| !ft_strncmp(cmd_str_table[0], "echo", sizeof("echo"))
-		|| !ft_strncmp(cmd_str_table[0], "env", sizeof("env"))
-		|| !ft_strncmp(cmd_str_table[0], "export", sizeof("export"))
-		|| !ft_strncmp(cmd_str_table[0], "pwd", sizeof("pwd"))
-		|| !ft_strncmp(cmd_str_table[0], "unset", sizeof("unset")))
-		is_builtin++;
-	return (is_builtin);
+static char *get_exe(char **table)
+{
+	int i;
+
+	i = 0;
+	while (table[i] && ft_strncmp(table[i], PIPE, sizeof(PIPE)))
+	{
+		if (is_redirect(table[i]))
+			i++;
+		else if (!is_token(table[i]))
+			return (table[i]);
+		i++;
+	}
+	return (table[i]);
 }
 
 void	runner(t_list *cmd_list)
@@ -78,22 +92,28 @@ void	runner(t_list *cmd_list)
 	t_list	*aux;
 
 	aux = cmd_list;
-	while (cmd_list)
+	if (!aux->next && byp_builtin(get_exe(cast_cmd(aux)->raw)))
 	{
-		if (cmd_list->next)
-			pipe(cast_cmd(cmd_list->next)->fd);
-		if (!cmd_list->next && byp_builtin(cast_cmd(cmd_list)->raw))
-			g_ms.exit_code = exec_builtin(cast_cmd(cmd_list)->raw);
-		else
-			run_cmd(cast_cmd(cmd_list), cast_cmd(cmd_list->next));
-		close_fd(cast_cmd(cmd_list)->fd[1]);
-		close_fd(cast_cmd(cmd_list)->fd[0]);
-		cmd_list = cmd_list->next;
+		redirect_fds(cast_cmd(aux), cast_cmd(aux->next));
+		exec_builtin(cast_cmd(aux));
 	}
-	while (aux)
+	else
 	{
-		waitpid(0, &g_ms.exit_code, 0);
-		aux = aux->next;
+		while (cmd_list)
+		{
+			if (cmd_list->next)
+				pipe(cast_cmd(cmd_list->next)->fd);
+			else
+				run_cmd(cast_cmd(cmd_list), cast_cmd(cmd_list->next));
+			close_fd(cast_cmd(cmd_list)->fd[1]);
+			close_fd(cast_cmd(cmd_list)->fd[0]);
+			cmd_list = cmd_list->next;
+		}
+		while (aux)
+		{
+			waitpid(0, &g_ms.exit_code, 0);
+			aux = aux->next;
+		}
 	}
 }
 
@@ -105,10 +125,13 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 	if (pid == 0)
 	{
 		redirect_fds(cmd, next);
-		if (byp_builtin(cmd->raw))
-			exit(exec_builtin(cmd->raw));
-		get_command(cmd);
-		if (cmd->exe_path)
+		build_command(cmd);
+		if (byp_builtin(cmd->exe))
+		{
+			g_ms.exit_code = exec_builtin(cmd);
+			exit(0);
+		}
+		else if (cmd->exe_path)
 			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
 	}
 }

@@ -14,6 +14,8 @@ TESTE RÉGUA 15/05
 - [x] Comando por caminho absoluto não funciona
 - [ ] Comando não encontrado não printando erro e gerando invalid read
 - [x] std fd sendo fechado ha ausência de pipe
-- [ ] EXIT não exitando com comandos extras
-- [ ] ECHO bypass de formatação "aparecendo"
+- [X] EXIT não exitando com comandos extras
+- [X] ECHO bypass de formatação "aparecendo"
 - [ ] $? Não implementado
+- [ ] Falha ao abrir arquivo não exitando filho
+- [ ] Caso especial de redireção para builtins

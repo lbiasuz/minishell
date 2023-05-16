@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:13:23 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/14 01:09:42 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:46:44 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static void	parse_arguments(int argc, char *argv[])
 
 void	func_is_valid_char(unsigned int index, char *str)
 {
-	if (!ft_isascii(str[index]))
+	(void)index;
+	if (!ft_isascii(*str))
 	{
 		ft_putstr_fd("Error: NOT ASCII", 2);
-		exit(-1);
 	}
 }
 
@@ -79,10 +79,7 @@ static int	find_argv_len(char **argv)
 	int	counter;
 
 	counter = 0;
-	while (argv[0])
-	{
-		argv++;
+	while (argv[counter] && argv[counter][0])
 		counter++;
-	}
 	return (counter);
 }
