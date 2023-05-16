@@ -17,3 +17,6 @@ TESTE RÉGUA 15/05
 - [ ] EXIT não exitando com comandos extras
 - [ ] ECHO bypass de formatação "aparecendo"
 - [ ] $? Não implementado
+
+https://www.thegeekstuff.com/2010/10/linux-error-codes/
+errno list (above)
