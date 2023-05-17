@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/16 10:55:57 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/17 07:30:23 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		unset(char **argv);
 char	**char_occurences(char *string, char c);
 int		char_count(char *string, char c);
 void	free_table(char **table);
-void	free_str_table(char **input);
 char	**append_table(char **table, char *variable);
 char	**pop_table(char **table, char *address);
 char	*join_envp_var(char *before, char *variable, char *after);
@@ -117,6 +116,7 @@ int		is_token(char *string);
 int		is_redirect(char *token);
 int		is_command(char *string);
 int		is_arg(char *token, char *last_token, t_cmd cmd);
+int		byp_builtin(char *cmd_str);
 
 
 #endif
