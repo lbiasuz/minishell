@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/16 12:12:31 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/16 20:15:27 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	build_command(t_cmd *cmd)
 			cmd->args = append_table(NULL, ft_strdup(cmd->exe));
 		}
 		else if (!is_token(cmd->raw[i]))
-			cmd->args = append_table(cmd->args, exp_str_content(cmd->raw[i]));
+			cmd->args = append_table(cmd->args,
+				exp_str_content(ft_strdup(cmd->raw[i])));
 		i++;
 	}
 	if (cmd->exe && (!ft_strchr(cmd->exe, '/') && cmd->exe[0] != '.'))
