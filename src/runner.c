@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/16 12:12:31 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:53:00 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,6 @@ static int	exec_builtin(t_cmd *cmd)
 	if (!ft_strncmp(cmd->args[0], "unset", sizeof("unset")))
 		return (unset(cmd->args));
 	return (-1);
-}
-
-static int	byp_builtin(char *cmd_str)
-{
-	if (!ft_strncmp(cmd_str, "cd", sizeof("cd"))
-		|| !ft_strncmp(cmd_str, "echo", sizeof("echo"))
-		|| !ft_strncmp(cmd_str, "env", sizeof("env"))
-		|| !ft_strncmp(cmd_str, "exit", sizeof("exit"))
-		|| !ft_strncmp(cmd_str, "export", sizeof("export"))
-		|| !ft_strncmp(cmd_str, "pwd", sizeof("pwd"))
-		|| !ft_strncmp(cmd_str, "unset", sizeof("unset")))
-		return (1);
-	return (0);
 }
 
 static char	*get_exe(char **table)
