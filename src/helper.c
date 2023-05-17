@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/12 15:48:32 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/17 07:29:01 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,15 @@ char	**char_occurences(char *string, char c)
 	return (occurences);
 }
 
-// void	free_command(void *cmd)
-// {
-// 	free(((t_cmd *) cmd));
-// 	free(tkn);
-// }
-
-void	free_str_table(char **input)
+int	byp_builtin(char *cmd_str)
 {
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		free(input[i]);
-		input[i] = NULL;
-		i++;
-	}
-	free(input);
+	if (!ft_strncmp(cmd_str, "cd", sizeof("cd"))
+		|| !ft_strncmp(cmd_str, "echo", sizeof("echo"))
+		|| !ft_strncmp(cmd_str, "env", sizeof("env"))
+		|| !ft_strncmp(cmd_str, "exit", sizeof("exit"))
+		|| !ft_strncmp(cmd_str, "export", sizeof("export"))
+		|| !ft_strncmp(cmd_str, "pwd", sizeof("pwd"))
+		|| !ft_strncmp(cmd_str, "unset", sizeof("unset")))
+		return (1);
+	return (0);
 }
