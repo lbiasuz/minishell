@@ -6,13 +6,13 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/17 19:05:57 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/17 19:36:58 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-extern t_ms g_ms;
+extern t_ms	g_ms;
 
 void	build_command(t_cmd *cmd)
 {
@@ -31,7 +31,7 @@ void	build_command(t_cmd *cmd)
 		}
 		else if (!is_token(cmd->raw[i]))
 			cmd->args = append_table(cmd->args,
-				exp_str_content(ft_strdup(cmd->raw[i])));
+					exp_str_content(ft_strdup(cmd->raw[i])));
 		i++;
 	}
 	if (cmd->exe && (!ft_strchr(cmd->exe, '/') && cmd->exe[0] != '.'))

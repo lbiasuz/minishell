@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:25 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/16 21:27:41 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/17 19:34:17 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static char	*parse_arguments(int argc, char *argv[])
 	final_path = NULL;
 	if (argc == 1)
 		final_path = ft_strdup(get_value(g_ms.envp, "USER_ZDOTDIR"));
-	else if (!get_value(g_ms.envp, "PWD")[ft_strlen(get_value(g_ms.envp, "PWD"))])
+	else if (
+		!get_value(g_ms.envp, "PWD")[ft_strlen(get_value(g_ms.envp, "PWD"))])
 		final_path = join_three(get_value(g_ms.envp, "PWD"), "/", argv[1]);
 	else
 		final_path = ft_strjoin(get_value(g_ms.envp, "PWD"), argv[1]);

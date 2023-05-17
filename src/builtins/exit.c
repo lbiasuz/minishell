@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:22:24 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/16 11:17:26 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:34:44 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int	count_table(char **argv)
 static int	get_value_from_table(char **argv)
 {
 	int	value;
-
 
 	if (!argv[1])
 		value = 0;
