@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/16 11:14:51 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/17 07:30:00 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	write(1, "\n", 1);
 	clear_history();
-	free_str_table(g_ms.envp);
+	free_table(g_ms.envp);
 	return (0);
 }
 

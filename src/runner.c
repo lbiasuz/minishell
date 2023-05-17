@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/16 12:12:31 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/17 07:12:56 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,8 @@
 
 extern t_ms g_ms;
 
-void	build_command(t_cmd *cmd)
-{
-	int	i;
-
-	i = 0;
-	cmd->exe = NULL;
-	while (cmd->raw[i] && ft_strncmp(cmd->raw[i], PIPE, sizeof(PIPE)))
-	{
-		if (is_redirect(cmd->raw[i]))
-			i++;
-		else if (!is_token(cmd->raw[i]) && !cmd->exe)
-		{
-			cmd->exe = exp_str_content(ft_strdup(cmd->raw[i]));
-			cmd->args = append_table(NULL, ft_strdup(cmd->exe));
-		}
-		else if (!is_token(cmd->raw[i]))
-			cmd->args = append_table(cmd->args, exp_str_content(cmd->raw[i]));
-		i++;
-	}
-	if (cmd->exe && (!ft_strchr(cmd->exe, '/') && cmd->exe[0] != '.'))
-		cmd->exe_path = find_cmd_path(g_ms.envp, cmd->exe);
-	else if (access(cmd->exe, X_OK) != -1)
-		cmd->exe_path = cmd->exe;
-	else
-		cmd->exe_path = NULL;
-}
-
 static int	exec_builtin(t_cmd *cmd)
 {
-	build_command(cmd);
 	if (!ft_strncmp(cmd->args[0], "cd", sizeof("cd")))
 		return (cd(cmd->args));
 	if (!ft_strncmp(cmd->args[0], "echo", sizeof("echo")))
@@ -59,19 +31,6 @@ static int	exec_builtin(t_cmd *cmd)
 	if (!ft_strncmp(cmd->args[0], "unset", sizeof("unset")))
 		return (unset(cmd->args));
 	return (-1);
-}
-
-static int	byp_builtin(char *cmd_str)
-{
-	if (!ft_strncmp(cmd_str, "cd", sizeof("cd"))
-		|| !ft_strncmp(cmd_str, "echo", sizeof("echo"))
-		|| !ft_strncmp(cmd_str, "env", sizeof("env"))
-		|| !ft_strncmp(cmd_str, "exit", sizeof("exit"))
-		|| !ft_strncmp(cmd_str, "export", sizeof("export"))
-		|| !ft_strncmp(cmd_str, "pwd", sizeof("pwd"))
-		|| !ft_strncmp(cmd_str, "unset", sizeof("unset")))
-		return (1);
-	return (0);
 }
 
 static char	*get_exe(char **table)
@@ -128,7 +87,6 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 	if (pid == 0)
 	{
 		redirect_fds(cmd, next);
-		build_command(cmd);
 		if (byp_builtin(cmd->exe))
 		{
 			g_ms.exit_code = exec_builtin(cmd);
