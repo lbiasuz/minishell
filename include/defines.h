@@ -33,6 +33,7 @@
 typedef struct s_ms {
 	char	**envp;
 	int		exit_code;
+	void	*commands;
 }	t_ms;
 
 typedef struct s_cmd {

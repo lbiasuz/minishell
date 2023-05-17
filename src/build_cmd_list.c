@@ -31,6 +31,9 @@ t_list	*build_cmd_list(char **parsed_input)
 		cmd->raw = str_table_dup(&parsed_input[index], next_index - index);
 		cmd->fd[0] = 0;
 		cmd->fd[1] = 1;
+		cmd->exe = NULL;
+		cmd->exe_path = NULL;
+		cmd->args = NULL;
 		if (parsed_input[next_index])
 			index = ++next_index;
 		else

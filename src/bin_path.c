@@ -16,10 +16,13 @@ char	*find_cmd_path(char **env, char	*command)
 {
 	char	**path_arr;
 	char	*cmd_path;
+	char	*path_value;
 	int		index;
 
 	index = 0;
-	path_arr = ft_split(get_value(env, "PATH"), ':');
+	path_value = get_value(env, "PATH");
+	path_arr = ft_split(path_value, ':');
+	free(path_value);
 	while (path_arr[index])
 	{
 		cmd_path = join_envp_var(path_arr[index], "/", command);

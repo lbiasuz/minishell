@@ -117,6 +117,7 @@ int		is_redirect(char *token);
 int		is_command(char *string);
 int		is_arg(char *token, char *last_token, t_cmd cmd);
 int		byp_builtin(char *cmd_str);
+void	free_node_contents(void *content);
 
 
 #endif

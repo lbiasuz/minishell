@@ -18,5 +18,6 @@ t_ms	init_minishell(char **env)
 
 	ms.envp = copy_environment(env);
 	ms.exit_code = 0;
+	ms.commands = NULL;
 	return (ms);
 }

@@ -36,7 +36,6 @@ SRC				+=	$(PATH_NAME)/parse.c
 SRC				+=	$(PATH_NAME)/redirect.c
 SRC				+=	$(PATH_NAME)/runner.c
 SRC				+=	$(PATH_NAME)/signal_handler.c
-SRC				+=	$(PATH_NAME)/syntax_analysis.c
 SRC				+=	$(PATH_NAME)/table.c
 SRC				+=	$(PATH_NAME)/token_type.c
 SRC				+=	$(PATH_BUILTINS)/cd.c

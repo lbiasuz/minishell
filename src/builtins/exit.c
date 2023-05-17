@@ -12,6 +12,8 @@
 
 #include <minishell.h>
 
+extern t_ms	g_ms;
+
 static int	get_value_from_table(char **input);
 static int	count_table(char **input);
 
@@ -31,6 +33,10 @@ int	ms_exit(char **argv)
 	write(1, "exit ", 5);
 	ft_putnbr_fd(exit_value, 1);
 	write(1, "\n", 1);
+	ft_lstclear((t_list **)&g_ms.commands, &free_node_contents);
+	clear_history();
+	free_table(g_ms.envp);
+	free(g_ms.envp);
 	exit(exit_value);
 }
 

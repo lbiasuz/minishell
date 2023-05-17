@@ -67,3 +67,25 @@ int	byp_builtin(char *cmd_str)
 		return (1);
 	return (0);
 }
+
+void	free_node_contents(void *content)
+{
+	t_cmd	*cmd;
+
+	cmd = (t_cmd *)content;
+	if (cmd->exe)
+		free(cmd->exe);
+	if (cmd->exe_path)
+		free(cmd->exe_path);
+	if (cmd->args)
+	{
+		free_table(cmd->args);
+		free(cmd->args);
+	}
+	if (cmd->raw)
+	{
+		free_table(cmd->raw);
+		free(cmd->raw);
+	}
+	free(cmd);
+}

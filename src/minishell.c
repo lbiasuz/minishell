@@ -13,7 +13,6 @@
 #include <minishell.h>
 
 static int	process_input(char *prompt);
-static void	free_node_contents(void *node);
 static char	*new_prompt_input(char **prompt_ptr);
 // static void	print_parse(char **input);
 // static void	print_tokens(t_list *tokens);
@@ -35,65 +34,33 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!prompt)
 			break ;
 		if (process_input(prompt))
-		{
-			free(prompt);
 			break ;
-		}
 	}
 	write(1, "\n", 1);
 	clear_history();
 	free_table(g_ms.envp);
+	free(g_ms.envp);
 	return (0);
 }
 
 static int	process_input(char *prompt)
 {
 	char	**parsed_input;
-	t_list	*commands;
 
 	parsed_input = parse(prompt);
-	if (!parsed_input)
-		return (0);
-	if (syntax_analysis(parsed_input))
-		return (0);
 	add_history(prompt);
-	commands = build_cmd_list(parsed_input);
-	runner(commands);
-	ft_lstclear(&commands, &free_node_contents);
+	free(prompt);
+	g_ms.commands = (void *)build_cmd_list(parsed_input);
 	free_table(parsed_input);
 	free(parsed_input);
+	runner((t_list *)g_ms.commands);
+	ft_lstclear((t_list **)&g_ms.commands, &free_node_contents);
 	return (0);
-}
-
-static void	free_node_contents(void *content)
-{
-	t_cmd	*cmd;
-
-	cmd = (t_cmd *)content;
-	if (cmd->exe)
-		free(cmd->exe);
-	if (cmd->exe_path)
-		free(cmd->exe_path);
-	if (cmd->args)
-	{
-		free_table(cmd->args);
-		free(cmd->args);
-	}
-	if (cmd->raw)
-	{
-		free_table(cmd->raw);
-		free(cmd->raw);
-	}
-	free(cmd);
 }
 
 static char	*new_prompt_input(char **prompt_ptr)
 {
-	if (*prompt_ptr)
-	{
-		free(*prompt_ptr);
-		rl_on_new_line();
-	}
+	rl_on_new_line();
 	*prompt_ptr = readline(PROMPT_DISPLAY_TEXT);
 	return (*prompt_ptr);
 }
