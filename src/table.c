@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 09:50:14 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/08 21:41:23 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/17 19:37:39 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**pop_table(char **table, char *address)
 		free(table);
 	}
 	free(address);
-	return(new_table);
+	return (new_table);
 }
 
 char	**append_table(char	**table, char *variable)

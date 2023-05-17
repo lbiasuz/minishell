@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/09 14:04:09 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:35:52 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,11 @@ static char	*next_prompt_address(char *prompt)
 	{
 		if (quotes_flag)
 		{
-			if (quotes_flag == DOUBLE_QUOTES && ft_strchr("\"", prompt[0]) && quotes_flag-- && ++prompt)
+			if (quotes_flag == DOUBLE_QUOTES && ft_strchr("\"", prompt[0])
+				&& quotes_flag-- && ++prompt)
 				break ;
-			if (quotes_flag == SINGLE_QUOTES && ft_strchr("\'", prompt[0]) && quotes_flag-- && ++prompt)
+			if (quotes_flag == SINGLE_QUOTES && ft_strchr("\'", prompt[0])
+				&& quotes_flag-- && ++prompt)
 				break ;
 		}
 		else if (ft_strchr("&|$<>", prompt[0]) || ft_isspace(prompt[0]))
