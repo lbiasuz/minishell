@@ -87,7 +87,7 @@ test: all
 valgrind: all
 	valgrind -s --leak-check=full --show-leak-kinds=all \
 			--track-origins=yes --trace-children=yes \
-			--suppressions=./readline.supp \
+			--suppressions=./docs/readline.supp \
 			--log-fd=9 ./$(NAME)   9>memcheck.log
 
 .PHONY: all clean fclean re test valgrind
