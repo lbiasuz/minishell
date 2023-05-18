@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/16 20:13:55 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/18 18:34:05 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*expand_variable(char *input, char *dollar)
 		return (join_envp_var_dol(
 				ft_substr(input, 0, dollar - input),
 				ft_itoa(g_ms.exit_code),
-				ft_substr(&input[index - 1], 0, ft_strlen(&input[index]))
+				ft_substr(&dollar[2], 0, ft_strlen(&input[index]))
 			));
 	while (ft_isalnum(dollar[index]) || dollar[index] == '_')
 		index++;
