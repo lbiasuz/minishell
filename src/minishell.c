@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/17 16:52:41 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:55:32 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static int	process_input(char *prompt)
 	parsed_input = parse(prompt);
 	add_history(prompt);
 	free(prompt);
-	g_ms.commands = (void *)build_cmd_list(parsed_input);
+	g_ms.commands = build_cmd_list(parsed_input);
+	runner(g_ms.commands);
 	free_table(parsed_input);
 	free(parsed_input);
-	runner((t_list *)g_ms.commands);
 	ft_lstclear((t_list **)&g_ms.commands, &free_node_contents);
 	return (0);
 }

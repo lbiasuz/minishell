@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 09:37:40 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/15 09:42:50 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:55:05 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_H
 # define DEFINES_H
+# include <libft.h>
 
 # define CHEV ">"
 # define DCHEV ">>"
@@ -33,7 +34,7 @@
 typedef struct s_ms {
 	char	**envp;
 	int		exit_code;
-	void	*commands;
+	t_list	*commands;
 }	t_ms;
 
 typedef struct s_cmd {
