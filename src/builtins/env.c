@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 08:36:58 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/15 20:58:13 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/18 17:48:08 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	env(void)
 	int	i;
 
 	i = 0;
-	while (g_ms.envp[i++])
-		ft_printf("%s\n", g_ms.envp[i]);
+	while (g_ms.envp[i])
+		ft_printf("%s\n", g_ms.envp[i++]);
 	exit(0);
 }
