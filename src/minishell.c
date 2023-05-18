@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 16:55:32 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/18 18:11:35 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	process_input(char *prompt);
 static char	*new_prompt_input(char **prompt_ptr);
+static int	is_only_space(char	*prompt);
 // static void	print_parse(char **input);
 // static void	print_tokens(t_list *tokens);
 
@@ -47,6 +48,8 @@ static int	process_input(char *prompt)
 {
 	char	**parsed_input;
 
+	if (!prompt[0] || is_only_space(prompt))
+		return (0);
 	parsed_input = parse(prompt);
 	add_history(prompt);
 	free(prompt);
@@ -63,6 +66,19 @@ static char	*new_prompt_input(char **prompt_ptr)
 	rl_on_new_line();
 	*prompt_ptr = readline(PROMPT_DISPLAY_TEXT);
 	return (*prompt_ptr);
+}
+
+static int	is_only_space(char	*prompt)
+{
+	char	*original_ptr;
+
+	original_ptr = prompt;
+	while (ft_isspace(prompt[0]))
+		prompt++;
+	if (prompt[0])
+		return (0);
+	free(original_ptr);
+	return (-1);
 }
 
 // static void	print_parse(char **input)
