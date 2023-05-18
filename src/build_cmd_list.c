@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 03:38:22 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:26:22 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,17 @@ static char	**str_table_dup(char **parsed_input, int size)
 	return (dupped_table);
 }
 
+static char	*filter_quotes(char *raw_str)
+{
+	if ('\'' == raw_str[0])
+		return (ft_strtrim(raw_str, "\'"));
+	if ('\"' == raw_str[0])
+		raw_str = ft_strtrim(raw_str, "\"");
+	else
+		raw_str = ft_strdup(raw_str);
+	return (exp_str_content(raw_str));
+}
+
 static void	build_command(t_cmd *cmd)
 {
 	int	i;
@@ -85,8 +96,7 @@ static void	build_command(t_cmd *cmd)
 			cmd->args = append_table(NULL, ft_strdup(cmd->exe));
 		}
 		else if (!is_token(cmd->raw[i]))
-			cmd->args = append_table(cmd->args,
-					exp_str_content(ft_strdup(cmd->raw[i])));
+			cmd->args = append_table(cmd->args, filter_quotes(cmd->raw[i]));
 		i++;
 	}
 	if (cmd->exe && (!ft_strchr(cmd->exe, '/') && cmd->exe[0] != '.'))

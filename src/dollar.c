@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 18:34:05 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:36:13 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ char	*expand_variable(char *input, char *dollar)
 			));
 	while (ft_isalnum(dollar[index]) || dollar[index] == '_')
 		index++;
-	variable = ft_substr(dollar, 1, index);
+	variable = ft_substr(dollar, 1, index - 1);
 	value = get_value(g_ms.envp, variable);
 	free(variable);
 	variable = join_envp_var_dol(
 			ft_substr(input, 0, dollar - input),
-			value, ft_substr(&input[index - 1], 0, ft_strlen(&input[index])));
+			value, ft_substr(&dollar[index], 0, ft_strlen(&input[index])));
 	free(value);
 	return (variable);
 }
