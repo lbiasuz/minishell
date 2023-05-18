@@ -12,6 +12,24 @@
 
 #include <minishell.h>
 
+
+char	*join_envp_var(char *before, char *variable, char *after)
+{
+	char	*join1;
+	char	*join2;
+
+	if (!before)
+		before = "";
+	if (!variable)
+		variable = "";
+	if (!after)
+		after = "";
+	join1 = ft_strjoin(before, variable);
+	join2 = ft_strjoin(join1, after);
+	free(join1);
+	return (join2);
+}
+
 char	*find_cmd_path(char **env, char	*command)
 {
 	char	**path_arr;

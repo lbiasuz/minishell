@@ -14,6 +14,25 @@
 
 extern t_ms	g_ms;
 
+static char	*join_envp_var_dol(char *before, char *variable, char *after)
+{
+	char	*join1;
+	char	*join2;
+
+	if (!before)
+		before = "";
+	if (!variable)
+		variable = "";
+	if (!after)
+		after = "";
+	join1 = ft_strjoin(before, variable);
+	join2 = ft_strjoin(join1, after);
+	free(join1);
+	free(before);
+	free(after);
+	return (join2);
+}
+
 int	expand_dollar_sign(char *input, char *dollar)
 {
 	char	**occurences;
@@ -32,23 +51,6 @@ int	expand_dollar_sign(char *input, char *dollar)
 	return (flag);
 }
 
-char	*join_envp_var(char *before, char *variable, char *after)
-{
-	char	*join1;
-	char	*join2;
-
-	if (!before)
-		before = "";
-	if (!variable)
-		variable = "";
-	if (!after)
-		after = "";
-	join1 = ft_strjoin(before, variable);
-	join2 = ft_strjoin(join1, after);
-	free(join1);
-	return (join2);
-}
-
 char	*expand_variable(char *input, char *dollar)
 {
 	int		index;
@@ -59,7 +61,7 @@ char	*expand_variable(char *input, char *dollar)
 	if (!dollar)
 		return (input);
 	if (dollar[index] == '?')
-		return (join_envp_var(
+		return (join_envp_var_dol(
 				ft_substr(input, 0, dollar - input),
 				ft_itoa(g_ms.exit_code),
 				ft_substr(&input[index - 1], 0, ft_strlen(&input[index]))
@@ -68,11 +70,12 @@ char	*expand_variable(char *input, char *dollar)
 		index++;
 	variable = ft_substr(dollar, 1, index);
 	value = get_value(g_ms.envp, variable);
-	return (join_envp_var(
+	free(variable);
+	variable = join_envp_var_dol(
 			ft_substr(input, 0, dollar - input),
-			value,
-			ft_substr(&input[index - 1], 0, ft_strlen(&input[index]))
-		));
+			value, ft_substr(&input[index - 1], 0, ft_strlen(&input[index])));
+	free(value);
+	return (variable);
 }
 
 char	*exp_str_content(char *string)

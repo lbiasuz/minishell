@@ -14,37 +14,8 @@
 
 extern t_ms	g_ms;
 
-void	build_command(t_cmd *cmd)
-{
-	int	i;
-
-	i = 0;
-	cmd->exe = NULL;
-	while (cmd->raw[i] && ft_strncmp(cmd->raw[i], PIPE, sizeof(PIPE)))
-	{
-		if (is_redirect(cmd->raw[i]))
-			i++;
-		else if (!is_token(cmd->raw[i]) && !cmd->exe)
-		{
-			cmd->exe = exp_str_content(ft_strdup(cmd->raw[i]));
-			cmd->args = append_table(NULL, ft_strdup(cmd->exe));
-		}
-		else if (!is_token(cmd->raw[i]))
-			cmd->args = append_table(cmd->args,
-					exp_str_content(ft_strdup(cmd->raw[i])));
-		i++;
-	}
-	if (cmd->exe && (!ft_strchr(cmd->exe, '/') && cmd->exe[0] != '.'))
-		cmd->exe_path = find_cmd_path(g_ms.envp, cmd->exe);
-	else if (access(cmd->exe, X_OK) != -1)
-		cmd->exe_path = cmd->exe;
-	else
-		cmd->exe_path = NULL;
-}
-
 static int	exec_builtin(t_cmd *cmd)
 {
-	build_command(cmd);
 	if (!ft_strncmp(cmd->args[0], "cd", sizeof("cd")))
 		return (cd(cmd->args));
 	if (!ft_strncmp(cmd->args[0], "echo", sizeof("echo")))
@@ -116,7 +87,6 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 	if (pid == 0)
 	{
 		redirect_fds(cmd, next);
-		build_command(cmd);
 		if (byp_builtin(cmd->exe))
 		{
 			g_ms.exit_code = exec_builtin(cmd);
