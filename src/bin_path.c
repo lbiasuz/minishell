@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:48:46 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 12:06:12 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 12:10:29 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ char	*find_cmd_path(char **env, char	*command)
 		index++;
 	}
 	if (!path_arr[index])
-	{
-		write(2, command, ft_strlen(command));
-		write(2, ERROR_CNF, ft_strlen(ERROR_CNF));
 		cmd_path = NULL;
-	}
 	free_table(path_arr);
 	free(path_arr);
 	return (cmd_path);

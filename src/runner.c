@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 10:17:30 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 12:26:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,11 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 		}
 		else if (cmd->exe_path)
 			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
+		else
+		{
+			write(2, cmd->exe, ft_strlen(cmd->exe));
+			write(2, ERROR_CNF, ft_strlen(ERROR_CNF));
+			exit(0);
+		}
 	}
 }
