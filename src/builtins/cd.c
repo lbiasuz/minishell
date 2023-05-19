@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:25 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/17 19:34:17 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/18 22:31:55 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,22 @@ int	cd(char *argv[])
 static char	*parse_arguments(int argc, char *argv[])
 {
 	char	*final_path;
+	char	*pwd;
 
 	final_path = NULL;
+	pwd = get_value(g_ms.envp, "PWD");
 	if (argc == 1)
-		final_path = ft_strdup(get_value(g_ms.envp, "USER_ZDOTDIR"));
-	else if (
-		!get_value(g_ms.envp, "PWD")[ft_strlen(get_value(g_ms.envp, "PWD"))])
-		final_path = join_three(get_value(g_ms.envp, "PWD"), "/", argv[1]);
+		final_path = get_value(g_ms.envp, "USER_ZDOTDIR");
+	else if (!pwd[ft_strlen(pwd)])
+		final_path = join_three(pwd, "/", argv[1]);
 	else
-		final_path = ft_strjoin(get_value(g_ms.envp, "PWD"), argv[1]);
+		final_path = ft_strjoin(pwd, argv[1]);
 	if (!final_path)
 	{
 		perror("allocation by parse_arguments by cd.a");
 		exit(-1);
 	}
+	free(pwd);
 	return (final_path);
 }
 
