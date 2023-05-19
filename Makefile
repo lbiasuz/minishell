@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/16 10:58:20 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/05/19 10:26:52 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ PATH_LIBS		+=	/opt/local/lib
 
 # FILES
 SRC				+=	$(PATH_NAME)/bin_path.c
-SRC				+=	$(PATH_NAME)/build_cmd_list.c
+SRC				+=	$(PATH_NAME)/cmd_build.c
 SRC				+=	$(PATH_NAME)/dollar.c
 SRC				+=	$(PATH_NAME)/env.c
 SRC				+=	$(PATH_NAME)/helper.c
@@ -35,9 +35,9 @@ SRC				+=	$(PATH_NAME)/minishell.c
 SRC				+=	$(PATH_NAME)/parse.c
 SRC				+=	$(PATH_NAME)/redirect.c
 SRC				+=	$(PATH_NAME)/runner.c
-SRC				+=	$(PATH_NAME)/signal_handler.c
+SRC				+=	$(PATH_NAME)/signal.c
 SRC				+=	$(PATH_NAME)/table.c
-SRC				+=	$(PATH_NAME)/token_type.c
+SRC				+=	$(PATH_NAME)/token.c
 SRC				+=	$(PATH_BUILTINS)/cd.c
 SRC				+=	$(PATH_BUILTINS)/echo.c
 SRC				+=	$(PATH_BUILTINS)/env.c
