@@ -6,15 +6,15 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 18:04:55 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/18 21:23:34 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-extern t_ms g_ms;
+extern t_ms	g_ms;
 
-static int exec_builtin(t_cmd *cmd)
+static int	exec_builtin(t_cmd *cmd)
 {
 	if (!ft_strncmp(cmd->args[0], "cd", sizeof("cd")))
 		return (cd(cmd->args));
@@ -33,9 +33,9 @@ static int exec_builtin(t_cmd *cmd)
 	return (-1);
 }
 
-static char *get_exe(char **table)
+static char	*get_exe(char **table)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (table[i] && ft_strncmp(table[i], PIPE, sizeof(PIPE)))
@@ -49,9 +49,9 @@ static char *get_exe(char **table)
 	return (table[i]);
 }
 
-void runner(t_list *cmd_list)
+void	runner(t_list *cmd_list)
 {
-	t_list *aux;
+	t_list	*aux;
 
 	aux = cmd_list;
 	if (!aux->next && byp_builtin(get_exe(cast_cmd(aux)->raw)))
@@ -78,9 +78,9 @@ void runner(t_list *cmd_list)
 	}
 }
 
-void run_cmd(t_cmd *cmd, t_cmd *next)
+void	run_cmd(t_cmd *cmd, t_cmd *next)
 {
-	int pid;
+	int	pid;
 
 	pid = fork();
 	if (pid == 0)

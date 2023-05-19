@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 18:05:14 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/18 21:22:02 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,11 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next)
 	if (!next)
 	{
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
-		close_fd(cmd->fd[1]);
 		close_fd(cmd->fd[0]);
 	}
 	else
-	{
 		dup2(next->fd[1], STDOUT_FILENO);
-		close_fd(cmd->fd[1]);
-	}
+	close_fd(cmd->fd[1]);
 }
 
 int	file_to_stdin(char *filepath, int current_fd)
