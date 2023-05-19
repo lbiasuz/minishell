@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 19:26:22 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/19 10:14:55 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	*filter_quotes(char *raw_str)
 		raw_str = ft_strtrim(raw_str, "\"");
 	else
 		raw_str = ft_strdup(raw_str);
-	return (exp_str_content(raw_str));
+	return (replace_env_variables(raw_str));
 }
 
 static void	build_command(t_cmd *cmd)
@@ -92,7 +92,7 @@ static void	build_command(t_cmd *cmd)
 			i++;
 		else if (!is_token(cmd->raw[i]) && !cmd->exe)
 		{
-			cmd->exe = exp_str_content(ft_strdup(cmd->raw[i]));
+			cmd->exe = replace_env_variables(ft_strdup(cmd->raw[i]));
 			cmd->args = append_table(NULL, ft_strdup(cmd->exe));
 		}
 		else if (!is_token(cmd->raw[i]))

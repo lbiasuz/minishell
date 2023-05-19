@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 21:20:54 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:18:37 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	process_input(char *prompt)
 	runner(g_ms.commands);
 	free_table(parsed_input);
 	free(parsed_input);
-	ft_lstclear((t_list **)&g_ms.commands, &free_node_contents);
+	ft_lstclear((t_list **)&g_ms.commands, &free_node);
 	return (0);
 }
 
@@ -80,33 +80,3 @@ static int	is_only_space(char	*prompt)
 	free(original_ptr);
 	return (-1);
 }
-
-// static void	print_parse(char **input)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (input[i])
-// 		ft_printf("%s ", input[i++]);
-// 	ft_printf("\n", input[i]);
-// }
-
-// static void	print_tokens(t_list *tokens)
-// {
-// 	t_list	*l;
-// 	t_tkn	*t;
-
-// 	l = tokens;
-// 	while (l)
-// 	{
-// 		t = l->content;
-// 		if (!ft_strncmp(t->token, EXPAND, sizeof(EXPAND)))
-// 			t->token = expand_variable(t->value, ft_strchr(t->value, '$'));
-// 		ft_printf(
-// 			"token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n",
-// 			t->token,
-// 			t->value
-// 			);
-// 		l = l->next;
-// 	}
-// }

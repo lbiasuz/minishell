@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/17 07:29:01 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/19 10:21:35 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,54 +21,13 @@ t_cmd	*cast_cmd(t_list *node)
 	return (NULL);
 }
 
-int	char_count(char *string, char c)
+void	close_fd(int fd)
 {
-	int	index;
-	int	count;
-
-	index = 0;
-	count = 0;
-	while (string[index])
-	{
-		if (string[index] == c)
-			count++;
-		index ++;
-	}
-	return (count);
+	if (fd >= 3)
+		close(fd);
 }
 
-char	**char_occurences(char *string, char c)
-{
-	char	*aux;
-	int		index;
-	char	**occurences;
-
-	index = 0;
-	aux = string;
-	occurences = ft_calloc(char_count(string, c), sizeof(char **));
-	while (string[index])
-	{
-		aux = ft_strchr(aux, c);
-		occurences[index] = aux;
-		index++;
-	}
-	return (occurences);
-}
-
-int	byp_builtin(char *cmd_str)
-{
-	if (!ft_strncmp(cmd_str, "cd", sizeof("cd"))
-		|| !ft_strncmp(cmd_str, "echo", sizeof("echo"))
-		|| !ft_strncmp(cmd_str, "env", sizeof("env"))
-		|| !ft_strncmp(cmd_str, "exit", sizeof("exit"))
-		|| !ft_strncmp(cmd_str, "export", sizeof("export"))
-		|| !ft_strncmp(cmd_str, "pwd", sizeof("pwd"))
-		|| !ft_strncmp(cmd_str, "unset", sizeof("unset")))
-		return (1);
-	return (0);
-}
-
-void	free_node_contents(void *content)
+void	free_node(void *content)
 {
 	t_cmd	*cmd;
 

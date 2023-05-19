@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/17 19:34:37 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:21:41 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 //	INIT
 t_ms	init_minishell(char **env);
 
-int		syntax_analysis(char **parsed_input);
 char	**parse(char	*prompt);
 void	init_signal_handlers(void);
 
@@ -33,16 +32,14 @@ int		export(char **argv);
 int		unset(char **argv);
 
 //HELPER
-char	**char_occurences(char *string, char c);
-int		char_count(char *string, char c);
 void	free_table(char **table);
 char	**append_table(char **table, char *variable);
 char	**pop_table(char **table, char *address);
-char	*join_envp_var(char *before, char *variable, char *after);
+char	*join_var(char *before, char *variable, char *after);
 
 char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
-char	*exp_str_content(char *node);
+char	*replace_env_variables(char *node);
 
 void	runner(t_list *list);
 void	run_cmd(t_cmd *cmd, t_cmd *next);
@@ -115,8 +112,7 @@ t_cmd	*cast_cmd(t_list *node);
 int		is_token(char *string);
 int		is_redirect(char *token);
 int		is_command(char *string);
-int		is_arg(char *token, char *last_token, t_cmd cmd);
-int		byp_builtin(char *cmd_str);
-void	free_node_contents(void *content);
+int		is_builtin(char *cmd_str);
+void	free_node(void *content);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:48:46 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 21:23:15 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:06:16 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*join_envp_var(char *before, char *variable, char *after)
+static char	*join_path(char *before, char *variable, char *after)
 {
 	char	*join1;
 	char	*join2;
@@ -42,7 +42,7 @@ char	*find_cmd_path(char **env, char	*command)
 	free(path_value);
 	while (path_arr[index])
 	{
-		cmd_path = join_envp_var(path_arr[index], "/", command);
+		cmd_path = join_path(path_arr[index], "/", command);
 		if (access(cmd_path, X_OK) != -1)
 			break ;
 		free(cmd_path);

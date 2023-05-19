@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:22:24 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/17 19:34:44 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:18:37 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ms_exit(char **argv)
 	write(1, "exit ", 5);
 	ft_putnbr_fd(exit_value, 1);
 	write(1, "\n", 1);
-	ft_lstclear((t_list **)&g_ms.commands, &free_node_contents);
+	ft_lstclear((t_list **)&g_ms.commands, &free_node);
 	clear_history();
 	free_table(g_ms.envp);
 	free(g_ms.envp);

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:18:26 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/15 11:48:26 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:20:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,17 @@ int	is_command(char	*token)
 			|| !ft_strncmp(token, SQUOTE, sizeof(SQUOTE))
 			|| !ft_strncmp(token, DQUOTE, sizeof(DQUOTE)))
 	);
+}
+
+int	is_builtin(char *cmd_str)
+{
+	if (!ft_strncmp(cmd_str, "cd", sizeof("cd"))
+		|| !ft_strncmp(cmd_str, "echo", sizeof("echo"))
+		|| !ft_strncmp(cmd_str, "env", sizeof("env"))
+		|| !ft_strncmp(cmd_str, "exit", sizeof("exit"))
+		|| !ft_strncmp(cmd_str, "export", sizeof("export"))
+		|| !ft_strncmp(cmd_str, "pwd", sizeof("pwd"))
+		|| !ft_strncmp(cmd_str, "unset", sizeof("unset")))
+		return (1);
+	return (0);
 }

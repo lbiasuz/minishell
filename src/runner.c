@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 21:23:34 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:17:30 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	runner(t_list *cmd_list)
 	t_list	*aux;
 
 	aux = cmd_list;
-	if (!aux->next && byp_builtin(get_exe(cast_cmd(aux)->raw)))
+	if (!aux->next && is_builtin(get_exe(cast_cmd(aux)->raw)))
 	{
 		redirect_fds(cast_cmd(aux), cast_cmd(aux->next));
 		exec_builtin(cast_cmd(aux));
@@ -86,7 +86,7 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 	if (pid == 0)
 	{
 		redirect_fds(cmd, next);
-		if (byp_builtin(cmd->exe))
+		if (is_builtin(cmd->exe))
 		{
 			g_ms.exit_code = exec_builtin(cmd);
 			exit(0);

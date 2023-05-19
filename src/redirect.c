@@ -6,17 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/18 21:22:02 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:21:21 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	close_fd(int fd)
-{
-	if (fd >= 3)
-		close(fd);
-}
 
 void	redirect_fds(t_cmd *cmd, t_cmd *next)
 {
