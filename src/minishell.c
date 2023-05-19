@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 10:18:37 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:28:08 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static int	process_input(char *prompt);
 static char	*new_prompt_input(char **prompt_ptr);
 static int	is_only_space(char	*prompt);
-// static void	print_parse(char **input);
-// static void	print_tokens(t_list *tokens);
 
 t_ms	g_ms;
 
