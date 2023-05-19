@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 10:14:55 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:22:53 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_ms	g_ms;
 
-static char	*join_var(char *before, char *variable, char *after)
+char	*join_var(char *before, char *variable, char *after)
 {
 	char	*join1;
 	char	*join2;
