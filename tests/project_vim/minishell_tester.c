@@ -61,7 +61,7 @@ static void	parent_func(void)
 
 	read_bytes = 1;
 	printf("His PID is:%i\n", g_info.pid);
-	apply_test(&g_info.pipe[1]);
+	// apply_test(&g_info.pipe[1]);
 	write(g_info.pipe[1], "exit\n", 5);
 	wait(NULL);
 	close_pipe(g_info.pipe);
