@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 12:26:30 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/22 11:26:54 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	runner(t_list *cmd_list)
 	aux = cmd_list;
 	if (!aux->next && is_builtin(get_exe(cast_cmd(aux)->raw)))
 	{
-		redirect_fds(cast_cmd(aux), cast_cmd(aux->next));
+		redirect_single(cast_cmd(aux));
 		exec_builtin(cast_cmd(aux));
 	}
 	else
