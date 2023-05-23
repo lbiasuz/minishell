@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:13:23 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/04/04 20:05:02 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:46:44 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 static void	parse_arguments(int arg_c, char *argv[]);
 static void	func_is_valid_char(unsigned int index, char *str);
 static void	output(int argc, char *argv[]);
+static int	find_argv_len(char **argv);
 
-int	echo(int argc, char *argv[])
+int	echo(char *argv[])
 {
+	int	argc;
+
+	argc = find_argv_len(argv);
 	parse_arguments(argc, argv);
 	output(argc, argv);
 	return (0);
@@ -35,10 +39,10 @@ static void	parse_arguments(int argc, char *argv[])
 
 void	func_is_valid_char(unsigned int index, char *str)
 {
-	if (!ft_isascii(str[index]))
+	(void)index;
+	if (!ft_isascii(*str))
 	{
 		ft_putstr_fd("Error: NOT ASCII", 2);
-		exit(-1);
 	}
 }
 
@@ -68,4 +72,14 @@ static void	output(int argc, char *argv[])
 	}
 	if (!nl_flag)
 		ft_putchar_fd('\n', 1);
+}
+
+static int	find_argv_len(char **argv)
+{
+	int	counter;
+
+	counter = 0;
+	while (argv[counter] && argv[counter][0])
+		counter++;
+	return (counter);
 }

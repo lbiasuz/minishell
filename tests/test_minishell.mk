@@ -6,14 +6,14 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/31 21:15:56 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/25 19:44:43 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/05/18 19:48:41 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = test_output.txt
 
 TEST_INPUT = test_input.txt
-SHASUM = "55401ec0f8e2828276d49d117b29b040819a34f0 Utest_output.txt"
+SHASUM = "9ae3f7a48bcf5dff7e1c1b1f96cd99d0bd4b9732 Utest_output.txt"
 TEST_SUBJECT = ../minishell
 
 all: clean $(NAME)
@@ -21,7 +21,10 @@ all: clean $(NAME)
 	@cp $(NAME) $(NAME)_old
 
 $(NAME):
-	@./$(TEST_SUBJECT) < $(TEST_INPUT) > $(NAME)
+	@valgrind -s --leak-check=full --show-leak-kinds=all \
+			--track-origins=yes --trace-children=yes \
+			--suppressions=../docs/readline.supp \
+			./$(TEST_SUBJECT)< $(TEST_INPUT) > $(NAME)
 
 clean:
 	@rm -rf $(NAME)

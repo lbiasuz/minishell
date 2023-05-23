@@ -6,16 +6,15 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/27 09:56:06 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/22 21:02:44 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static int	process_input(char *prompt);
-// static void	print_parse(char **input);
-static void	free_parse(char **input);
-// static void	print_tokens(t_list *tokens);
+static char	*new_prompt_input(char **prompt_ptr);
+static int	is_only_space(char	*prompt);
 
 t_ms	g_ms;
 
@@ -28,91 +27,54 @@ int	main(int argc, char *argv[], char *envp[])
 		return (-1);
 	init_signal_handlers();
 	g_ms = init_minishell(envp);
-	prompt = readline(PROMPT_DISPLAY_TEXT);
-	while (1)
+	prompt = NULL;
+	while (new_prompt_input(&prompt))
 	{
-		if (!prompt || ft_strncmp("exit", prompt, 5) == 0)
-		{
-			write(1, "exit", 4);
+		if (!prompt)
 			break ;
-		}
 		if (process_input(prompt))
 			break ;
-		free(prompt);
-		rl_on_new_line();
-		prompt = readline(PROMPT_DISPLAY_TEXT);
 	}
-	if (prompt)
-		free(prompt);
 	write(1, "\n", 1);
 	clear_history();
+	free_table(g_ms.envp);
+	free(g_ms.envp);
 	return (0);
 }
 
 static int	process_input(char *prompt)
 {
 	char	**parsed_input;
-	t_list	*tokens;
-	int		old_fd[2];
-	int		fd[2];
 
+	if (!prompt[0] || is_only_space(prompt))
+		return (0);
 	parsed_input = parse(prompt);
-	if (!parsed_input)
-		return (0);
-	tokens = tokenize(parsed_input);
-	if (!tokens)
-		return (0);
 	add_history(prompt);
-	free_parse(parsed_input);
-	fd[0] = STDIN_FILENO;
-	fd[1] = STDOUT_FILENO;
-	old_fd[0] = STDIN_FILENO;
-	old_fd[1] = STDOUT_FILENO;
-	runner(tokens, -1, fd, old_fd);
-	ft_lstclear(&tokens, free_token);
+	free(prompt);
+	g_ms.commands = build_cmd_list(parsed_input);
+	free_table(parsed_input);
+	free(parsed_input);
+	runner(g_ms.commands);
+	ft_lstclear((t_list **)&g_ms.commands, &free_node);
 	return (0);
 }
 
-static void	free_parse(char **input)
+static char	*new_prompt_input(char **prompt_ptr)
 {
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		free(input[i]);
-		input[i] = NULL;
-		i++;
-	}
-	free(input);
+	rl_on_new_line();
+	*prompt_ptr = readline(PROMPT_DISPLAY_TEXT);
+	return (*prompt_ptr);
 }
 
-// static void	print_parse(char **input)
-// {
-// 	int	i;
+static int	is_only_space(char	*prompt)
+{
+	char	*original_ptr;
 
-// 	i = 0;
-// 	while (input[i])
-// 		ft_printf("%s ", input[i++]);
-// 	ft_printf("\n", input[i]);
-// }
-
-// static void	print_tokens(t_list *tokens)
-// {
-// 	t_list	*l;
-// 	t_tkn	*t;
-
-// 	l = tokens;
-// 	while (l)
-// 	{
-// 		t = l->content;
-// 		if (!ft_strncmp(t->token, EXPAND, sizeof(EXPAND)))
-// 			t->token = expand_variable(t->value, ft_strchr(t->value, '$'));
-// 		ft_printf(
-// 			"token:\x1B[31m %s\x1B[0m + value:\x1B[31m %s \x1B[0m \n",
-// 			t->token,
-// 			t->value
-// 			);
-// 		l = l->next;
-// 	}
-// }
+	original_ptr = prompt;
+	while (ft_isspace(prompt[0]))
+		prompt++;
+	if (prompt[0])
+		return (0);
+	free(original_ptr);
+	return (-1);
+}

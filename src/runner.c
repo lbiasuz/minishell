@@ -3,180 +3,101 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/05 10:02:50 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:26:54 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-extern t_ms g_ms;
+extern t_ms	g_ms;
 
-int	is_redirect(char *token)
+static int	exec_builtin(t_cmd *cmd)
 {
-	if (!token)
-		return (0);
-	return (!ft_strncmp(token, DICHEV, sizeof(DICHEV))
-		|| !ft_strncmp(token, DCHEV, sizeof(DCHEV))
-		|| !ft_strncmp(token, CHEV, sizeof(CHEV))
-		|| !ft_strncmp(token, ICHEV, sizeof(ICHEV)));
+	if (!ft_strncmp(cmd->args[0], "cd", sizeof("cd")))
+		return (cd(cmd->args));
+	if (!ft_strncmp(cmd->args[0], "echo", sizeof("echo")))
+		return (echo(cmd->args));
+	if (!ft_strncmp(cmd->args[0], "env", sizeof("env")))
+		return (env());
+	if (!ft_strncmp(cmd->args[0], "exit", sizeof("exit")))
+		return (ms_exit(cmd->args));
+	if (!ft_strncmp(cmd->args[0], "export", sizeof("export")))
+		return (export(cmd->args));
+	if (!ft_strncmp(cmd->args[0], "pwd", sizeof("pwd")))
+		return (pwd());
+	if (!ft_strncmp(cmd->args[0], "unset", sizeof("unset")))
+		return (unset(cmd->args));
+	return (-1);
 }
 
-
-t_list	*return_pipe_or_null(t_list	*token)
+static char	*get_exe(char **table)
 {
-	while (token)
+	int	i;
+
+	i = 0;
+	while (table[i] && ft_strncmp(table[i], PIPE, sizeof(PIPE)))
 	{
-		if (!ft_strncmp(gtkn(token), PIPE, sizeof(PIPE)))
-			break ;
-		token = token->next;
+		if (is_redirect(table[i]))
+			i++;
+		else if (!is_token(table[i]))
+			return (table[i]);
+		i++;
 	}
-	return (token);
+	return (table[i]);
 }
 
-int	is_command(char	*token, char *last_token)
+void	runner(t_list *cmd_list)
 {
-	if (!token)
-		return (0);
-	return (!is_redirect(last_token)
-		&& (!ft_strncmp(token, EXPAND, sizeof(EXPAND))
-			|| !ft_strncmp(token, TEXT, sizeof(TEXT))
-			|| !ft_strncmp(token, SQUOTE, sizeof(SQUOTE))
-			|| !ft_strncmp(token, DQUOTE, sizeof(DQUOTE)))
-	);
-}
+	t_list	*aux;
 
-int	is_arg(char *token, char *last_token)
-{
-	if (!token || !last_token)
-		return (0);
-	return ((!ft_strncmp(token, EXPAND, sizeof(EXPAND))
-			|| !ft_strncmp(token, TEXT, sizeof(TEXT))
-			|| !ft_strncmp(token, SQUOTE, sizeof(SQUOTE))
-			|| !ft_strncmp(token, DQUOTE, sizeof(DQUOTE)))
-		&& (!ft_strncmp(last_token, EXPAND, sizeof(EXPAND))
-			|| !ft_strncmp(last_token, TEXT, sizeof(TEXT))
-			|| !ft_strncmp(last_token, SQUOTE, sizeof(SQUOTE))
-			|| !ft_strncmp(last_token, DQUOTE, sizeof(DQUOTE)))
-	);
-}
-
-char	*get_command(t_list *list)
-{
-	t_list	*node;
-	t_list	*last_node;
-	char	*command;
-
-	node = list;
-	last_node = NULL;
-	command = NULL;
-	while (!command && node)
+	aux = cmd_list;
+	if (!aux->next && is_builtin(get_exe(cast_cmd(aux)->raw)))
 	{
-		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
-			break ;
-		if ((!last_node || !is_redirect(gtkn(last_node)))
-			&& (!is_redirect(gtkn(node))
-				&& is_command(gtkn(node), gtkn(last_node))))
-			command = ft_strtrim(gvle(node), " ");
-		last_node = node;
-		node = node->next;
+		redirect_single(cast_cmd(aux));
+		exec_builtin(cast_cmd(aux));
 	}
-	expand_token_content(last_node);
-	if (command)
-		command = find_cmd_path(g_ms.envp, ft_strtrim(gvle(last_node), " "));
-	return (command);
-}
-
-char	**get_args(t_list *list, char **args)
-{
-	t_list	*node;
-	t_list	*last_node;
-
-	last_node = NULL;
-	node = list;
-	while (node)
-	{
-		if (!ft_strncmp(gtkn(node), PIPE, sizeof(PIPE)))
-			break ;
-		if (is_arg(gtkn(node), gtkn(last_node)))
-		{
-			expand_token_content(node);
-			args = append_table(args, ft_strtrim(gvle(node), " "));
-		}
-		last_node = node;
-		node = node->next;
-	}
-	return (args);
-}
-
-void	invoke_child(t_list *tokens, int fd[2], int ofd[2])
-{
-	char	*command;
-	char	**args;
-
-	command = get_command(tokens);
-	args = get_args(tokens, append_table(NULL, command));
-	if (command && args)
-	{
-		redirect_fds(tokens, fd, ofd);
-		g_ms.exit_code = execve(command, args, g_ms.envp);
-	}
-	exit(g_ms.exit_code);
-}
-
-void	runner(char	**parsed_input)
-{
-	t_cmd	command;
-
-	command.str_table = compose_str_table(parsed_input);
-	command.str = compose_str(parsed_input);
-	setup_fds(&parsed_input);
-	setup_pipes(&parsed_input);
-	command.exec_exit_code = exec_command(command);
-
-}
-
-t_fd	setup_pipes(t_cmd	*command)
-{
-	t_fd	fds;
-	char	*pipe_address;
-
-	fds.in = 0;
-	fds.out = 0;
-	pipe_address = return_pipe_or_null(command->str_table);
-	if (pipe_address)
-	{
-		command->ofds.in = command->fds.in;
-		command->ofds.out = command->fds.out;
-		return (pipe((int *)&command->fds));
-	}
-	return (0);
-}
-
-int	exec_command(t_cmd command)
-{
-	int		pid;
-
-	command.exec_exit_code = 0;
-	pid = fork();
-	if (pid == 0)
-		command.exec_exit_code = invoke_child(token, (int *)&command.fds, (int *)&command.fds);
 	else
 	{
-		waitpid(0, &command.exec_exit_code, 0);
+		while (cmd_list)
 		{
-		if (command.fds.out >= 3)
-			close(command.fds.out);
-		if (command.ofds.in >= 3)
-			close(command.ofds.in);
-		if (command.fds.in >= 3)
-			close(command.fds.in);
-		if (command.ofds.out >= 3)
-			close(command.ofds.out);
+			if (cmd_list->next)
+				pipe(cast_cmd(cmd_list->next)->fd);
+			run_cmd(cast_cmd(cmd_list), cast_cmd(cmd_list->next));
+			close_fd(cast_cmd(cmd_list)->fd[1]);
+			close_fd(cast_cmd(cmd_list)->fd[0]);
+			cmd_list = cmd_list->next;
 		}
-		runner(return_pipe_or_null(command.str_table));
+		while (aux)
+		{
+			waitpid(0, &g_ms.exit_code, 0);
+			aux = aux->next;
+		}
 	}
-	return (0);
+}
+
+void	run_cmd(t_cmd *cmd, t_cmd *next)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		redirect_fds(cmd, next);
+		if (is_builtin(cmd->exe))
+		{
+			g_ms.exit_code = exec_builtin(cmd);
+			exit(0);
+		}
+		else if (cmd->exe_path)
+			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
+		else
+		{
+			write(2, cmd->exe, ft_strlen(cmd->exe));
+			write(2, ERROR_CNF, ft_strlen(ERROR_CNF));
+			exit(0);
+		}
+	}
 }

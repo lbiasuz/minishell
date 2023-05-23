@@ -1,13 +1,23 @@
-   echo      $ HOME
-    echo      $HOME
-   echo     $HOME"HOME"
-    echo      $HOME      "HOME"
-""
-"
+pwd
 
-"m
-export HELLO=hi | acho $HELLO
-acho $HELLO
-export HELLO=hi
-acho $HELLO
-export HELLO=hi | acho $HELLO
+/bin/ls
+
+     
+
+echo echo
+echo -n "[-n echo]"
+echo "[echo]"
+
+/bin/ls/nonexistent $?
+
+echo "cat lol.c | cat.lol.c"
+echo "jkanscbb3787f f a ci   Y	Y89hp0 di 3qD szusffv ja v"
+echo 'cat lol.c | cat.lol.c'
+echo ''
+echo ' |	< > << >> '
+echo '$USER'
+env
+export TESTE=test
+env
+
+

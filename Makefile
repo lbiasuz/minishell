@@ -6,13 +6,13 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/04/29 14:53:39 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/05/22 21:07:34 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 CC		=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -g3
+CFLAGS	=	-Wall -Werror -Wextra -g3
 
 # PATHS
 PATH_NAME		=	src
@@ -25,27 +25,32 @@ PATH_LIBS		+=	libft
 PATH_LIBS		+=	/opt/local/lib
 
 # FILES
-SRC				+=	$(PATH_NAME)/env.c
-SRC				+=	$(PATH_NAME)/init.c
-SRC				+=	$(PATH_NAME)/table.c
-SRC				+=	$(PATH_NAME)/error.c
-SRC				+=	$(PATH_NAME)/parse.c
-SRC				+=	$(PATH_NAME)/token.c
-SRC				+=	$(PATH_NAME)/helper.c
-SRC				+=	$(PATH_NAME)/dollar.c
-SRC				+=	$(PATH_NAME)/runner.c
-SRC				+=	$(PATH_NAME)/redirect.c
 SRC				+=	$(PATH_NAME)/bin_path.c
+SRC				+=	$(PATH_NAME)/cmd_build.c
+SRC				+=	$(PATH_NAME)/dollar.c
+SRC				+=	$(PATH_NAME)/env.c
+SRC				+=	$(PATH_NAME)/helper.c
+SRC				+=	$(PATH_NAME)/init.c
 SRC				+=	$(PATH_NAME)/minishell.c
-SRC				+=	$(PATH_NAME)/signal_handler.c
+SRC				+=	$(PATH_NAME)/parse.c
+SRC				+=	$(PATH_NAME)/redirect.c
+SRC				+=	$(PATH_NAME)/runner.c
+SRC				+=	$(PATH_NAME)/signal.c
+SRC				+=	$(PATH_NAME)/table.c
+SRC				+=	$(PATH_NAME)/token.c
 SRC				+=	$(PATH_BUILTINS)/cd.c
-SRC				+=	$(PATH_BUILTINS)/pwd.c
-SRC				+=	$(PATH_BUILTINS)/env.c
 SRC				+=	$(PATH_BUILTINS)/echo.c
-SRC				+=	$(PATH_BUILTINS)/unset.c
+SRC				+=	$(PATH_BUILTINS)/env.c
+SRC				+=	$(PATH_BUILTINS)/exit.c
 SRC				+=	$(PATH_BUILTINS)/export.c
+SRC				+=	$(PATH_BUILTINS)/pwd.c
+SRC				+=	$(PATH_BUILTINS)/unset.c
 OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
-HEADER_FILES	=	$(foreach dir, $(PATH_HEADERS), $(wildcard $(dir)/*.h))
+HEADER_FILES	+=	include/includes.h
+HEADER_FILES	+=	include/defines.h
+HEADER_FILES	+=	include/minishell.h
+HEADER_FILES	+=	libft/ft_printf.h
+HEADER_FILES	+=	libft/libft.h
 LIBS			+=	ft
 LIBS			+=	readline
 LIBFT			=	libft/libft.a
@@ -79,6 +84,8 @@ test: all
 	make -C tests -f test_minishell.mk
 
 valgrind: all
-	valgrind -s --trace-children=yes --log-fd=9 ./$(NAME) 9>memcheck.log
+	valgrind -s --leak-check=full --show-leak-kinds=all \
+			--suppressions=./docs/readline.supp \
+			--log-fd=9 ./$(NAME)   9>memcheck.log
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re test valgrind

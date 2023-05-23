@@ -3,104 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/05 10:01:13 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:33:19 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define CHEV ">"
-# define DCHEV ">>"
-# define ICHEV "<"
-# define DICHEV "<<"
-# define SQUOTE "\'"
-# define DQUOTE "\""
-# define PIPE "|"
-# define SEMI ";" // not to be handled
-# define DOLL "$"
-# define ECOM "&"
-# define TEXT "TEXT"
-# define EXPAND "EXPAND"
-# define ERROR "Syntax error"
-# define HOME "~"
-# define NL "newline"
-
-# include <libft.h>
-# include <ft_printf.h>
-
-// READLINE FUNCTION HEADERS
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-
-# include <errno.h>
-// FILE HEADER
-# include <fcntl.h>
-# include <unistd.h>
-
-// PROCESS HEADERS
-# include <sys/wait.h>
-
-# define PROMPT_DISPLAY_TEXT "MINI_PROMPT: "
-
-typedef struct s_ms {
-	t_list	*cmdlist;
-	t_list	*tokenlist;
-	char	**envp;
-	int		exit_code;
-}	t_ms;
-
-typedef struct s_tkn {
-	char	*value;
-	char	*token;
-}	t_tkn;
-
-typedef struct s_cmd {
-	char	*str_table;
-	char	*str;
-	t_fd	fds;
-	t_fd	ofds;
-	int		exec_exit_code;
-}	t_cmd;
-
-typedef struct s_fd {
-	int		in;
-	int		out;
-}	t_fd;
+# include "defines.h"
+# include "includes.h"
 
 //	INIT
 t_ms	init_minishell(char **env);
 
 char	**parse(char	*prompt);
 void	init_signal_handlers(void);
-char	*lookfor_error(t_list *tokens);
 
 // BUILTINS
 int		pwd(void);
-int		cd(int argc, char *argv[]);
-int		echo(int argc, char *argv[]);
+int		cd(char **argv);
+int		echo(char **argv);
 int		env(void);
+int		ms_exit(char **argv);
 int		export(char **argv);
 int		unset(char **argv);
 
 //HELPER
-char	**char_occurences(char *string, char c);
-int		char_count(char *string, char c);
 void	free_table(char **table);
-void	free_token(void *tkn);
-char	**append_table(char	**table, char *variable);
-char	*join_envp_var(char *before, char *variable, char *after);
+char	**append_table(char **table, char *variable);
+char	**pop_table(char **table, char *address);
+char	*join_var(char *before, char *variable, char *after);
 
 char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
+char	*replace_env_variables(char *node);
 
-void	runner(t_list *token, int pid, int fd[2], int ofd[2]);
-t_list	*return_pipe_or_null(t_list	*token);
+void	runner(t_list *list);
+void	run_cmd(t_cmd *cmd, t_cmd *next);
 
 // ENV.H
 /// @brief Copies an array of strings to heap.
@@ -159,15 +101,19 @@ int		stdout_to_file(char *filepath, int current_fd);
 /// @return fd returns opened fd
 int		append_stdout_to_file(char *filepath, int current_fd);
 
-void	redirect_fds(t_list *tokens, int fd[2], int ofd[2]);
+void	redirect_single(t_cmd *cmd);
+void	redirect_fds(t_cmd *cmd, t_cmd *next);
+void	close_fd(int fd);
 
-//TOKEN.H
-t_list	*plain_token(char *input);
-t_list	*compose_token(char *input);
-t_list	*tokenize(char **inputs);
-char	*gtkn(t_list *node);
-char	*gvle(t_list *node);
+// BUILD_CMD_LIST
+t_list	*build_cmd_list(char **inputs);
+t_cmd	*cast_cmd(t_list *node);
 
-void	expand_token_content(t_list *node);
+// TOKEN_TYPE.H
+int		is_token(char *string);
+int		is_redirect(char *token);
+int		is_command(char *string);
+int		is_builtin(char *cmd_str);
+void	free_node(void *content);
 
 #endif

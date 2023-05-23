@@ -5,81 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/27 10:10:03 by lbiasuz          ###   ########.fr       */
+/*   Created: 2023/05/04 20:18:26 by lbiasuz           #+#    #+#             */
+/*   Updated: 2023/05/19 10:24:47 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*gtkn(t_list *node)
+int	is_redirect(char *token)
 {
-	if (node)
-		if (node->content)
-			return (((t_tkn *) node->content)->token);
-	return (NULL);
+	if (!token)
+		return (0);
+	return (!ft_strncmp(token, DCHEV, sizeof(DCHEV))
+		|| !ft_strncmp(token, CHEV, sizeof(CHEV))
+		|| !ft_strncmp(token, ICHEV, sizeof(ICHEV)));
 }
 
-char	*gvle(t_list *node)
+int	is_token(char *string)
 {
-	if (node)
-		if (node->content)
-			return (((t_tkn *) node->content)->value);
-	return (NULL);
+	return (!ft_strncmp(string, DICHEV, sizeof(DICHEV))
+		|| !ft_strncmp(string, DCHEV, sizeof(DCHEV))
+		|| !ft_strncmp(string, CHEV, sizeof(CHEV))
+		|| !ft_strncmp(string, ICHEV, sizeof(ICHEV))
+		|| !ft_strncmp(string, PIPE, sizeof(PIPE))
+		|| !ft_strncmp(string, ECOM, sizeof(ECOM)));
 }
 
-t_list	*plain_token(char *input)
+int	is_command(char	*token)
 {
-	t_tkn	*token;
-
-	token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
-	if (!ft_strncmp(input, PIPE, sizeof(input)))
-		token->token = PIPE;
-	else if (!ft_strncmp(input, CHEV, sizeof(input)))
-		token->token = CHEV;
-	else if (!ft_strncmp(input, ICHEV, sizeof(input)))
-		token->token = ICHEV;
-	else if (!ft_strncmp(input, ECOM, sizeof(input)))
-		token->token = ECOM;
-	else if (!ft_strncmp(input, HOME, sizeof(input)))
-		token->token = EXPAND;
-	else
-		token->token = TEXT;
-	token->value = ft_strtrim(input, " ");
-	return (ft_lstnew(token));
+	if (!token)
+		return (0);
+	return (!is_token(token)
+		&& (!ft_strncmp(token, EXPAND, sizeof(EXPAND))
+			|| !ft_strncmp(token, TEXT, sizeof(TEXT))
+			|| !ft_strncmp(token, SQUOTE, sizeof(SQUOTE))
+			|| !ft_strncmp(token, DQUOTE, sizeof(DQUOTE)))
+	);
 }
 
-t_list	*compose_token(char *input)
+int	is_builtin(char *cmd_str)
 {
-	t_tkn	*token;
-
-	token = (t_tkn *)ft_calloc(1, sizeof(t_tkn));
-	if (ft_strchr(input, '$'))
-		token->token = EXPAND;
-	else if (ft_strchr(input, '\"'))
-		token->token = DQUOTE;
-	else
-		token->token = TEXT;
-	token->value = ft_strtrim(input, " ");
-	return (ft_lstnew(token));
-}
-
-t_list	*tokenize(char **inputs)
-{
-	t_list	*token_list;
-	int		len;
-	int		index;
-
-	index = 0;
-	token_list = NULL;
-	while (inputs[index])
-	{
-		len = ft_strlen(inputs[index]);
-		if (len == 1 && inputs[index][0] && !ft_isalnum(inputs[index][0]))
-			ft_lstadd_back(&token_list, plain_token(inputs[index]));
-		else
-			ft_lstadd_back(&token_list, compose_token(inputs[index]));
-		index++;
-	}
-	return (token_list);
+	if (!ft_strncmp(cmd_str, "cd", sizeof("cd"))
+		|| !ft_strncmp(cmd_str, "echo", sizeof("echo"))
+		|| !ft_strncmp(cmd_str, "env", sizeof("env"))
+		|| !ft_strncmp(cmd_str, "exit", sizeof("exit"))
+		|| !ft_strncmp(cmd_str, "export", sizeof("export"))
+		|| !ft_strncmp(cmd_str, "pwd", sizeof("pwd"))
+		|| !ft_strncmp(cmd_str, "unset", sizeof("unset")))
+		return (1);
+	return (0);
 }

@@ -3,47 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:25 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/04/04 20:04:46 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:23:01 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <minishell.h>
 #include <stdio.h> // perror
 #include <stdlib.h> // getenv
 #include <unistd.h> // chdir
 
-static char	*parse_arguments(int argc, char *argv[]);
+extern t_ms	g_ms;
 
-int	cd(int argc, char *argv[])
+static char	*parse_arguments(int argc, char *argv[]);
+static int	find_argv_len(char **argv);
+
+static char	*join_three(char *before, char *variable, char *after)
+{
+	char	*join1;
+	char	*join2;
+
+	if (!before)
+		before = "";
+	if (!variable)
+		variable = "";
+	if (!after)
+		after = "";
+	join1 = ft_strjoin(before, variable);
+	join2 = ft_strjoin(join1, after);
+	free(join1);
+	return (join2);
+}
+
+int	cd(char *argv[])
 {
 	char	*path;
+	char	*owd;
 	int		chdir_error;
 
-	path = parse_arguments(argc, argv);
+	path = parse_arguments(find_argv_len(argv), argv);
+	owd = getcwd(NULL, 0);
 	chdir_error = chdir(path);
 	if (path)
 		free(path);
+	path = getcwd(NULL, 0);
 	if (chdir_error)
-		perror("chdir() by cd.a");
+		perror(path);
+	else
+	{
+		g_ms.envp = set_value(g_ms.envp, ft_strjoin("OLDPWD=", owd));
+		g_ms.envp = set_value(g_ms.envp, ft_strjoin("PWD=", path));
+	}
+	free(path);
+	free(owd);
 	return (chdir_error);
 }
 
 static char	*parse_arguments(int argc, char *argv[])
 {
 	char	*final_path;
+	char	*pwd;
 
 	final_path = NULL;
+	pwd = getcwd(NULL, 0);
 	if (argc == 1)
-		final_path = ft_strdup(getenv("USER_ZDOTDIR"));
+		final_path = get_value(g_ms.envp, "HOME");
+	else if (argv[1][0] == '/')
+		final_path = ft_strdup(argv[1]);
 	else
-		final_path = ft_strjoin(getenv("PWD"), argv[1]);
+		final_path = join_three(pwd, "/", argv[1]);
 	if (!final_path)
-	{
-		perror("allocation by parse_arguments by cd.a");
-		exit(-1);
-	}
+		perror(argv[0]);
+	free(pwd);
 	return (final_path);
+}
+
+static int	find_argv_len(char **argv)
+{
+	int	counter;
+
+	counter = 0;
+	while (argv[0])
+	{
+		argv++;
+		counter++;
+	}
+	return (counter);
 }
