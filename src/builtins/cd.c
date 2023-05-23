@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:25 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/19 11:49:33 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/22 22:23:01 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,24 @@ static char	*join_three(char *before, char *variable, char *after)
 int	cd(char *argv[])
 {
 	char	*path;
+	char	*owd;
 	int		chdir_error;
-	int		argc;
 
-	argc = find_argv_len(argv);
-	path = parse_arguments(argc, argv);
+	path = parse_arguments(find_argv_len(argv), argv);
+	owd = getcwd(NULL, 0);
 	chdir_error = chdir(path);
-	set_value(g_ms.envp, ft_strjoin("PWD=", path));
 	if (path)
 		free(path);
+	path = getcwd(NULL, 0);
 	if (chdir_error)
 		perror(path);
+	else
+	{
+		g_ms.envp = set_value(g_ms.envp, ft_strjoin("OLDPWD=", owd));
+		g_ms.envp = set_value(g_ms.envp, ft_strjoin("PWD=", path));
+	}
+	free(path);
+	free(owd);
 	return (chdir_error);
 }
 
@@ -60,18 +67,15 @@ static char	*parse_arguments(int argc, char *argv[])
 	char	*pwd;
 
 	final_path = NULL;
-	pwd = get_value(g_ms.envp, "PWD");
+	pwd = getcwd(NULL, 0);
 	if (argc == 1)
-		final_path = get_value(g_ms.envp, "USER_ZDOTDIR");
-	else if (!pwd[ft_strlen(pwd)])
-		final_path = join_three(pwd, "/", argv[1]);
+		final_path = get_value(g_ms.envp, "HOME");
+	else if (argv[1][0] == '/')
+		final_path = ft_strdup(argv[1]);
 	else
-		final_path = ft_strjoin(pwd, argv[1]);
+		final_path = join_three(pwd, "/", argv[1]);
 	if (!final_path)
-	{
-		perror("allocation by parse_arguments by cd.a");
-		exit(-1);
-	}
+		perror(argv[0]);
 	free(pwd);
 	return (final_path);
 }

@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/22 12:11:01 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/22 20:50:38 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,7 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next)
 		i++;
 	}
 	dup2(cmd->fd[0], STDIN_FILENO);
-	if (!next)
-	{
-		dup2(STDOUT_FILENO, STDOUT_FILENO);
-		close_fd(cmd->fd[0]);
-	}
-	else
+	if (next)
 		dup2(next->fd[1], STDOUT_FILENO);
 	close_fd(cmd->fd[1]);
 }
@@ -80,14 +75,11 @@ int	stdout_to_file(char *filepath, int current_fd)
 {
 	int	fd;
 
-	fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, 00700);
+	fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR);
 	if (fd == -1)
-	{
 		perror(filepath);
-		return (fd);
-	}
-	dup2(fd, current_fd);
-	close(current_fd);
+	else
+		dup2(fd, current_fd);
 	return (fd);
 }
 
@@ -116,13 +108,12 @@ int	append_stdout_to_file(char *filepath, int current_fd)
 {
 	int	fd;
 
-	fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND, 00700);
+	fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND, S_IWUSR);
 	if (fd == -1)
 	{
 		perror(filepath);
 		return (fd);
 	}
 	dup2(fd, current_fd);
-	close(current_fd);
 	return (fd);
 }

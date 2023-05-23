@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 09:37:40 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/15 09:44:47 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:40:25 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@
 # include <unistd.h>
 // PROCESS HEADERS
 # include <sys/wait.h>
+# include <sys/stat.h>
 
 #endif
