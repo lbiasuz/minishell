@@ -58,5 +58,15 @@ echo $PATH
 unset PATH
 echo $PATH
 ls
-
 export PATH=/bin:/etc:/Users
+
+echo "REDIRECTION TESTS\n"
+
+
+echo "PIPE TESTS\n"
+cat src/bin_path.c | grep lbiasuz | grep by
+find . -type f -name "*.c" | grep .c | xargs -L1 cat | grep Created | grep lbiasuz | wc -l
+find . -type f -name "*.c" | grep .c | xargs -L1 cat | grep Created | grep rmiranda | wc -l
+
+echo '"$USER $USER"'
+echo "'$USER $USER'"
