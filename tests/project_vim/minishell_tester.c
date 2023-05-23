@@ -38,7 +38,7 @@ static void	init(int argc, char **argv, char **envp)
 {
 	if (argc != 2)
 	{
-		printf("Usage: ./a.out [path_to_test_file]");
+		printf("Usage: ./test_minishell.a path_to_test_file\n");
 		exit(0);
 	}
 	g_info.file_path = argv[1];
@@ -47,30 +47,39 @@ static void	init(int argc, char **argv, char **envp)
 
 static void	child_func(void)
 {
+	printf("Child PID:%i", g_info.pid);
 	dup2(g_info.pipe[0], STDIN_FILENO);
 	dup2(g_info.pipe2[1], STDOUT_FILENO);
 	close(g_info.pipe[1]);
 	close(g_info.pipe2[0]);
-	execve("../../minishell", NULL, NULL);
+	execve("bbonaldi/minishell", NULL, NULL);
+	// execve("../../minishell", NULL, NULL);
+	// execve("/bin/bash", NULL, NULL);
+	perror("child_func:execve");
+	exit (1);
 }
 
 static void	parent_func(void)
 {
 	int	read_bytes;
-	char	buff[5];
+	char	*buff;
 
 	read_bytes = 1;
 	printf("His PID is:%i\n", g_info.pid);
-	// apply_test(&g_info.pipe[1]);
-	write(g_info.pipe[1], "exit\n", 5);
-	wait(NULL);
+	apply_test(&g_info.pipe[1]);
+	// write(g_info.pipe[1], "echo echo\n",10);
 	close_pipe(g_info.pipe);
 	close(g_info.pipe2[1]);
-	while (read_bytes > 0)
+	wait(0);
+	wait(0);
+	wait(0);
+	wait(0);
+	wait(0);
+	buff = get_next_line(g_info.pipe2[0]);
+	while (buff)
 	{
-		read_bytes = read(g_info.pipe2[0], buff, 4);
-		buff[read_bytes] = 0;
 		printf("%s", buff);
+		buff = get_next_line(g_info.pipe2[0]);
 	}
 	close_pipe(g_info.pipe2);
 }

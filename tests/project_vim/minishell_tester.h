@@ -23,6 +23,9 @@
 # include <sys/wait.h>
 # include <stdlib.h>
 # include <string.h>
+# include <readline/readline.h>
+# include <libft.h>
+# include <get_next_line.h>
 
 typedef struct s_info {
 	int	pid;

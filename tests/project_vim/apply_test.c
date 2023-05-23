@@ -18,6 +18,7 @@ void	apply_test(int *fd)
 {
 	FILE	*file_to_open;
 	char	*line;
+	ssize_t	nb;
 
 	line = NULL;
 	file_to_open = fopen(g_info.file_path, "r");
@@ -26,14 +27,17 @@ void	apply_test(int *fd)
 		printf("ERROR OPENING THE FILE\n");	
 		return ;
 	}
-	while (getline(&line, NULL, file_to_open) > 1)
+	nb = getline(&line, &nb, file_to_open);
+	while (nb > 0)
 	{
 		write(*fd, line, strlen(line));
 		free(line);
 		line = NULL;
+		nb = getline(&line, &nb, file_to_open);
 	}
+	if (nb < 0)
+		perror("apply_test:getline");
 	if (line)
 		free(line);
 	fclose(file_to_open);
-	write(*fd, "echo hello\n", 11);
 }
