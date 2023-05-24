@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/22 20:50:38 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/24 20:43:45 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	stdout_to_file(char *filepath, int current_fd)
 {
 	int	fd;
 
-	fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR);
+	fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR | S_IRUSR);
 	if (fd == -1)
 		perror(filepath);
 	else
@@ -108,7 +108,7 @@ int	append_stdout_to_file(char *filepath, int current_fd)
 {
 	int	fd;
 
-	fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND, S_IWUSR);
+	fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND, S_IWUSR | S_IRUSR);
 	if (fd == -1)
 	{
 		perror(filepath);

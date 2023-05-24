@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/22 11:26:54 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/24 20:52:35 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,23 @@ static char	*get_exe(char **table)
 	return (table[i]);
 }
 
+void	exec_sinle_builtin(t_cmd *cmd)
+{
+	int	temp;
+	
+	temp = dup(STDOUT_FILENO);
+	redirect_single(cmd);
+	exec_builtin(cmd);
+	dup2(temp, STDOUT_FILENO);
+}
+
 void	runner(t_list *cmd_list)
 {
 	t_list	*aux;
 
 	aux = cmd_list;
 	if (!aux->next && is_builtin(get_exe(cast_cmd(aux)->raw)))
-	{
-		redirect_single(cast_cmd(aux));
-		exec_builtin(cast_cmd(aux));
-	}
+		exec_sinle_builtin(cast_cmd(aux));
 	else
 	{
 		while (cmd_list)
