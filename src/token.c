@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:18:26 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 10:24:47 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/25 11:28:47 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	is_redirect(char *token)
 		return (0);
 	return (!ft_strncmp(token, DCHEV, sizeof(DCHEV))
 		|| !ft_strncmp(token, CHEV, sizeof(CHEV))
+		|| !ft_strncmp(token, DICHEV, sizeof(DICHEV))
 		|| !ft_strncmp(token, ICHEV, sizeof(ICHEV)));
 }
 

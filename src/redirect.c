@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/24 20:43:45 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/25 11:35:00 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	redirect_single(t_cmd *cmd)
 		if (!ft_strncmp(cmd->raw[i], ICHEV, sizeof(ICHEV)))
 			cmd->fd[0] = file_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
 		else if (!ft_strncmp(cmd->raw[i], DICHEV, sizeof(DICHEV)))
-			cmd->fd[0] = heredoc_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
+			cmd->fd[0] = heredoc_to_stdin(cmd->raw[i + 1], cmd->fd[1]);
 		else if (!ft_strncmp(cmd->raw[i], CHEV, sizeof(CHEV)))
 			cmd->fd[1] = stdout_to_file(cmd->raw[i + 1], cmd->fd[1]);
 		else if (!ft_strncmp(cmd->raw[i], DCHEV, sizeof(DCHEV)))
@@ -43,7 +43,7 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next)
 		if (!ft_strncmp(cmd->raw[i], ICHEV, sizeof(ICHEV)))
 			cmd->fd[0] = file_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
 		else if (!ft_strncmp(cmd->raw[i], DICHEV, sizeof(DICHEV)))
-			cmd->fd[0] = heredoc_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
+			cmd->fd[0] = heredoc_to_stdin(cmd->raw[i + 1], cmd->fd[1]);
 		else if (next && !ft_strncmp(cmd->raw[i], CHEV, sizeof(CHEV)))
 			next->fd[1] = stdout_to_file(cmd->raw[i + 1], next->fd[1]);
 		else if (next && !ft_strncmp(cmd->raw[i], DCHEV, sizeof(DCHEV)))
@@ -87,20 +87,25 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 {
 	char	*buff;
 	int		stop_str_len;
+	int		fd[2];
 
+	(void)current_fd;
+	pipe(fd);
 	buff = "";
 	stop_str_len = ft_strlen(stop_str);
 	while (ft_strncmp(stop_str, buff, stop_str_len))
 	{
 		rl_on_new_line();
-		buff = readline("heredoc> ");
+		buff = readline("> ");
 		if (!buff)
 			return (-1);
-		write(current_fd, buff, ft_strlen(buff));
+		ft_putendl_fd(buff, fd[1]);
 		free(buff);
 	}
 	if (buff)
 		free(buff);
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO);
 	return (0);
 }
 
