@@ -42,16 +42,38 @@ int	main(int argc, char *argv[], char *envp[])
 	return (0);
 }
 
+void	ft_dup2_and_close(int fd_to_close, int fd_to_dup)
+{
+	dup2(fd_to_close, fd_to_dup);
+	if (fd_to_close > 0)
+		close(fd_to_close);
+}
+
+void	dup_stdin_out(int *fds_to_restore)
+{
+	fds_to_restore[0] = dup(STDIN_FILENO);
+	fds_to_restore[1] = dup(STDOUT_FILENO);
+}
+
+void	restore_stdin_out(int	*fds_to_restore)
+{
+	ft_dup2_and_close(fds_to_restore[0], STDIN_FILENO);
+	ft_dup2_and_close(fds_to_restore[1], STDOUT_FILENO);
+}
+
 static int	process_input(char *prompt)
 {
 	char	**parsed_input;
+	int	fds_to_restore[2];
 
 	if (!prompt[0] || is_only_space(prompt))
 		return (0);
 	parsed_input = parse(prompt);
 	add_history(prompt);
 	free(prompt);
-	g_ms.commands = build_cmd_list(parsed_input);
+	dup_stdin_out(fds_to_restore);
+	g_ms.commands = build_cmd_list(parsed_input, fds_to_restore);
+	restore_stdin_out(fds_to_restore);
 	free_table(parsed_input);
 	free(parsed_input);
 	runner(g_ms.commands);

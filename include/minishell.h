@@ -106,7 +106,7 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next);
 void	close_fd(int fd);
 
 // BUILD_CMD_LIST
-t_list	*build_cmd_list(char **inputs);
+t_list	*build_cmd_list(char **inputs, int *fds_to_restore);
 t_cmd	*cast_cmd(t_list *node);
 
 // TOKEN_TYPE.H
