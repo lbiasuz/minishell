@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/22 21:02:44 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/25 10:20:59 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int	process_input(char *prompt)
 	free(prompt);
 	dup_stdin_out(fds_to_restore);
 	g_ms.commands = build_cmd_list(parsed_input, fds_to_restore);
-	restore_stdin_out(fds_to_restore);
 	free_table(parsed_input);
 	free(parsed_input);
 	runner(g_ms.commands);

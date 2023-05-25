@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/24 20:52:35 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/25 10:07:06 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 	pid = fork();
 	if (pid == 0)
 	{
-		redirect_fds(cmd, next);
+		if (!next)
+			redirect_single(cmd);
+		else
+			redirect_fds(cmd, next);
 		if (is_builtin(cmd->exe))
 		{
 			g_ms.exit_code = exec_builtin(cmd);
