@@ -6,7 +6,7 @@
 #    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/31 21:15:56 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/18 19:48:41 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/05/26 09:25:45 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,9 @@ all: clean $(NAME)
 	@cp $(NAME) $(NAME)_old
 
 $(NAME):
-	@valgrind -s --leak-check=full --show-leak-kinds=all \
-			--track-origins=yes --trace-children=yes \
+	@valgrind -s -q --leak-check=full --show-leak-kinds=all \
 			--suppressions=../docs/readline.supp \
-			./$(TEST_SUBJECT)< $(TEST_INPUT) > $(NAME)
+			--log-fd=9 ./$(TEST_SUBJECT)< $(TEST_INPUT) > $(NAME) 9>memcheck.log
 
 clean:
 	@rm -rf $(NAME)
