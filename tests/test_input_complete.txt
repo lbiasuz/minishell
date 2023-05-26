@@ -5,8 +5,8 @@ pwd
      
 
 echo echo
-echo -n "print on the same line >"
-echo "print with new line >"
+echo -n "[-n echo]"
+echo "[echo]"
 
 /bin/ls/nonexistent $?
 
