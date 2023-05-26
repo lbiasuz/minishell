@@ -91,22 +91,23 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 
 	(void)current_fd;
 	pipe(fd);
-	buff = "";
 	stop_str_len = ft_strlen(stop_str);
+	buff = readline("> ");
 	while (ft_strncmp(stop_str, buff, stop_str_len))
 	{
-		rl_on_new_line();
-		buff = readline("> ");
-		if (!buff)
-			return (-1);
 		ft_putendl_fd(buff, fd[1]);
 		free(buff);
+		rl_on_new_line();
+		buff = readline("> ");
 	}
-	if (buff)
-		free(buff);
+	if (!buff)
+		return (-1);
+	free(buff);
 	close(fd[1]);
-	dup2(fd[0], STDIN_FILENO);
-	return (0);
+	if (current_fd > 0)
+		close(current_fd);
+	// dup2(fd[0], STDIN_FILENO);
+	return (fd[0]);
 }
 
 int	append_stdout_to_file(char *filepath, int current_fd)
