@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:25:41 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/04/23 08:52:14 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 11:07:22 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char			*sub;
 	unsigned int	start_len;
 
+	start_len = 0;
 	if (start < ft_strlen(s))
 		start_len = ft_strlen(s + start);
 	if (s + start > s + ft_strlen(s))

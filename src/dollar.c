@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 10:22:53 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 11:11:45 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*join_var(char *before, char *variable, char *after)
 	free(join1);
 	free(before);
 	free(after);
+	free(variable);
 	return (join2);
 }
 
@@ -42,22 +43,19 @@ char	*expand_variable(char *input, char *dollar)
 	index = 1;
 	if (!dollar)
 		return (input);
-	if (dollar[index] == '?')
-		return (join_var(
-				ft_substr(input, 0, dollar - input),
-				ft_itoa(g_ms.exit_code),
-				ft_substr(&dollar[2], 0, ft_strlen(&input[index]))
-			));
-	while (ft_isalnum(dollar[index]) || dollar[index] == '_')
-		index++;
-	variable = ft_substr(dollar, 1, index - 1);
-	value = get_value(g_ms.envp, variable);
-	free(variable);
-	variable = join_var(
-			ft_substr(input, 0, dollar - input),
-			value, ft_substr(&dollar[index], 0, ft_strlen(&input[index])));
-	free(value);
-	return (variable);
+	if (dollar[index] == '?' && index++)
+		value = ft_itoa(g_ms.exit_code);
+	else
+	{
+		while (ft_isalnum(dollar[index]) || dollar[index] == '_')
+			index++;
+		variable = ft_substr(dollar, 1, index - 1);
+		value = get_value(g_ms.envp, variable);
+		free(variable);
+	}
+	return join_var(
+		ft_substr(input, 0, dollar - input),
+		value, ft_substr(&dollar[index], 0, ft_strlen(&dollar[index])));
 }
 
 char	*replace_env_variables(char *string)

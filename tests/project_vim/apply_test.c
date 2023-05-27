@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_test.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:30:21 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/19 11:30:23 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:04:45 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	apply_test(int *fd)
 	file_to_open = fopen(g_info.file_path, "r");
 	if (!file_to_open)
 	{
-		printf("ERROR OPENING THE FILE\n");	
+		printf("ERROR OPENING THE FILE\n");
 		return ;
 	}
 	nb = getline(&line, &nb, file_to_open);

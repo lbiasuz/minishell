@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/25 11:35:00 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/26 10:17:21 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 	close(fd[1]);
 	if (current_fd > 0)
 		close(current_fd);
-	// dup2(fd[0], STDIN_FILENO);
 	return (fd[0]);
 }
 

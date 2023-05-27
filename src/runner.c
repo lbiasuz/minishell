@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/25 10:07:06 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/26 11:06:38 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*get_exe(char **table)
 void	exec_sinle_builtin(t_cmd *cmd)
 {
 	int	temp;
-	
+
 	temp = dup(STDOUT_FILENO);
 	redirect_single(cmd);
 	exec_builtin(cmd);

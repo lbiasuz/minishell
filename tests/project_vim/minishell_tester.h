@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_tester.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:37:41 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/18 22:37:45 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:05:36 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@
 # include <get_next_line.h>
 
 typedef struct s_info {
-	int	pid;
-	int	pipe[2];
-	int	pipe2[2];
+	int		pid;
+	int		pipe[2];
+	int		pipe2[2];
 	char	*file_path;
-	int	file_fd[2];
+	int		file_fd[2];
 }	t_info;
 
 void	apply_test(int *fd);
 
 #endif
-

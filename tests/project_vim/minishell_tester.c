@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_tester.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:34:18 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/18 20:34:19 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:06:03 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell_tester.h"
 
@@ -53,21 +52,18 @@ static void	child_func(void)
 	close(g_info.pipe[1]);
 	close(g_info.pipe2[0]);
 	execve("bbonaldi/minishell", NULL, NULL);
-	// execve("../../minishell", NULL, NULL);
-	// execve("/bin/bash", NULL, NULL);
 	perror("child_func:execve");
 	exit (1);
 }
 
 static void	parent_func(void)
 {
-	int	read_bytes;
+	int		read_bytes;
 	char	*buff;
 
 	read_bytes = 1;
 	printf("His PID is:%i\n", g_info.pid);
 	apply_test(&g_info.pipe[1]);
-	// write(g_info.pipe[1], "echo echo\n",10);
 	close_pipe(g_info.pipe);
 	close(g_info.pipe2[1]);
 	wait(0);
@@ -89,4 +85,3 @@ static void	close_pipe(int *pipe)
 	close(pipe[0]);
 	close(pipe[1]);
 }
-

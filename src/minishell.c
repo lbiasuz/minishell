@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/25 10:20:59 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/26 11:09:08 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	restore_stdin_out(int	*fds_to_restore)
 static int	process_input(char *prompt)
 {
 	char	**parsed_input;
-	int	fds_to_restore[2];
+	int		fds_to_restore[2];
 
 	if (!prompt[0] || is_only_space(prompt))
 		return (0);
