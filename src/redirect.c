@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/26 10:17:21 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 15:57:12 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	redirect_single(t_cmd *cmd)
 		i++;
 	}
 	dup2(cmd->fd[0], STDIN_FILENO);
-	dup2(cmd->fd[1], STDOUT_FILENO);
+	dup2(STDOUT_FILENO, cmd->fd[1]);
 }
 
 void	redirect_fds(t_cmd *cmd, t_cmd *next)
@@ -44,15 +44,14 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next)
 			cmd->fd[0] = file_to_stdin(cmd->raw[i + 1], cmd->fd[0]);
 		else if (!ft_strncmp(cmd->raw[i], DICHEV, sizeof(DICHEV)))
 			cmd->fd[0] = heredoc_to_stdin(cmd->raw[i + 1], cmd->fd[1]);
-		else if (next && !ft_strncmp(cmd->raw[i], CHEV, sizeof(CHEV)))
+		else if (!ft_strncmp(cmd->raw[i], CHEV, sizeof(CHEV)))
 			next->fd[1] = stdout_to_file(cmd->raw[i + 1], next->fd[1]);
-		else if (next && !ft_strncmp(cmd->raw[i], DCHEV, sizeof(DCHEV)))
+		else if (!ft_strncmp(cmd->raw[i], DCHEV, sizeof(DCHEV)))
 			next->fd[1] = append_stdout_to_file(cmd->raw[i + 1], next->fd[1]);
 		i++;
 	}
 	dup2(cmd->fd[0], STDIN_FILENO);
-	if (next)
-		dup2(next->fd[1], STDOUT_FILENO);
+	dup2(next->fd[1], STDOUT_FILENO);
 	close_fd(cmd->fd[1]);
 }
 
@@ -89,7 +88,6 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 	int		stop_str_len;
 	int		fd[2];
 
-	(void)current_fd;
 	pipe(fd);
 	stop_str_len = ft_strlen(stop_str);
 	buff = readline("> ");

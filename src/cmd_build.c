@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_cmd_list.c                                   :+:      :+:    :+:   */
+/*   cmd_build.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 10:14:55 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 14:05:18 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	return_pipe_or_null(char **str_table, int index);
 static char	**str_table_dup(char **parsed_input, int size);
 static void	build_command(t_cmd *cmd);
 
-t_list	*build_cmd_list(char **parsed_input, int *fds_to_restore)
+t_list	*build_cmd_list(char **parsed_input)
 {
 	t_cmd	*cmd;
 	t_list	*cmd_list;
@@ -32,8 +32,8 @@ t_list	*build_cmd_list(char **parsed_input, int *fds_to_restore)
 		cmd = (t_cmd *) ft_calloc(sizeof(t_cmd), 1);
 		next_index = return_pipe_or_null(parsed_input, index);
 		cmd->raw = str_table_dup(&parsed_input[index], next_index - index);
-		cmd->fd[0] = fds_to_restore[0];
-		cmd->fd[1] = fds_to_restore[1];
+		cmd->fd[0] = 0;
+		cmd->fd[1] = 1;
 		cmd->exe = NULL;
 		cmd->exe_path = NULL;
 		cmd->args = NULL;

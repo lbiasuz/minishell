@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/22 11:33:19 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 14:05:35 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next);
 void	close_fd(int fd);
 
 // BUILD_CMD_LIST
-t_list	*build_cmd_list(char **inputs, int *fds_to_restore);
+t_list	*build_cmd_list(char **inputs);
 t_cmd	*cast_cmd(t_list *node);
 
 // TOKEN_TYPE.H

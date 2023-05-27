@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/26 11:06:38 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 15:52:43 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ void	exec_sinle_builtin(t_cmd *cmd)
 	int	temp;
 
 	temp = dup(STDOUT_FILENO);
+	cmd->fd[1] = temp;
 	redirect_single(cmd);
 	exec_builtin(cmd);
-	dup2(temp, STDOUT_FILENO);
+	dup2(STDOUT_FILENO, cmd->fd[1]);
 }
 
 void	runner(t_list *cmd_list)
@@ -97,17 +98,15 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 		else
 			redirect_fds(cmd, next);
 		if (is_builtin(cmd->exe))
-		{
 			g_ms.exit_code = exec_builtin(cmd);
-			exit(0);
-		}
 		else if (cmd->exe_path)
 			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
 		else
 		{
 			write(2, cmd->exe, ft_strlen(cmd->exe));
 			write(2, ERROR_CNF, ft_strlen(ERROR_CNF));
-			exit(0);
+			exit(512);
 		}
+		exit(0);
 	}
 }

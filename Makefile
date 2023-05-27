@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/22 21:07:34 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/05/27 15:13:36 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ test: all
 
 valgrind: all
 	valgrind -s --leak-check=full --show-leak-kinds=all \
-			--suppressions=./docs/readline.supp \
+			--suppressions=./docs/readline.supp --track-fds=yes\
 			--log-fd=9 ./$(NAME)   9>memcheck.log
 
 .PHONY: all clean fclean re test valgrind
