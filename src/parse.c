@@ -91,7 +91,7 @@ static char	*next_prompt_address(char *prompt)
 				&& quotes_flag-- && ++prompt)
 				break ;
 		}
-		else if (ft_strchr("&|$<>\'\"", prompt[0]) || ft_isspace(prompt[0]))
+		else if (ft_strchr("|<>\'\"", prompt[0]) || ft_isspace(prompt[0]))
 			break ;
 		prompt++;
 	}
