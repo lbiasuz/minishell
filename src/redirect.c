@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/28 15:58:39 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/28 14:55:25 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,70 +53,4 @@ void	redirect_fds(t_cmd *cmd, t_cmd *next)
 	dup2(cmd->fd[0], STDIN_FILENO);
 	dup2(next->fd[1], STDOUT_FILENO);
 	close_fd(cmd->fd[1]);
-}
-
-int	file_to_stdin(char *filepath, int current_fd)
-{
-	int	fd;
-
-	fd = open(filepath, O_RDONLY);
-	if (fd == -1)
-	{
-		perror(filepath);
-		return (fd);
-	}
-	dup2(fd, current_fd);
-	close(fd);
-	return (fd);
-}
-
-int	stdout_to_file(char *filepath, int current_fd)
-{
-	int	fd;
-
-	fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR | S_IRUSR);
-	if (fd == -1)
-		perror(filepath);
-	else
-		dup2(fd, current_fd);
-	return (fd);
-}
-
-int	heredoc_to_stdin(char *stop_str, int current_fd)
-{
-	char	*buff;
-	int		stop_str_len;
-	int		fd[2];
-
-	pipe(fd);
-	stop_str_len = ft_strlen(stop_str);
-	buff = readline("> ");
-	while (ft_strncmp(stop_str, buff, stop_str_len))
-	{
-		ft_putendl_fd(buff, fd[1]);
-		free(buff);
-		rl_on_new_line();
-		buff = readline("> ");
-	}
-	if (!buff)
-		return (-1);
-	free(buff);
-	close(fd[1]);
-	if (current_fd > 0)
-		close(current_fd);
-	return (fd[0]);
-}
-
-int	append_stdout_to_file(char *filepath, int current_fd)
-{
-	int	fd;
-
-	fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND, S_IWUSR | S_IRUSR);
-	if (fd == -1)
-	{
-		perror(filepath);
-		return (fd);
-	}
-	dup2(fd, current_fd);
-	return (fd);
 }
