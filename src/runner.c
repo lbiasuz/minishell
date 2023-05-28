@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/27 23:03:27 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 23:21:57 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	exec_sinle_builtin(t_cmd *cmd)
 	exec_builtin(cmd);
 	dup2(temp2, STDOUT_FILENO);
 	close(temp);
-	close(temp2);
+	cmd->fd[1] = dup2(STDOUT_FILENO, temp2);
 }
 
 void	runner(t_list *cmd_list)
