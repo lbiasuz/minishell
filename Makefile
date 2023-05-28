@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
+#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/28 14:56:17 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/05/29 01:04:17 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC				+=	$(PATH_NAME)/files.c
 SRC				+=	$(PATH_NAME)/init.c
 SRC				+=	$(PATH_NAME)/minishell.c
 SRC				+=	$(PATH_NAME)/parse.c
+SRC				+=	$(PATH_NAME)/parse_helper.c
 SRC				+=	$(PATH_NAME)/redirect.c
 SRC				+=	$(PATH_NAME)/runner.c
 SRC				+=	$(PATH_NAME)/signal.c

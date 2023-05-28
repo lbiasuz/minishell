@@ -6,14 +6,11 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:33:03 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/18 19:49:01 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/29 01:04:56 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-#define SINGLE_QUOTES 1
-#define DOUBLE_QUOTES 2
 
 static int	count_table_size(char *prompt);
 static char	*next_prompt_address(char *prompt);
@@ -80,21 +77,7 @@ static char	*next_prompt_address(char *prompt)
 	else if (ft_strchr("\'", prompt[0]))
 		quotes_flag = SINGLE_QUOTES;
 	prompt++;
-	while (prompt[0])
-	{
-		if (quotes_flag)
-		{
-			if (quotes_flag == DOUBLE_QUOTES && ft_strchr("\"", prompt[0])
-				&& quotes_flag-- && ++prompt)
-				break ;
-			if (quotes_flag == SINGLE_QUOTES && ft_strchr("\'", prompt[0])
-				&& quotes_flag-- && ++prompt)
-				break ;
-		}
-		else if (ft_strchr("|<>\'\"", prompt[0]) || ft_isspace(prompt[0]))
-			break ;
-		prompt++;
-	}
+	prompt = find_end_of_prompt(prompt, quotes_flag);
 	while (prompt[0] && ft_isspace(prompt[0]))
 		prompt++;
 	return (prompt);

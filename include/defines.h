@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 09:37:40 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/19 12:06:40 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/29 01:05:06 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define NL "newline"
 # define PROMPT_DISPLAY_TEXT "MINI_PROMPT: "
 # define ERROR_CNF ": command not found\n"
+# define SINGLE_QUOTES 1
+# define DOUBLE_QUOTES 2
 
 typedef struct s_ms {
 	char	**envp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/27 23:00:42 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/29 01:03:56 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	free_table(char **table);
 char	**append_table(char **table, char *variable);
 char	**pop_table(char **table, char *address);
 char	*join_var(char *before, char *variable, char *after);
+
+char	*find_end_of_prompt(char *prompt, int quotes_flag);
 
 char	*expand_variable(char *input, char *dollar);
 char	*find_cmd_path(char **env, char	*command);
