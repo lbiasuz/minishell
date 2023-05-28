@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/27 14:05:35 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 23:00:42 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		stdout_to_file(char *filepath, int current_fd);
 /// @return fd returns opened fd
 int		append_stdout_to_file(char *filepath, int current_fd);
 
-void	redirect_single(t_cmd *cmd);
+int		redirect_single(t_cmd *cmd, int temp_fd);
 void	redirect_fds(t_cmd *cmd, t_cmd *next);
 void	close_fd(int fd);
 

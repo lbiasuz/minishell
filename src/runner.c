@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/27 15:52:43 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 23:03:27 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,14 @@ static char	*get_exe(char **table)
 void	exec_sinle_builtin(t_cmd *cmd)
 {
 	int	temp;
+	int	temp2;
 
 	temp = dup(STDOUT_FILENO);
-	cmd->fd[1] = temp;
-	redirect_single(cmd);
+	temp2 = redirect_single(cmd, temp);
 	exec_builtin(cmd);
-	dup2(STDOUT_FILENO, cmd->fd[1]);
+	dup2(temp2, STDOUT_FILENO);
+	close(temp);
+	close(temp2);
 }
 
 void	runner(t_list *cmd_list)
@@ -94,7 +96,7 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 	if (pid == 0)
 	{
 		if (!next)
-			redirect_single(cmd);
+			redirect_single(cmd, STDOUT_FILENO);
 		else
 			redirect_fds(cmd, next);
 		if (is_builtin(cmd->exe))

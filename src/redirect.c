@@ -6,13 +6,13 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/27 15:57:12 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/27 23:00:54 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	redirect_single(t_cmd *cmd)
+int	redirect_single(t_cmd *cmd, int temp_out)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ void	redirect_single(t_cmd *cmd)
 		i++;
 	}
 	dup2(cmd->fd[0], STDIN_FILENO);
-	dup2(STDOUT_FILENO, cmd->fd[1]);
+	return dup2(temp_out, cmd->fd[1]);
 }
 
 void	redirect_fds(t_cmd *cmd, t_cmd *next)
