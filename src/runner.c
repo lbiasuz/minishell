@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/28 15:59:39 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/28 14:24:04 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	exec_sinle_builtin(t_cmd *cmd)
 
 	temp = dup(STDOUT_FILENO);
 	temp2 = redirect_single(cmd, temp);
-	exec_builtin(cmd);
+	g_ms.exit_code = exec_builtin(cmd);
 	dup2(temp2, STDOUT_FILENO);
 	close(temp);
 	cmd->fd[1] = dup2(STDOUT_FILENO, temp2);

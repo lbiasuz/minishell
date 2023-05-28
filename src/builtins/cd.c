@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:25 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/22 22:23:01 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/28 14:30:43 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	cd(char *argv[])
 		free(path);
 	path = getcwd(NULL, 0);
 	if (chdir_error)
-		perror(path);
+		perror(argv[1]);
 	else
 	{
 		g_ms.envp = set_value(g_ms.envp, ft_strjoin("OLDPWD=", owd));
@@ -58,7 +58,7 @@ int	cd(char *argv[])
 	}
 	free(path);
 	free(owd);
-	return (chdir_error);
+	return (!(!chdir_error));
 }
 
 static char	*parse_arguments(int argc, char *argv[])
