@@ -30,9 +30,7 @@ int	ms_exit(char **argv)
 		return (0);
 	}
 	exit_value = get_value_from_table(argv);
-	write(1, "exit ", 5);
-	ft_putnbr_fd(exit_value, 1);
-	write(1, "\n", 1);
+	ft_putendl_fd("exit", 1);
 	ft_lstclear((t_list **)&g_ms.commands, &free_node);
 	clear_history();
 	free_table(g_ms.envp);
