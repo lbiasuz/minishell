@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/05/27 15:13:36 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/05/28 14:43:03 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,9 +79,6 @@ fclean: clean
 	make -C tests -f test_minishell.mk fclean
 
 re: fclean all
-
-test: all
-	make -C tests -f test_minishell.mk
 
 valgrind: all
 	valgrind -s --leak-check=full --show-leak-kinds=all \

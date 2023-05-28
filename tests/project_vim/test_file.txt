@@ -1,8 +1,0 @@
-
-
-
-echo hello
-echo ls
-ls
-echo hi
-exit 2
