@@ -20,11 +20,11 @@ char	*join_var(char *before, char *variable, char *after)
 	char	*join2;
 
 	if (!before)
-		before = "";
+		before = ft_strdup("");
 	if (!variable)
-		variable = "";
+		variable = ft_strdup("");
 	if (!after)
-		after = "";
+		after = ft_strdup("");
 	join1 = ft_strjoin(before, variable);
 	join2 = ft_strjoin(join1, after);
 	free(join1);

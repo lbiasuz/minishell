@@ -70,3 +70,5 @@ find . -type f -name "*.c" | grep .c | xargs -L1 cat | grep Created | grep rmira
 
 echo '"$USER $USER"'
 echo "'$USER $USER'"
+echo teste$?
+
