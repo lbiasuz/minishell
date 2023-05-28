@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/27 11:11:45 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/28 16:00:36 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ char	*expand_variable(char *input, char *dollar)
 		value = get_value(g_ms.envp, variable);
 		free(variable);
 	}
-	return join_var(
-		ft_substr(input, 0, dollar - input),
-		value, ft_substr(&dollar[index], 0, ft_strlen(&dollar[index])));
+	return (join_var(ft_substr(input, 0, dollar - input),
+			value, ft_substr(&dollar[index], 0, ft_strlen(&dollar[index]))));
 }
 
 char	*replace_env_variables(char *string)

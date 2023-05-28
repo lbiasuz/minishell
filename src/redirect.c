@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:23:22 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/27 23:00:54 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/28 15:58:39 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	redirect_single(t_cmd *cmd, int temp_out)
 		i++;
 	}
 	dup2(cmd->fd[0], STDIN_FILENO);
-	return dup2(temp_out, cmd->fd[1]);
+	return (dup2(temp_out, cmd->fd[1]));
 }
 
 void	redirect_fds(t_cmd *cmd, t_cmd *next)

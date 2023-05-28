@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:18:26 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/25 11:28:47 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/28 15:59:48 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ int	is_builtin(char *cmd_str)
 		return (1);
 	return (0);
 }
-

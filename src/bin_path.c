@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:48:46 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 12:10:29 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/28 15:58:23 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ char	*find_cmd_path(char **env, char	*command)
 	free(path_arr);
 	return (cmd_path);
 }
-
