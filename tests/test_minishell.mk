@@ -21,7 +21,7 @@ all: clean $(NAME)
 	@cp $(NAME) $(NAME)_old
 
 $(NAME):
-	@valgrind -s -q --leak-check=full --show-leak-kinds=all \
+	@valgrind -s --leak-check=full --show-leak-kinds=all \
 			--suppressions=../docs/readline.supp \
 			--log-fd=9 ./$(TEST_SUBJECT)< $(TEST_INPUT) > $(NAME) 9>memcheck.log
 
@@ -46,3 +46,4 @@ diff:
 	@diff $(NAME) $(NAME)_old
 
 .PHONY: all clean fclean re shasum show show_old diff
+

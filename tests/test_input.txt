@@ -52,13 +52,6 @@ pwd
 echo "RELATIVE PATH TESTS\n"
 cat ../src/../src/../src/.././src/minishell.c
 
-echo "ENVIRONMENT PATH TESTS\n"
-ls
-echo $PATH
-unset PATH
-echo $PATH
-ls
-export PATH=/bin:/etc:/Users
 
 echo "REDIRECTION TESTS\n"
 
@@ -71,4 +64,13 @@ find . -type f -name "*.c" | grep .c | xargs -L1 cat | grep Created | grep rmira
 echo '"$USER $USER"'
 echo "'$USER $USER'"
 echo teste$?
+
+echo "ENVIRONMENT PATH TESTS\n"
+ls
+echo $PATH
+unset PATH
+echo $PATH
+ls
+export PATH=/bin:/etc:/Users
+echo $PATH
 
