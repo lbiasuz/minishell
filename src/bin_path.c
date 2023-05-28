@@ -38,6 +38,8 @@ char	*find_cmd_path(char **env, char	*command)
 
 	index = 0;
 	path_value = get_value(env, "PATH");
+	if (!path_value)
+		return (NULL);
 	path_arr = ft_split(path_value, ':');
 	free(path_value);
 	while (path_arr[index])
@@ -54,3 +56,4 @@ char	*find_cmd_path(char **env, char	*command)
 	free(path_arr);
 	return (cmd_path);
 }
+

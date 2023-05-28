@@ -112,3 +112,4 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 		exit(0);
 	}
 }
+
