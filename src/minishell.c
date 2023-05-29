@@ -53,13 +53,18 @@ static int	process_input(char *prompt)
 	if (syntax_analize(parsed_input))
 	{
 		g_ms.commands = build_cmd_list(parsed_input);
+		free_table(parsed_input);
+		free(parsed_input);
 		runner(g_ms.commands);
 		ft_lstclear((t_list **)&g_ms.commands, &free_node);
 	}
 	else
+	{
+		free_table(parsed_input);
+		free(parsed_input);
+		ft_lstclear((t_list **)&g_ms.commands, &free_node);
 		g_ms.exit_code = 2;
-	free_table(parsed_input);
-	free(parsed_input);
+	}
 	return (0);
 }
 
