@@ -28,20 +28,7 @@ int	is_token(char *string)
 		|| !ft_strncmp(string, DCHEV, sizeof(DCHEV))
 		|| !ft_strncmp(string, CHEV, sizeof(CHEV))
 		|| !ft_strncmp(string, ICHEV, sizeof(ICHEV))
-		|| !ft_strncmp(string, PIPE, sizeof(PIPE))
-		|| !ft_strncmp(string, ECOM, sizeof(ECOM)));
-}
-
-int	is_command(char	*token)
-{
-	if (!token)
-		return (0);
-	return (!is_token(token)
-		&& (!ft_strncmp(token, EXPAND, sizeof(EXPAND))
-			|| !ft_strncmp(token, TEXT, sizeof(TEXT))
-			|| !ft_strncmp(token, SQUOTE, sizeof(SQUOTE))
-			|| !ft_strncmp(token, DQUOTE, sizeof(DQUOTE)))
-	);
+		|| !ft_strncmp(string, PIPE, sizeof(PIPE)));
 }
 
 int	is_builtin(char *cmd_str)

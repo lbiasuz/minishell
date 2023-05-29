@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/29 11:28:16 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/29 15:58:52 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	if (argc >= 2)
 		return (-1);
-	init_signal_handlers();
 	g_ms = init_minishell(envp);
 	prompt = NULL;
 	while (new_prompt_input(&prompt))
