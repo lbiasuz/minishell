@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:18:26 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/28 15:59:48 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/28 22:20:33 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	is_command(char	*token)
 
 int	is_builtin(char *cmd_str)
 {
+	if (!cmd_str)
+		return (0);
 	if (!ft_strncmp(cmd_str, "cd", sizeof("cd"))
 		|| !ft_strncmp(cmd_str, "echo", sizeof("echo"))
 		|| !ft_strncmp(cmd_str, "env", sizeof("env"))

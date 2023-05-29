@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/28 14:24:04 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/28 22:21:13 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,6 @@ static int	exec_builtin(t_cmd *cmd)
 	return (-1);
 }
 
-static char	*get_exe(char **table)
-{
-	int	i;
-
-	i = 0;
-	while (table[i] && ft_strncmp(table[i], PIPE, sizeof(PIPE)))
-	{
-		if (is_redirect(table[i]))
-			i++;
-		else if (!is_token(table[i]))
-			return (table[i]);
-		i++;
-	}
-	return (table[i]);
-}
-
 void	exec_sinle_builtin(t_cmd *cmd)
 {
 	int	temp;
@@ -67,7 +51,7 @@ void	runner(t_list *cmd_list)
 	t_list	*aux;
 
 	aux = cmd_list;
-	if (!aux->next && is_builtin(get_exe(cast_cmd(aux)->raw)))
+	if (!aux->next && is_builtin(cast_cmd(aux)->exe))
 		exec_sinle_builtin(cast_cmd(aux));
 	else
 	{
@@ -99,7 +83,9 @@ void	run_cmd(t_cmd *cmd, t_cmd *next)
 			redirect_single(cmd, STDOUT_FILENO);
 		else
 			redirect_fds(cmd, next);
-		if (is_builtin(cmd->exe))
+		if (!cmd->exe)
+			;
+		else if (is_builtin(cmd->exe))
 			g_ms.exit_code = exec_builtin(cmd);
 		else if (cmd->exe_path)
 			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
