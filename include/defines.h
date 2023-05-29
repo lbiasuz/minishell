@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 09:37:40 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/29 16:14:19 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:07:52 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define DICHEV "<<"
 # define PIPE "|"
 # define HOME "~"
-# define PROMPT_DISPLAY_TEXT "MINI_PROMPT: "
+# define PROMPT_DISPLAY_TEXT "\033[0;31m MINI_PROMPT: \033[0m"
 # define ERROR_CNF ": command not found\n"
 # define SINGLE_QUOTES 1
 # define DOUBLE_QUOTES 2
