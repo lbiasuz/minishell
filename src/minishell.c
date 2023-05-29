@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/27 14:05:02 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/29 11:28:16 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,16 @@ static int	process_input(char *prompt)
 	parsed_input = parse(prompt);
 	add_history(prompt);
 	free(prompt);
-	g_ms.commands = build_cmd_list(parsed_input);
+	if (syntax_analize(parsed_input))
+	{
+		g_ms.commands = build_cmd_list(parsed_input);
+		runner(g_ms.commands);
+		ft_lstclear((t_list **)&g_ms.commands, &free_node);
+	}
+	else
+		g_ms.exit_code = 2;
 	free_table(parsed_input);
 	free(parsed_input);
-	runner(g_ms.commands);
-	ft_lstclear((t_list **)&g_ms.commands, &free_node);
 	return (0);
 }
 

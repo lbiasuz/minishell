@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/29 01:03:56 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:30:51 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,7 @@ int		is_redirect(char *token);
 int		is_command(char *string);
 int		is_builtin(char *cmd_str);
 void	free_node(void *content);
+
+int		syntax_analize(char **input);
 
 #endif
