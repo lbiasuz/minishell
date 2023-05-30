@@ -28,6 +28,7 @@ int		unset(char **argv);
 //	INIT
 t_ms	init_minishell(char **env);
 char	*replace_env_variables(char *node);
+void	init_signal_handlers(int flag);
 
 // PARSE
 char	**parse(char	*prompt);
