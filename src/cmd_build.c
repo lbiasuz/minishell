@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_build.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:44:31 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/27 14:05:18 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/30 00:08:35 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	build_command(t_cmd *cmd)
 	}
 	if (cmd->exe && (!ft_strchr(cmd->exe, '/') && cmd->exe[0] != '.'))
 		cmd->exe_path = find_cmd_path(g_ms.envp, cmd->exe);
-	else if (access(cmd->exe, X_OK) != -1)
+	else if (cmd->exe && access(cmd->exe, X_OK) != -1)
 		cmd->exe_path = ft_strdup(cmd->exe);
 	else
 		cmd->exe_path = NULL;
