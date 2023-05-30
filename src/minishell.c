@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/29 15:58:52 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:52:23 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char *argv[], char *envp[])
 	prompt = NULL;
 	while (new_prompt_input(&prompt))
 	{
+		rl_replace_line("", 0);
 		if (!prompt)
 			break ;
 		if (process_input(prompt))
