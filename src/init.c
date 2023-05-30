@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:57:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/29 23:24:22 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/30 00:27:08 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
 extern t_ms	g_ms;
 
 t_ms	init_minishell(char **env)
@@ -37,8 +38,8 @@ static void	func_sig_handler(int signo)
 
 void	init_signal_handlers(int flag)
 {
-	t_sigaction	act_int;
-	t_sigaction	act_quit;
+	t_sigaction			act_int;
+	t_sigaction			act_quit;
 	static t_sigaction	act_int_old;
 	static t_sigaction	act_quit_old;
 
@@ -57,4 +58,3 @@ void	init_signal_handlers(int flag)
 	act_quit.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &act_quit, &act_quit_old);
 }
-
