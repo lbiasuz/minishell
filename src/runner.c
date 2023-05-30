@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/28 22:21:13 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/29 23:17:40 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ void	runner(t_list *cmd_list)
 
 void	run_cmd(t_cmd *cmd, t_cmd *next)
 {
-	int	pid;
-
-	pid = fork();
-	if (pid == 0)
+	set_signal(SIGINT, &child_sig, SA_RESTART);
+	set_signal(SIGQUIT, &child_sig, SA_RESTART);
+	g_ms.pid = fork();
+	if (g_ms.pid == 0)
 	{
 		if (!next)
 			redirect_single(cmd, STDOUT_FILENO);

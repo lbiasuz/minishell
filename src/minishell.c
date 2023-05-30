@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/29 15:58:52 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/29 23:13:00 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ int	main(int argc, char *argv[], char *envp[])
 		return (-1);
 	g_ms = init_minishell(envp);
 	prompt = NULL;
+	prompt_signals();
 	while (new_prompt_input(&prompt))
 	{
 		if (!prompt)
 			break ;
 		if (process_input(prompt))
 			break ;
+		prompt_signals();
 	}
 	write(1, "\n", 1);
 	clear_history();

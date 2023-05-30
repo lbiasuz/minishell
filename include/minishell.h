@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/29 16:05:13 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/05/29 23:17:56 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,11 @@ int		is_token(char *string);
 int		is_redirect(char *token);
 int		is_builtin(char *cmd_str);
 void	free_node(void *content);
+
+// SIGNALS.H
+void	set_signal(int sig, void (*handler)(int), int flags);
+void	child_sig(int sig);
+void	prompt_handle(int signo);
+void	prompt_signals(void);
 
 #endif
