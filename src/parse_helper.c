@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 01:02:37 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/29 23:36:24 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/31 11:13:43 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*find_end_of_prompt(char *prompt, int quotes_flag)
 static int	print_syntax_error(char *error)
 {
 	ft_putstr_fd("syntax error near unexpected token ", STDERR_FILENO);
-	ft_putstr_fd(error, STDERR_FILENO);
+	ft_putendl_fd(error, STDERR_FILENO);
 	return (1);
 }
 
@@ -49,6 +49,9 @@ int	syntax_analize(char **input)
 	while (input[index])
 	{
 		if (!ft_strncmp(input[index], PIPE, sizeof(PIPE)) && index == 0)
+			error = PIPE;
+		if (!ft_strncmp(input[index], PIPE, sizeof(PIPE))
+			&& !ft_strncmp(input[index + 1], PIPE, sizeof(PIPE)))
 			error = PIPE;
 		if (!ft_strncmp(input[index], PIPE, sizeof(PIPE)) && !input[index + 1])
 			error = "'newline'";
