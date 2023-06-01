@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/29 16:05:13 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/01 08:53:18 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*find_cmd_path(char **env, char	*command);
 
 // RUNNER
 void	runner(t_list *list);
-void	run_cmd(t_cmd *cmd, t_cmd *next);
+void	run_cmd(t_cmd *cmd);
 
 // HELPER
 void	free_table(char **table);
@@ -62,8 +62,7 @@ int		file_to_stdin(char *filepath, int current_fd);
 int		heredoc_to_stdin(char *stop_str, int current_fd);
 int		stdout_to_file(char *filepath, int current_fd);
 int		append_stdout_to_file(char *filepath, int current_fd);
-int		redirect_single(t_cmd *cmd, int temp_fd);
-void	redirect_fds(t_cmd *cmd, t_cmd *next);
+void	redirect_fds(t_cmd *cmd);
 
 // TOKEN_TYPE.H
 int		is_token(char *string);

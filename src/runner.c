@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/31 22:08:18 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/01 08:50:58 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,30 @@ static int	exec_builtin(t_cmd *cmd)
 
 void	exec_sinle_builtin(t_cmd *cmd)
 {
-	int	temp;
-	int	temp2;
-
-	temp = dup(STDOUT_FILENO);
-	temp2 = redirect_single(cmd, temp);
+	cmd->fd[0] = dup(STDIN_FILENO);
+	cmd->fd[1] = dup(STDOUT_FILENO);
+	redirect_fds(cmd);
 	g_ms.exit_code = exec_builtin(cmd);
-	dup2(temp2, STDOUT_FILENO);
-	close(temp);
-	cmd->fd[1] = dup2(STDOUT_FILENO, temp2);
+	dup2(STDOUT_FILENO, cmd->fd[0]);
+	dup2(STDOUT_FILENO, cmd->fd[1]);
+}
+
+static int	get_pipe(t_list *cmd_list)
+{
+	int	*here_fd;
+	int	*next_fd;
+	int	pipe_result[2];
+
+	here_fd = cast_cmd(cmd_list)->fd;
+	next_fd = cast_cmd(cmd_list->next)->fd;
+	if (pipe(pipe_result))
+	{
+		perror("get_pipe: pipe");
+		return (-1);
+	}
+	here_fd[1] = pipe_result[1];
+	next_fd[0] = pipe_result[0];
+	return (0);
 }
 
 void	runner(t_list *cmd_list)
@@ -58,8 +73,8 @@ void	runner(t_list *cmd_list)
 		while (cmd_list)
 		{
 			if (cmd_list->next)
-				pipe(cast_cmd(cmd_list->next)->fd);
-			run_cmd(cast_cmd(cmd_list), cast_cmd(cmd_list->next));
+				get_pipe(cmd_list);
+			run_cmd(cast_cmd(cmd_list));
 			close_fd(cast_cmd(cmd_list)->fd[1]);
 			close_fd(cast_cmd(cmd_list)->fd[0]);
 			cmd_list = cmd_list->next;
@@ -72,16 +87,13 @@ void	runner(t_list *cmd_list)
 	}
 }
 
-void	run_cmd(t_cmd *cmd, t_cmd *next)
+void	run_cmd(t_cmd *cmd)
 {
 	g_ms.pid = fork();
 	if (g_ms.pid == 0)
 	{
 		init_signal_handlers(0);
-		if (!next)
-			redirect_single(cmd, STDOUT_FILENO);
-		else
-			redirect_fds(cmd, next);
+		redirect_fds(cmd);
 		if (!cmd->exe)
 			;
 		else if (is_builtin(cmd->exe))
