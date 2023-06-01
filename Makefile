@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
+#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/06/01 16:48:47 by lbiasuz          ###   ########.fr        #
+#    Updated: 2023/06/01 11:50:48 by rmiranda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,7 @@ PATH_BUILTINS	=	$(PATH_NAME)/builtins
 PATH_OBJ		=	obj
 PATH_HEADERS	+=	include
 PATH_HEADERS	+=	libft
-PATH_HEADERS	+=	/opt/local/include
 PATH_LIBS		+=	libft
-PATH_LIBS		+=	/opt/local/lib
 
 # FILES
 SRC				+=	$(PATH_NAME)/bin_path.c
