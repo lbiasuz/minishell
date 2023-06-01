@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:57:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/30 00:27:08 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/01 11:37:26 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_ms	init_minishell(char **env)
 {
 	t_ms	ms;
 
-	ms.pid = 1;
 	init_signal_handlers(1);
 	ms.envp = copy_environment(env);
 	ms.exit_code = 0;

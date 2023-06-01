@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 10:37:42 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:37:24 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,10 @@ void	runner(t_list *cmd_list)
 
 void	run_cmd(t_cmd *cmd)
 {
-	g_ms.pid = fork();
-	if (g_ms.pid == 0)
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
 	{
 		init_signal_handlers(0);
 		redirect_fds(cmd);

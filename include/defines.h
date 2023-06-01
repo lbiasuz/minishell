@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 09:37:40 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/29 23:37:22 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/01 11:37:25 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 typedef struct sigaction	t_sigaction;
 
 typedef struct s_ms {
-	int		pid;
 	char	**envp;
 	int		exit_code;
 	t_list	*commands;
