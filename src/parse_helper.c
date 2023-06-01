@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 01:02:37 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/06/01 09:21:28 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/01 10:51:07 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	syntax_analize(char **input)
 	{
 		if (is_pipe(input[index]) && index == 0)
 			error = PIPE;
-		if (is_pipe(input[index]) && is_pipe(input[index + 1]))
-			error = PIPE;
-		if (is_pipe(input[index]) && !input[index + 1])
+		else if (is_pipe(input[index]) && !input[index + 1])
 			error = "'newline'";
+		else if (is_pipe(input[index]) && is_pipe(input[index + 1]))
+			error = PIPE;
 		else if (is_redirect(input[index]) && !input[index + 1])
 			error = "'newline'";
 		else if (is_redirect(input[index]) && is_redirect(input[index + 1]))
