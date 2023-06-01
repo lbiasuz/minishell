@@ -6,13 +6,11 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 11:37:24 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:44:00 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-extern t_ms	g_ms;
 
 static int	exec_builtin(t_cmd *cmd)
 {
