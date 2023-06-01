@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:55:07 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/31 22:38:53 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/01 10:18:08 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,10 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 		rl_on_new_line();
 		buff = readline("> ");
 	}
-	if (!buff)
-		return (-1);
-	free(buff);
+	if (buff)
+		free(buff);
 	close(fd[1]);
-	if (current_fd > 0)
-		close(current_fd);
+	dup2(fd[0], current_fd);
 	return (fd[0]);
 }
 

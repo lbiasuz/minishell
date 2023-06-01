@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 08:50:58 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/01 10:37:42 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,17 @@ static int	exec_builtin(t_cmd *cmd)
 
 void	exec_sinle_builtin(t_cmd *cmd)
 {
-	cmd->fd[0] = dup(STDIN_FILENO);
-	cmd->fd[1] = dup(STDOUT_FILENO);
+	int	dupped_fd_in;
+	int	dupped_fd_out;
+
+	dupped_fd_in = dup(STDIN_FILENO);
+	dupped_fd_out = dup(STDOUT_FILENO);
 	redirect_fds(cmd);
 	g_ms.exit_code = exec_builtin(cmd);
-	dup2(STDOUT_FILENO, cmd->fd[0]);
-	dup2(STDOUT_FILENO, cmd->fd[1]);
+	dup2(dupped_fd_in, STDIN_FILENO);
+	dup2(dupped_fd_out, STDOUT_FILENO);
+	close(dupped_fd_in);
+	close(dupped_fd_out);
 }
 
 static int	get_pipe(t_list *cmd_list)
