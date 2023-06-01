@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:55:07 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 10:18:08 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:42:15 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+extern t_ms	g_ms;
 
 int	file_to_stdin(char *filepath, int current_fd)
 {
@@ -19,10 +21,11 @@ int	file_to_stdin(char *filepath, int current_fd)
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
 	{
+		g_ms.exit_code = 1;
 		perror(filepath);
-		return (fd);
 	}
-	dup2(fd, current_fd);
+	else
+		dup2(fd, current_fd);
 	return (fd);
 }
 
@@ -32,7 +35,10 @@ int	stdout_to_file(char *filepath, int current_fd)
 
 	fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR | S_IRUSR);
 	if (fd == -1)
+	{
+		g_ms.exit_code = 1;
 		perror(filepath);
+	}
 	else
 		dup2(fd, current_fd);
 	return (fd);
@@ -44,7 +50,11 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 	int		stop_str_len;
 	int		fd[2];
 
-	pipe(fd);
+	if (pipe(fd) == -1)
+	{
+		g_ms.exit_code = 1;
+		return (current_fd);
+	}
 	stop_str_len = ft_strlen(stop_str);
 	buff = readline("> ");
 	while (ft_strncmp(stop_str, buff, stop_str_len))
@@ -68,9 +78,10 @@ int	append_stdout_to_file(char *filepath, int current_fd)
 	fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND, S_IWUSR | S_IRUSR);
 	if (fd == -1)
 	{
+		g_ms.exit_code = 1;
 		perror(filepath);
-		return (fd);
 	}
-	dup2(fd, current_fd);
+	else
+		dup2(fd, current_fd);
 	return (fd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 10:37:42 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:51:32 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ static int	get_pipe(t_list *cmd_list)
 
 	here_fd = cast_cmd(cmd_list)->fd;
 	next_fd = cast_cmd(cmd_list->next)->fd;
-	if (pipe(pipe_result))
+	if (pipe(pipe_result) == -1)
 	{
-		perror("get_pipe: pipe");
+		perror("pipe");
 		return (-1);
 	}
 	here_fd[1] = pipe_result[1];
@@ -69,6 +69,7 @@ static int	get_pipe(t_list *cmd_list)
 void	runner(t_list *cmd_list)
 {
 	t_list	*aux;
+	int		ec;
 
 	aux = cmd_list;
 	if (!aux->next && is_builtin(cast_cmd(aux)->exe))
@@ -86,7 +87,9 @@ void	runner(t_list *cmd_list)
 		}
 		while (aux)
 		{
-			waitpid(0, &g_ms.exit_code, 0);
+			waitpid(0, &ec, 0);
+			if (WIFEXITED(ec))
+				g_ms.exit_code = WEXITSTATUS(ec);
 			aux = aux->next;
 		}
 	}
@@ -94,23 +97,24 @@ void	runner(t_list *cmd_list)
 
 void	run_cmd(t_cmd *cmd)
 {
-	g_ms.pid = fork();
-	if (g_ms.pid == 0)
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
 	{
 		init_signal_handlers(0);
 		redirect_fds(cmd);
 		if (!cmd->exe)
-			;
+			exit(g_ms.exit_code);
 		else if (is_builtin(cmd->exe))
-			g_ms.exit_code = exec_builtin(cmd);
+			exit(exec_builtin(cmd));
 		else if (cmd->exe_path)
-			g_ms.exit_code = execve(cmd->exe_path, cmd->args, g_ms.envp);
+			exit(execve(cmd->exe_path, cmd->args, g_ms.envp));
 		else
 		{
 			write(2, cmd->exe, ft_strlen(cmd->exe));
 			write(2, ERROR_CNF, ft_strlen(ERROR_CNF));
-			exit(512);
+			exit(127);
 		}
-		exit(0);
 	}
 }
