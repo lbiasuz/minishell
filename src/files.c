@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:55:07 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/29 23:37:46 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/05/31 22:38:53 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	file_to_stdin(char *filepath, int current_fd)
 		return (fd);
 	}
 	dup2(fd, current_fd);
-	close(fd);
 	return (fd);
 }
 
