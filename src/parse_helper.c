@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 01:02:37 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/31 11:13:43 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/01 09:21:28 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ static int	print_syntax_error(char *error)
 	return (1);
 }
 
+static int	is_pipe(char *str)
+{
+	return (!ft_strncmp(str, PIPE, sizeof(PIPE)));
+}
+
 int	syntax_analize(char **input)
 {
 	int		index;
@@ -48,19 +53,17 @@ int	syntax_analize(char **input)
 	index = 0;
 	while (input[index])
 	{
-		if (!ft_strncmp(input[index], PIPE, sizeof(PIPE)) && index == 0)
+		if (is_pipe(input[index]) && index == 0)
 			error = PIPE;
-		if (!ft_strncmp(input[index], PIPE, sizeof(PIPE))
-			&& !ft_strncmp(input[index + 1], PIPE, sizeof(PIPE)))
+		if (is_pipe(input[index]) && is_pipe(input[index + 1]))
 			error = PIPE;
-		if (!ft_strncmp(input[index], PIPE, sizeof(PIPE)) && !input[index + 1])
+		if (is_pipe(input[index]) && !input[index + 1])
 			error = "'newline'";
 		else if (is_redirect(input[index]) && !input[index + 1])
 			error = "'newline'";
 		else if (is_redirect(input[index]) && is_redirect(input[index + 1]))
 			error = input[index + 1];
-		else if (is_redirect(input[index])
-			&& !ft_strncmp(input[index + 1], PIPE, sizeof(PIPE)))
+		else if (is_redirect(input[index]) && is_pipe(input[index + 1]))
 			error = PIPE;
 		if (error && print_syntax_error(error))
 			return (0);
