@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:03:55 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 21:10:27 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/01 21:12:33 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern t_ms	g_ms;
 
 static void	print_export(char **envp);
 
-static void print_error(char *str)
+static void	print_error(char *str)
 {
 	write(2, "export: ", ft_strlen("export: "));
 	write(2, str, ft_strlen(str));
@@ -39,7 +39,6 @@ int	export(char **argv)
 		i = 1;
 		while (argv[i])
 		{
-			
 			if (ft_isdigit(argv[i][0]))
 				print_error(argv[i]);
 			else if (ft_strchr(argv[i], '='))
