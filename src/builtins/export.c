@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:03:55 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/15 20:58:15 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/01 21:10:27 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,38 @@ extern t_ms	g_ms;
 
 static void	print_export(char **envp);
 
+static void print_error(char *str)
+{
+	write(2, "export: ", ft_strlen("export: "));
+	write(2, str, ft_strlen(str));
+	write(2, ERROR_II, ft_strlen(ERROR_II));
+	g_ms.exit_code = 1;
+}
+
 int	export(char **argv)
 {
 	int		i;
-	char	**envp;
 
-	envp = g_ms.envp;
+	g_ms.exit_code = 0;
 	i = 0;
 	while (argv[i])
 		i++;
 	if (i <= 1)
-		print_export(envp);
+		print_export(g_ms.envp);
 	else
 	{
 		i = 1;
 		while (argv[i])
 		{
-			if (ft_strchr(argv[i], '='))
-				envp = set_value(envp, ft_strdup(argv[i]));
+			
+			if (ft_isdigit(argv[i][0]))
+				print_error(argv[i]);
+			else if (ft_strchr(argv[i], '='))
+				g_ms.envp = set_value(g_ms.envp, ft_strdup(argv[i]));
 			i++;
 		}
-		g_ms.envp = envp;
 	}
-	return (0);
+	return (g_ms.exit_code);
 }
 
 static void	print_export(char **envp)
