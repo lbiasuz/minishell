@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:57:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 20:53:13 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/02 12:39:14 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_ms	init_minishell(char **env)
 {
 	t_ms	ms;
 
-	init_signal_handlers(1);
+	set_init_signal_handlers(1);
 	ms.envp = copy_environment(env);
 	ms.exit_code = 0;
 	ms.commands = NULL;
@@ -29,31 +29,46 @@ static void	func_sig_handler(int signo)
 {
 	if (signo != SIGINT)
 		return ;
-	rl_replace_line("", 0);
+	rl_replace_line("", 1);
 	rl_on_new_line();
 	write(1, "\n", 1);
 	rl_redisplay();
 }
 
-void	init_signal_handlers(int flag)
+void	set_init_signal_handlers(int pid)
 {
 	t_sigaction			act_int;
 	t_sigaction			act_quit;
-	static t_sigaction	act_int_old;
-	static t_sigaction	act_quit_old;
 
-	if (!flag)
-	{
-		sigaction(SIGINT, &act_int_old, NULL);
-		sigaction(SIGQUIT, &act_quit_old, NULL);
-		return ;
-	}
+	(void)pid;
 	sigemptyset(&act_int.sa_mask);
 	sigemptyset(&act_quit.sa_mask);
 	act_int.sa_flags = SA_RESTART;
 	act_int.sa_handler = &func_sig_handler;
-	sigaction(SIGINT, &act_int, &act_int_old);
+	sigaction(SIGINT, &act_int, NULL);
 	act_quit.sa_flags = 0;
 	act_quit.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &act_quit, &act_quit_old);
+	sigaction(SIGQUIT, &act_quit, NULL);
+}
+
+static void	func_child_sig_handler(int signo)
+{
+	(void)signo;
+	ft_putstr_fd("\n", STDERR_FILENO);
+	rl_replace_line("", 1);
+	rl_on_new_line();
+}
+
+void	set_exec_signal_handlers(int pid)
+{
+	t_sigaction			act_quit;
+
+	sigemptyset(&act_quit.sa_mask);
+	act_quit.sa_flags = 0;
+	if (pid == 0)
+		act_quit.sa_handler = &func_child_sig_handler;
+	else
+		act_quit.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &act_quit, NULL);
+	sigaction(SIGINT, &act_quit, NULL);
 }

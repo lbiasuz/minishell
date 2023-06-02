@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   runner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 20:53:26 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/02 12:34:33 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ void	run_cmd(t_cmd *cmd)
 	int	pid;
 
 	pid = fork();
+	set_exec_signal_handlers(pid);
 	if (pid == 0)
 	{
-		init_signal_handlers(0);
 		redirect_fds(cmd);
 		if (!cmd->exe)
 			exit(g_ms.exit_code);
