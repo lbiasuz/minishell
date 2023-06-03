@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/02 12:34:33 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/03 02:00:33 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,11 @@ void	run_cmd(t_cmd *cmd)
 	int	pid;
 
 	pid = fork();
+	if (pid == 0)
+		redirect_fds(cmd);
 	set_exec_signal_handlers(pid);
 	if (pid == 0)
 	{
-		redirect_fds(cmd);
 		if (!cmd->exe)
 			exit(g_ms.exit_code);
 		else if (is_builtin(cmd->exe))

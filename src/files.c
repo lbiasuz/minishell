@@ -6,13 +6,15 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:55:07 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/03 01:39:12 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/03 02:12:55 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 extern t_ms	g_ms;
+
+static void	set_heredoc_signal_handlers(void);
 
 int	file_to_stdin(char *filepath, int current_fd)
 {
@@ -63,6 +65,7 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 		return (current_fd);
 	}
 	stop_str_len = ft_strlen(stop_str);
+	set_heredoc_signal_handlers();
 	buff = readline("> ");
 	while (buff && ft_strncmp(stop_str, buff, stop_str_len))
 	{
@@ -71,6 +74,7 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 		rl_on_new_line();
 		buff = readline("> ");
 	}
+	set_heredoc_signal_handlers();
 	if (buff)
 		free(buff);
 	if (old_heredoc)
@@ -96,4 +100,30 @@ int	append_stdout_to_file(char *filepath, int current_fd)
 		close(old_file);
 	old_file = fd;
 	return (fd);
+}
+
+static void	func_heredoc_handler(int signo)
+{
+	(void)signo;
+	g_ms.exit_code = 130;
+	write(2, "\n", 1);
+	exit(130);
+}
+
+static void	set_heredoc_signal_handlers(void)
+{
+	t_sigaction			act;
+	static t_sigaction	old_act;
+	static int			restore_flag;
+
+	if (restore_flag++)
+	{
+		sigaction(SIGINT, &old_act, NULL);
+		restore_flag--;
+		return ;
+	}
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESTART;
+	act.sa_handler = &func_heredoc_handler;
+	sigaction(SIGINT, &act, &old_act);
 }
