@@ -6,12 +6,11 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:15:47 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/04/15 20:58:07 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/03 20:50:44 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <ft_printf.h>
 
 char	**copy_environment(char **env)
 {

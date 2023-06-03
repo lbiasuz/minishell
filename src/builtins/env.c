@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 08:36:58 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/22 21:09:53 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/03 20:53:32 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	env(void)
 
 	i = 0;
 	while (g_ms.envp[i])
-		ft_printf("%s\n", g_ms.envp[i++]);
+		ft_putendl_fd(g_ms.envp[i++], 1);
 	return (0);
 }

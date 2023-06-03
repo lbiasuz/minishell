@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 16:42:17 by rmiranda          #+#    #+#              #
-#    Updated: 2023/06/01 11:50:48 by rmiranda         ###   ########.fr        #
+#    Updated: 2023/06/03 20:54:47 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ OBJ				=	$(SRC:%.c=$(PATH_OBJ)/%.o)
 HEADER_FILES	+=	include/includes.h
 HEADER_FILES	+=	include/defines.h
 HEADER_FILES	+=	include/minishell.h
-HEADER_FILES	+=	libft/ft_printf.h
 HEADER_FILES	+=	libft/libft.h
 LIBS			+=	ft
 LIBS			+=	readline

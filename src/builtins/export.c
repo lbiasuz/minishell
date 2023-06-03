@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:03:55 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 21:12:33 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/03 20:55:05 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static void	print_export(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		ft_printf("export -x %s\n", envp[i]);
+		ft_putstr_fd("export -x ", 1);
+		ft_putendl_fd(envp[i], 1);
 		i++;
 	}
 }
