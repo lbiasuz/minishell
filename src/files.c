@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:55:07 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/01 20:42:15 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/02 23:01:05 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 	}
 	stop_str_len = ft_strlen(stop_str);
 	buff = readline("> ");
-	while (ft_strncmp(stop_str, buff, stop_str_len))
+	while (buff && ft_strncmp(stop_str, buff, stop_str_len))
 	{
 		ft_putendl_fd(buff, fd[1]);
 		free(buff);
@@ -67,7 +67,7 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 	if (buff)
 		free(buff);
 	close(fd[1]);
-	dup2(fd[0], current_fd);
+	dup2(current_fd, fd[0]);
 	return (fd[0]);
 }
 
