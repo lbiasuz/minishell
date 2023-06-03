@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 09:12:35 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/02 12:27:43 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:22:10 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_ms	init_minishell(char **env);
 char	*replace_env_variables(char *node);
 void	set_init_signal_handlers(int pid);
 void	set_exec_signal_handlers(int pid);
+void	func_heredoc_handler(int signo);
+void	set_heredoc_signal_handlers(void);
 
 // PARSE
 char	**parse(char	*prompt);

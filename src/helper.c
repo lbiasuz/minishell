@@ -6,13 +6,15 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 22:21:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/19 10:21:35 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/03 10:21:04 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <stdlib.h>
 #include <libft.h>
+
+extern t_ms	g_ms;
 
 t_cmd	*cast_cmd(t_list *node)
 {
@@ -47,4 +49,30 @@ void	free_node(void *content)
 		free(cmd->raw);
 	}
 	free(cmd);
+}
+
+void	func_heredoc_handler(int signo)
+{
+	(void)signo;
+	g_ms.exit_code = 130;
+	write(2, "\n", 1);
+	exit(130);
+}
+
+void	set_heredoc_signal_handlers(void)
+{
+	t_sigaction			act;
+	static t_sigaction	old_act;
+	static int			restore_flag;
+
+	if (restore_flag++)
+	{
+		sigaction(SIGINT, &old_act, NULL);
+		restore_flag--;
+		return ;
+	}
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESTART;
+	act.sa_handler = &func_heredoc_handler;
+	sigaction(SIGINT, &act, &old_act);
 }
