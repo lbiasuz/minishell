@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 09:37:40 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/06/01 21:01:14 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/03 12:15:33 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct sigaction	t_sigaction;
 
 typedef struct s_ms {
 	char	**envp;
-	char	exit_code;
+	int		exit_code;
 	t_list	*commands;
 }	t_ms;
 
