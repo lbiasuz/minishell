@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:57:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/02 12:39:14 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:44:51 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_ms	init_minishell(char **env)
 	set_init_signal_handlers(1);
 	ms.envp = copy_environment(env);
 	ms.exit_code = 0;
+	ms.exit_code_previous = 0;
 	ms.commands = NULL;
 	return (ms);
 }

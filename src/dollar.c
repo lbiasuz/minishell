@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:36 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/05/28 16:00:36 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:45:02 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*expand_variable(char *input, char *dollar)
 	if (!dollar)
 		return (input);
 	if (dollar[index] == '?' && index++)
-		value = ft_itoa(g_ms.exit_code);
+		value = ft_itoa(g_ms.exit_code_previous);
 	else
 	{
 		while (ft_isalnum(dollar[index]) || dollar[index] == '_')
