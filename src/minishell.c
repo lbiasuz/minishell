@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:30:16 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/03 10:11:46 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/03 13:26:58 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char *argv[], char *envp[])
 		rl_replace_line("", 1);
 		if (!prompt)
 			break ;
+		g_ms.exit_code = 0;
 		if (process_input(prompt))
 			break ;
 		set_init_signal_handlers(1);
