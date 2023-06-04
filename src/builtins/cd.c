@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:25 by rmiranda          #+#    #+#             */
-/*   Updated: 2023/05/28 14:30:43 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/04 16:31:47 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ int	cd(char *argv[])
 	char	*owd;
 	int		chdir_error;
 
+	if (find_argv_len(argv) > 2)
+	{
+		ft_putendl_fd("cd: too many arguments", 2);
+		return (1);
+	}
 	path = parse_arguments(find_argv_len(argv), argv);
 	owd = getcwd(NULL, 0);
 	chdir_error = chdir(path);

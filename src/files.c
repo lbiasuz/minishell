@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:55:07 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/03 10:25:35 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2023/06/04 16:25:53 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	stdout_to_file(char *filepath, int current_fd)
 int	heredoc_to_stdin(char *stop_str, int current_fd)
 {
 	char		*buff;
-	int			stop_str_len;
+	int			stop_str_sz;
 	int			fd[2];
 	static int	old_heredoc;
 
@@ -70,10 +70,10 @@ int	heredoc_to_stdin(char *stop_str, int current_fd)
 		g_ms.exit_code = 1;
 		return (current_fd);
 	}
-	stop_str_len = ft_strlen(stop_str);
+	stop_str_sz = sizeof(stop_str);
 	set_heredoc_signal_handlers();
 	buff = readline("> ");
-	while (buff && ft_strncmp(stop_str, buff, stop_str_len))
+	while (buff && ft_strncmp(stop_str, buff, stop_str_sz))
 		buff = heredoc_loop(buff, fd[1]);
 	set_heredoc_signal_handlers();
 	if (buff)
