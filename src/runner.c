@@ -6,7 +6,7 @@
 /*   By: rmiranda <rmiranda@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 21:50:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2023/06/03 18:56:20 by rmiranda         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:22:44 by rmiranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	exec_sinle_builtin(t_cmd *cmd)
 	dupped_fd_out = dup(STDOUT_FILENO);
 	redirect_fds(cmd);
 	g_ms.exit_code = exec_builtin(cmd);
-	dup2(dupped_fd_in, STDIN_FILENO);
-	dup2(dupped_fd_out, STDOUT_FILENO);
+	if (cmd->fd[0] != 0)
+		dup2(dupped_fd_in, STDIN_FILENO);
+	if (cmd->fd[1] != 1)
+		dup2(dupped_fd_out, STDOUT_FILENO);
 	close(dupped_fd_in);
 	close(dupped_fd_out);
 }
@@ -63,7 +65,32 @@ static int	get_pipe(t_list *cmd_list)
 	}
 	here_fd[1] = pipe_result[1];
 	next_fd[0] = pipe_result[0];
-	return (0);
+	return (next_fd[0]);
+}
+
+static void	fd_to_close_handler(int new_fd)
+{
+	static int	fd_1;
+	static int	fd_2;
+
+	if (new_fd == 0)
+	{
+		if (fd_1)
+			close(fd_1);
+		if (fd_2)
+			close(fd_2);
+		return ;
+	}
+	if (!fd_1)
+		fd_1 = new_fd;
+	else if (!fd_2)
+		fd_2 = new_fd;
+	else
+	{
+		close(fd_1);
+		fd_1 = fd_2;
+		fd_2 = new_fd;
+	}
 }
 
 void	runner(t_list *cmd_list)
@@ -79,12 +106,13 @@ void	runner(t_list *cmd_list)
 		while (cmd_list)
 		{
 			if (cmd_list->next)
-				get_pipe(cmd_list);
+				fd_to_close_handler(get_pipe(cmd_list));
 			run_cmd(cast_cmd(cmd_list));
 			close_fd(cast_cmd(cmd_list)->fd[1]);
 			close_fd(cast_cmd(cmd_list)->fd[0]);
 			cmd_list = cmd_list->next;
 		}
+		fd_to_close_handler(0);
 		while (aux)
 		{
 			waitpid(0, &ec, 0);
